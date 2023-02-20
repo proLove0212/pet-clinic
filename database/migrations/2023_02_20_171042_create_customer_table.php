@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('cust_no', 10)->unique();
             $table->string('family_name', 100)->default('0');
             $table->string('name', 100)->default('0');
-            $table->string('family_name_hiragana', 100)->default('0');
-            $table->string('name_hiragana', 100)->default('0');
+            $table->string('family_name_furigana', 100)->default('0');
+            $table->string('name_furigana', 100)->default('0');
             $table->string('address', 100)->nullable()->default('0');
             $table->string('tel1', 100)->nullable()->default('null');
             $table->string('tel2', 100)->nullable()->default('null');
