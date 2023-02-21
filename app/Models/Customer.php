@@ -28,6 +28,7 @@ class Customer extends Model
         'cust_valid',
         'replace',
         'edit_id',
+        'crea'
     ];
 
     /**
