@@ -17,10 +17,31 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $table = 'users';
+
     protected $fillable = [
-        'name',
+        'user_no',
+        'clinic_id',
+        'clinic_name',
+        'tel_no_new',
+        'tel_num_new',
+        'tel_no_old',
+        'tel_num_old',
         'email',
         'password',
+        'password_expired_at',
+        'login_at',
+        'register_at',
+        'license_at',
+        'patient_reg_opt',
+        'reception_opt',
+        'reserve_opt',
+        'opt1',
+        'opt2',
+        'db_no',
+        'maintainance_lock',
+        'cust_status',
+        'memo',
     ];
 
     /**
@@ -30,7 +51,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
     /**
@@ -39,6 +59,6 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+
     ];
 }
