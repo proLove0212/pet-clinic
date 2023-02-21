@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pets', function (Blueprint $table) {
             $table->id();
-            $table->string('clinic_id', 10);
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');;
             $table->foreign('cust_id')->references('id')->on('customers')->onDelete('cascade');;
             $table->string('karte_no', 10);
             $table->string('pet_no', 3)->unique();

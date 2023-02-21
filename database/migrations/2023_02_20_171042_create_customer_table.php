@@ -46,7 +46,7 @@ return new class extends Migration
             $table->string('tel7_last4', 100)->nullable()->default('null');
             $table->string('tel8_last4', 100)->nullable()->default('null');
             $table->string('email')->unique();
-            $table->string('classification', 10)->nullable()->default('null');
+            $table->string('kind', 10)->nullable()->default('null');
             $table->date('last_coming_at')->nullable()->default(new DateTime());
             $table->date('next_coming_at')->nullable()->default(new DateTime());
             $table->string('next_reason', 100)->nullable()->default('text');

@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('clinic_settings', function (Blueprint $table) {
             $table->id();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('visit_reason', 20)->nullable()->default('');
+            $table->tinyInteger('visit_disp_order')->nullable()->default(1);
+            $table->tinyInteger('take_time')->nullable()->default(20);
             $table->timestamps();
         });
     }
