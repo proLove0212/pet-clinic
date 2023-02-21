@@ -9,7 +9,7 @@ class Reception extends Model
 {
     use HasFactory;
 
-    protected $table = 'customers';
+    protected $table = 'receptions';
 
     protected $fillable = [
         'user_id',

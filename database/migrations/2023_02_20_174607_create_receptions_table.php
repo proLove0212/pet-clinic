@@ -19,7 +19,7 @@ return new class extends Migration
             $table->tinyInteger('visit_order');
             $table->string('visit_reason', 100)->nullable()->default(null);
             $table->dateTime('entry_at')->nullable()->default(new DateTime());
-            $table->tinyInteger('take_time', )->nullable()->default(0);
+            $table->tinyInteger('take_time')->nullable()->default(0);
             $table->tinyInteger('status')->nullable()->default(0);
             $table->string('patient_no', 100);
             $table->boolean('regist_done')->nullable()->default(false);
