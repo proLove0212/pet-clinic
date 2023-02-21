@@ -42,6 +42,9 @@ class User extends Authenticatable
         'maintainance_lock',
         'cust_status',
         'memo',
+        'created_at',
+        'updated_at',
+        'deleted_at'
     ];
 
     /**

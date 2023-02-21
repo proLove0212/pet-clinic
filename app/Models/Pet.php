@@ -5,31 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Customer extends Model
+class Pet extends Model
 {
     use HasFactory;
-
 
     protected $table = 'customers';
 
     protected $fillable = [
         'user_id',
-        'cust_no',
-        'family_name',
+        'cust_id',
+        'karte_no',
+        'pet_no',
         'name',
-        'family_name_furigana',
         'name_furigana',
-        'address',
-        'email',
         'kind',
-        'last_coming_at',
-        'next_coming_at',
-        'next_reason',
-        'cust_valid',
-        'replace',
-        'edit_id',
+        'breed',
+        'birthday',
+        'death_type',
+        'death_date',
+        'sex',
+        'is_valid',
+        'vacc_info',
+        'memo',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'deleted_at'
     ];
 
     /**
