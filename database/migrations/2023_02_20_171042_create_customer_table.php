@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('db_no')->default(0);
-            $table->string('clinic_id', 10)->unique();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('cust_no', 10)->unique();
             $table->string('family_name', 100)->default('0');
             $table->string('name', 100)->default('0');
