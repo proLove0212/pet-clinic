@@ -40,4 +40,24 @@ class Customer extends Model
     protected $hidden = [
 
     ];
+
+    public function user()
+    {
+        return $this->hasOne('App\Models\User', 'id', 'user_id');
+    }
+
+    public function phones()
+    {
+        return $this->hasMany('App\Models\CustomerPhone', 'cust_id', 'id');
+    }
+
+    public function lastReception()
+    {
+        return $this->hasOne('App\Models\Reception', 'id', 'last_recept_id');
+    }
+
+    public function NextReception()
+    {
+        return $this->hasOne('App\Models\Reception', 'id', 'next_recept_id');
+    }
 }
