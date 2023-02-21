@@ -22,9 +22,8 @@ return new class extends Migration
             $table->string('address', 100)->nullable()->default('0');
             $table->string('email')->unique();
             $table->string('kind', 10)->nullable()->default('null');
-            $table->date('last_coming_at')->nullable()->default(new DateTime());
-            $table->date('next_coming_at')->nullable()->default(new DateTime());
-            $table->string('next_reason', 100)->nullable()->default('text');
+            $table->foreign('last_recept_id')->references('id')->on('receptions')->onDelete('cascade');
+            $table->foreign('next_recept_id')->references('id')->on('receptions')->onDelete('cascade');
             $table->boolean('cust_valid')->nullable()->default(true);
             $table->boolean('replace')->nullable()->default(false);
             $table->string('edit_id', 100)->nullable()->default('');
