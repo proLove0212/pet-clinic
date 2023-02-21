@@ -35,4 +35,6 @@ class Reception extends Model
     protected $hidden = [
 
     ];
+
+
 }

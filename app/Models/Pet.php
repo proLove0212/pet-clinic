@@ -40,4 +40,15 @@ class Pet extends Model
     protected $hidden = [
 
     ];
+
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'user_id', 'id');
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo('App\Models\Customer', 'cust_id', 'id');
+    }
 }
