@@ -5,29 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Customer extends Model
+class Reception extends Model
 {
     use HasFactory;
-
 
     protected $table = 'customers';
 
     protected $fillable = [
         'user_id',
-        'cust_no',
-        'family_name',
-        'name',
-        'family_name_furigana',
-        'name_furigana',
-        'address',
-        'email',
-        'kind',
-        'last_coming_at',
-        'next_coming_at',
-        'next_reason',
-        'cust_valid',
-        'replace',
-        'edit_id',
+        'cust_id',
+        'visit_at',
+        'visit_order',
+        'visit_reason',
+        'entry_at',
+        'take_time',
+        'status',
+        'patient_no',
+        'regist_done',
         'created_at',
         'updated_at',
         'deleted_at'
