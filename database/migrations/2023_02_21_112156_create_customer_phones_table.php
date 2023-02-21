@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('phones', function (Blueprint $table) {
+        Schema::create('customer_phones', function (Blueprint $table) {
             $table->id();
-            $table->foreign('cust_id')->references('id')->on('customers')->onDelete('cascade');
-            $table->string('tel', 100)->nullable()->default('null');
-            $table->string('tel_num', 100)->nullable()->default('null');
-            $table->string('tel_last4', 100)->nullable()->default('null');
             $table->timestamps();
         });
     }
@@ -26,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('phones');
+        Schema::dropIfExists('customer_phones');
     }
 };
