@@ -223,26 +223,26 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{url('/admin/users/add')}}" class="waves-effect {{ Request::is('admin/user_add') ? 'active' : '' }}">
+                                    <a href="{{url('/admin/users/add')}}" class="waves-effect {{ Request::is('admin/users/add') ? 'active' : '' }}">
                                         <i class="bx bx-user-plus"></i>
                                         <span key="t-add">ユーザー新規追加</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{url('/admin/users/search')}}" class="waves-effect {{ Request::is('admin/user_add') ? 'active' : '' }}">
+                                    <a href="{{url('/admin/search')}}" class="waves-effect {{ Request::is('admin/search') ? 'active' : '' }}">
                                         <i class="bx bx-search-alt"></i>
                                         <span key="t-search">高度な検索
                                         </span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{url('/admin/users/mail')}}" class="waves-effect {{ Request::is('admin/user_add') ? 'active' : '' }}">
+                                    <a href="{{url('/admin/mail')}}" class="waves-effect {{ Request::is('admin/mail') ? 'active' : '' }}">
                                         <i class="bx bx-mail-send"></i>
                                         <span key="t-mail">メール連絡</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{url('/admin/maintain_server')}}" class="waves-effect {{ Request::is('admin/user_add') ? 'active' : '' }}">
+                                    <a href="{{url('/admin/maintain')}}" class="waves-effect {{ Request::is('admin/maintain') ? 'active' : '' }}">
                                         <i class="bx bx-wrench"></i>
                                         <span key="t-maintain_server">サーバーメンテナンス
                                         </span>
@@ -275,7 +275,7 @@
 
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">HOME</a></li>
                                             <li class="breadcrumb-item active">@yield('title')</li>
                                         </ol>
                                     </div>
