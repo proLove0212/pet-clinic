@@ -186,9 +186,9 @@
                         <div class="dropdown d-inline-block">
                             <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-1.jpg"
+                                <img class="rounded-circle header-profile-user" src="{{url('assets/images/avatar.jpg')}}"
                                     alt="Header Avatar">
-                                <span class="d-none d-xl-inline-block ms-1" key="t-henry">Henry</span>
+                                <span class="d-none d-xl-inline-block ms-1" key="t-henry">{{$user['name']}}</span>
                                 <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
@@ -213,15 +213,43 @@
                     <div id="sidebar-menu">
                         <!-- Left Menu Start -->
                         <ul class="metismenu list-unstyled" id="side-menu">
-                            <li class="menu-title" key="t-menu">Menu</li>
+                            {{-- <li class="menu-title" key="t-menu">Menu</li> --}}
 
+                            @if ($user['role'] == "admin")
+                                <li>
+                                    <a href="{{url('/admin/users')}}" class="waves-effect {{ Request::is('admin/users') ? 'active' : '' }}">
+                                        <i class="bx bx-group"></i>
+                                        <span key="t-users">全ユーザー</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/admin/users/add')}}" class="waves-effect {{ Request::is('admin/user_add') ? 'active' : '' }}">
+                                        <i class="bx bx-user-plus"></i>
+                                        <span key="t-add">ユーザー新規追加</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/admin/users/search')}}" class="waves-effect {{ Request::is('admin/user_add') ? 'active' : '' }}">
+                                        <i class="bx bx-search-alt"></i>
+                                        <span key="t-search">高度な検索
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/admin/users/mail')}}" class="waves-effect {{ Request::is('admin/user_add') ? 'active' : '' }}">
+                                        <i class="bx bx-mail-send"></i>
+                                        <span key="t-mail">メール連絡</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/admin/maintain_server')}}" class="waves-effect {{ Request::is('admin/user_add') ? 'active' : '' }}">
+                                        <i class="bx bx-wrench"></i>
+                                        <span key="t-maintain_server">サーバーメンテナンス
+                                        </span>
+                                    </a>
+                                </li>
+                            @endif
 
-                            <li>
-                                <a href="javascript: void(0);" class="waves-effect">
-                                    <i class="bx bx-layout"></i>
-                                    <span key="t-layouts">Layouts</span>
-                                </a>
-                            </li>
                         </ul>
                     </div>
                     <!-- Sidebar -->
