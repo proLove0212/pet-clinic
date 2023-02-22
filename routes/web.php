@@ -33,7 +33,6 @@ Route::post('/admin/login', 'App\HTTP\Controllers\AuthController@admin_login')->
 Route::post('/user/login', 'App\HTTP\Controllers\AuthController@user_login')->name('user_login');
 Route::post('/customer/login', 'App\HTTP\Controllers\AuthController@customer_login')->name('customer_login');
 
-// Route::middleware([EnsureTokenIsValid::class])->group(function () {
-
-// });
-
+Route::middleware(['customAuth:admin'])->group(function () {
+    Route::get('/admin/users', 'App\HTTP\Controllers\AdminController@all_users');
+});

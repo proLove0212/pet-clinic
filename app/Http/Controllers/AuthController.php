@@ -19,9 +19,9 @@ class AuthController extends Controller
         $user = DB::table('admin')->where("name", "administrator")->first();
         if(Hash::check($req->input('password'), $user->password)){
             $req->session()->put('name', $user->name);
-            $req->session()->put('role', 1);
+            $req->session()->put('role', 'admin');
             $req->session()->put('email', $user->email);
-            return view('home');
+            return view('pages.admin.index');
         }
 
         $data = [

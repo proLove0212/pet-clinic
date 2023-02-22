@@ -13,8 +13,12 @@ class CustomAuthMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, $role): Response
     {
-        return $next($request);
+        $cur_role = $request->session()->get('role', 'customer');
+        if($cur_role == $role)
+            return $next($request);
+        else
+            return redirect('/');
     }
 }
