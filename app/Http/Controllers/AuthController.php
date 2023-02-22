@@ -21,7 +21,8 @@ class AuthController extends Controller
             $req->session()->put('name', $user->name);
             $req->session()->put('role', 'admin');
             $req->session()->put('email', $user->email);
-            return view('pages.admin.index');
+
+            return redirect('/admin/users');
         }
 
         $data = [
