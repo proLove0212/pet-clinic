@@ -26,12 +26,12 @@ Route::get('/customer/login', function () {
 });
 
 Route::get('/admin/login', function () {
-    return view('temp');
+    return view('auth.admin_login');
 });
 
-Route::post('/admin/login', 'AuthController@admin_login')->name('admin_login');
-Route::post('/user/login', 'AuthController@user_login')->name('user_login');
-Route::post('/customer/login', 'AuthController@customer_login')->name('customer_login');
+Route::post('/admin/login', 'App\HTTP\Controllers\AuthController@admin_login')->name('admin_login');
+Route::post('/user/login', 'App\HTTP\Controllers\AuthController@user_login')->name('user_login');
+Route::post('/customer/login', 'App\HTTP\Controllers\AuthController@customer_login')->name('customer_login');
 
 // Route::middleware([EnsureTokenIsValid::class])->group(function () {
 
