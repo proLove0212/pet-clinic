@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('customer_phones', function (Blueprint $table) {
             $table->id();
-            $table->foreign('cust_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->integer('cust_id')->unsigned();
             $table->string('tel', 100)->nullable()->default('null');
             $table->string('tel_num', 100)->nullable()->default('null');
             $table->string('tel_last4', 100)->nullable()->default('null');

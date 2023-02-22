@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('receptions', function (Blueprint $table) {
             $table->id();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('cust_id')->references('id')->on('customers')->onDelete('cascade');
-            $table->date('visit_at')->nullable()->default(new DateTime());
+            $table->integer('user_id')->unsigned();
+            $table->integer('cust_id')->unsigned();
+            $table->date('visit_at')->nullable();
             $table->tinyInteger('visit_order');
             $table->string('visit_reason', 100)->nullable()->default(null);
-            $table->dateTime('entry_at')->nullable()->default(new DateTime());
+            $table->dateTime('entry_at')->nullable();
             $table->tinyInteger('take_time')->nullable()->default(0);
             $table->tinyInteger('status')->nullable()->default(0);
             $table->string('patient_no', 100);

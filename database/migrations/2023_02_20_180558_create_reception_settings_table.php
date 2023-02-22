@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('reception_settings', function (Blueprint $table) {
             $table->id();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('user_id')->unsigned();
             $table->date('time1_enable_date');
             $table->tinyInteger('running_column1')->nullable()->default(1);
             $table->time('start_time1')->nullable()->default("09:30");

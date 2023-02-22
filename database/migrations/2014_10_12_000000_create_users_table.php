@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('password', 30);
             $table->date('password_expired_at');
             $table->dateTime('login_at')->nullable();
-            $table->date('register_at')->default(new DateTime());
+            $table->date('register_at')->nullable();
             $table->date('license_at')->nullable();
             $table->boolean('patient_reg_opt')->default(false);
             $table->boolean('reception_opt')->default(false);

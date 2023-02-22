@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('pets', function (Blueprint $table) {
             $table->id();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');;
-            $table->foreign('cust_id')->references('id')->on('customers')->onDelete('cascade');;
+            $table->integer('user_id')->unsigned();
+            $table->integer('cust_id')->unsigned();
             $table->string('karte_no', 10);
             $table->string('pet_no', 3)->unique();
             $table->string('name', 100);
             $table->string('name_furigana', 100)->nullable()->default('');
             $table->string('kind', 15)->nullable();
             $table->string('breed', 80)->nullable();
-            $table->date('birthday')->nullable()->default(new DateTime());
+            $table->date('birthday')->nullable();
             $table->tinyInteger('death_type')->nullable()->default(0);
             $table->date('death_date')->nullable();
             $table->string('sex', 5)->nullable()->default('M');
