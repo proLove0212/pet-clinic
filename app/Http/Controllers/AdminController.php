@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use App\HTTP\Requests\NewUserRequest;
 use App\Models\User;
 use Carbon\Carbon;
 use Hash;
 use Str;
+
+use App\Mail\UserCreated;
 
 class AdminController extends Controller
 {
@@ -61,7 +64,9 @@ class AdminController extends Controller
         $data->password_expired_at = Carbon::now()->addDays(3);
         $data->save();
 
-        return json_encode($data);
+        Mail::to($data->email)->send(new UserCreated($pwd));
+
+        return redirect('admin/users');
 
     }
 
