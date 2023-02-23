@@ -57,7 +57,7 @@
                                         <td>
                                             <ul class="list-inline font-size-20 contact-links mb-0">
                                                 <li class="list-inline-item px-2">
-                                                    <a href="javascript: void(0);" title="Message"><i class="bx bx-edit-alt text-primary"></i></a>
+                                                    <a href="{{url('admin/users/edit/'.$user_item->id)}}" title="Message"><i class="bx bx-edit-alt text-primary"></i></a>
                                                 </li>
                                                 <li class="list-inline-item px-2">
                                                     <a href="javascript: void(0);" title="Profile"><i class="bx bx-trash-alt text-danger"></i></a>

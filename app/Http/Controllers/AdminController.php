@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\HTTP\Requests\NewUserRequest;
+use App\HTTP\Requests\UpdateUserRequest;
 use App\Models\User;
 use Carbon\Carbon;
 use Hash;
@@ -34,7 +35,7 @@ class AdminController extends Controller
 
         $data = [
             'title' => '全ユーザー',
-            'user' => $request->session()->all(),
+            'auth' => $request->session()->all(),
             'key' => $key,
             'users' => $users,
             'links' => json_decode(json_encode($users))->links
@@ -49,7 +50,7 @@ class AdminController extends Controller
 
         $data = [
             'title' => 'ユーザー新規追加',
-            'user' => $request->session()->all(),
+            'auth' => $request->session()->all(),
             'user_no' => $request->query('user_no', ''),
             'name' => $request->query('name', ''),
             'phone' => $request->query('phone', ''),
@@ -89,21 +90,49 @@ class AdminController extends Controller
 
     }
 
-    public function search_user(Request $request){
+    public function edit_user(Request $request, $id){
+
+        $sel_user = User::where('id', '=', $id)->first();
 
         $data = [
-            'title' => '高度な検索',
-            'user' => $request->session()->all()
+            'title' => 'ユーザーアップデート',
+            'auth' => $request->session()->all(),
+            'user' => $sel_user
         ];
 
-        return view('pages.admin.search_user', $data);
+        return view('pages.admin.edit_user', $data);
+    }
+
+    public function update_user(UpdateUserRequest $request, $id){
+        $number = $request->input('user_no');
+        $num_arr  = array_map('intval', str_split($number));
+        $arr_sum = array_sum($num_arr);
+        $temp_sum = $num_arr[2] + $num_arr[5];
+        $pre = ($arr_sum % 10) * ($temp_sum % 10);
+
+        if($pre == 0){
+            $pre = $num_arr[4]*10 + $num_arr[2];
+        }
+
+
+        $data = User::where('id', '=', $id)->first();
+        $data->user_no = $request->input('user_no');
+        $data->clinic_name = $request->input('name');
+        $data->clinic_id = $pre * 10000 + $num_arr[2]*1000+$num_arr[3]*100+$num_arr[4]*10+$num_arr[5];
+        $data->tel_no_new = $request->input('phone');
+        $data->tel_num_new = Str::replace('-', '', $request->input('phone'));
+        $data->email = $request->input('email');
+        $data->save();
+
+        return redirect('admin/users');
+
     }
 
     public function mail(Request $request){
 
         $data = [
             'title' => 'メール連絡',
-            'user' => $request->session()->all()
+            'auth' => $request->session()->all(),
         ];
 
         return view('pages.admin.mail', $data);
@@ -113,7 +142,7 @@ class AdminController extends Controller
 
         $data = [
             'title' => 'サーバーメンテナンス',
-            'user' => $request->session()->all()
+            'auth' => $request->session()->all(),
         ];
 
         return view('pages.admin.maintain', $data);
