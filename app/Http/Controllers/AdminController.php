@@ -18,10 +18,29 @@ class AdminController extends Controller
 
     public function all_users(Request $request){
 
+        $key = $request->query('key', '');
+
+        $users = User::where('clinic_name', 'like', '%'.$key.'%')
+            ->orWhere('user_no', 'like', '%'.$key.'%')
+            ->orWhere('clinic_id', 'like', '%'.$key.'%')
+            ->orWhere('tel_num_new', 'like', '%'.$key.'%')
+            ->orWhere('tel_no_new', 'like', '%'.$key.'%')
+            // ->orWhere('email', 'like', '%'.$key.'%')
+            ->leftJoin('customers', 'customers.user_id', '=', 'users.id')
+            ->groupBy('users.id')
+            ->orderBy('users.created_at', 'desc')
+            ->selectRaw('users.*, count(customers.id) as customer_cnt')
+            ->paginate(10);
+
         $data = [
             'title' => '全ユーザー',
-            'user' => $request->session()->all()
+            'user' => $request->session()->all(),
+            'key' => $key,
+            'users' => $users,
+            'links' => json_decode(json_encode($users))->links
         ];
+
+        // return json_encode($users);
 
         return view('pages.admin.index', $data);
     }
