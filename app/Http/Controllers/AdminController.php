@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\HTTP\Requests\NewUserRequest;
+use App\Models\User;
+use Carbon\Carbon;
+use Hash;
+use Str;
 
 class AdminController extends Controller
 {
@@ -34,6 +38,30 @@ class AdminController extends Controller
     }
 
     public function create_user(NewUserRequest $request){
+        $number = $request->input('user_no');
+        $num_arr  = array_map('intval', str_split($number));
+        $arr_sum = array_sum($num_arr);
+        $temp_sum = $num_arr[2] + $num_arr[5];
+        $pre = ($arr_sum % 10) * ($temp_sum % 10);
+
+        if($pre == 0){
+            $pre = $num_arr[4]*10 + $num_arr[2];
+        }
+
+        $pwd = Hash::make(Str::random(8));
+
+        $data = new User;
+        $data->user_no = $request->input('user_no');
+        $data->clinic_name = $request->input('name');
+        $data->clinic_id = $pre * 10000 + $num_arr[2]*1000+$num_arr[3]*100+$num_arr[4]*10+$num_arr[5];
+        $data->tel_no_new = $request->input('phone');
+        $data->tel_num_new = Str::replace('-', '', $request->input('phone'));
+        $data->email = $request->input('email');
+        $data->password = $pwd;
+        $data->password_expired_at = Carbon::now()->addDays(3);
+        $data->save();
+
+        return json_encode($data);
 
     }
 
