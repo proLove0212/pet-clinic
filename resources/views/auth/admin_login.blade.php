@@ -15,7 +15,7 @@
                 <button class="btn btn-light " type="button" id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
             </div>
             @error('password')
-                <div class="alert alert-danger">{{ $message }}</div>
+                <div class="msg-danger">{{ $message }}</div>
             @enderror
         </div>
 
