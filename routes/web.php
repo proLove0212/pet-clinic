@@ -39,6 +39,7 @@ Route::middleware(['customAuth:admin'])->group(function () {
     Route::post('/admin/users/add', 'App\HTTP\Controllers\AdminController@create_user');
     Route::get('/admin/users/edit/{id}', 'App\HTTP\Controllers\AdminController@edit_user');
     Route::post('/admin/users/edit/{id}', 'App\HTTP\Controllers\AdminController@update_user');
+    Route::delete('/admin/users/delete/{id}', 'App\HTTP\Controllers\AdminController@delete_user');
     Route::get('/admin/mail', 'App\HTTP\Controllers\AdminController@mail');
     Route::get('/admin/maintain', 'App\HTTP\Controllers\AdminController@maintain');
 });

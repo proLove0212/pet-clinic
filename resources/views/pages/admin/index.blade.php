@@ -4,6 +4,13 @@
     {{$title}}
 @endsection
 
+@section('stylesheet')
+
+    <!-- Sweet Alert-->
+    <link href="{{url('assets/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
+
+@endsection
+
 @section('content')
 
 <div class="row">
@@ -38,7 +45,7 @@
                         <tbody>
 
                             @if (count($users) != 0)
-                                @foreach ($users as $user_item)
+                                @foreach ($users as $key => $user_item)
                                     <tr>
                                         <td>
                                             <img src="{{url('/assets/images/avatar_m.png')}}" alt="" class="rounded-circle header-profile-user">
@@ -60,8 +67,14 @@
                                                     <a href="{{url('admin/users/edit/'.$user_item->id)}}" title="Message"><i class="bx bx-edit-alt text-primary"></i></a>
                                                 </li>
                                                 <li class="list-inline-item px-2">
-                                                    <a href="javascript: void(0);" title="Profile"><i class="bx bx-trash-alt text-danger"></i></a>
+                                                    <form action="{{url('admin/users/delete/'.$user_item->id)}}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <a onclick="deleteUser('{{$user_item->id}}')" ><i class="bx bx-trash-alt text-danger"></i></a>
+                                                        <button type="submit" class="d-none" id="delete_user_{{$user_item->id}}" ></button>
+                                                    </form>
                                                 </li>
+
                                             </ul>
                                         </td>
                                     </tr>
@@ -108,13 +121,35 @@
 
 
 @section('javascript')
+    <!-- Sweet Alerts js -->
+    <script src="{{url('assets/libs/sweetalert2/sweetalert2.min.js')}}"></script>
+
+    <!-- Sweet alert init js-->
+    <script src="{{url('assets/js/pages/sweet-alerts.init.js')}}"></script>
+
     <script type="text/javascript">
-        var input = document.getElementById("search");
-        input.addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                window.location.href = "{{url('/admin/users?key=')}}"+document.getElementById("search").value
-            }
+        function deleteUser(id) {
+            Swal.fire({
+                    title: 'PetClinic',
+                    text: '続行しますか？',
+                    icon: 'info',
+                    confirmButtonText: 'はい'
+                }).then((result) => {
+                    if (result.value) {
+                        $("#delete_user_"+id).click();
+                    }
+                })
+        }
+
+        $( document ).ready(function() {
+            var input = document.getElementById("search");
+            input.addEventListener("keypress", function(event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    window.location.href = "{{url('/admin/users?key=')}}"+document.getElementById("search").value
+                }
+            });
         });
+
     </script>
 @endsection

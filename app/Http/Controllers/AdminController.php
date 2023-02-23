@@ -124,8 +124,14 @@ class AdminController extends Controller
         $data->email = $request->input('email');
         $data->save();
 
+
         return redirect('admin/users');
 
+    }
+
+    public function delete_user(Request $request, $id){
+        User::where("id", '=', $id)->delete();
+        return redirect('admin/users');
     }
 
     public function mail(Request $request){
@@ -140,9 +146,12 @@ class AdminController extends Controller
 
     public function maintain(Request $request){
 
+        $plans = User::paginate(10);
         $data = [
             'title' => 'サーバーメンテナンス',
             'auth' => $request->session()->all(),
+            'plans' => $plans,
+            'links' => json_decode(json_encode($plans))->links
         ];
 
         return view('pages.admin.maintain', $data);
