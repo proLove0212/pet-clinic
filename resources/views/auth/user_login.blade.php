@@ -12,10 +12,10 @@
             <label class="form-label">ID</label>
             <div class="input-group auth-pass-inputgroup">
               <input type="text" class="form-control" name="name" value="{{old('id')}}" placeholder="IDもしくはメールアドレスと病院の電話番号を入力してください。">
-              @error('name')
-                  <div class="msg-danger">{{ $message }}</div>
-              @enderror
             </div>
+            @error('id')
+                <div class="msg-danger">{{ $message }}</div>
+            @enderror
         </div>
         <div class="mb-3">
             <label class="form-label">パスワード</label>
@@ -31,6 +31,17 @@
         <div class="mt-3 d-grid">
             <button class="btn btn-primary waves-effect waves-light" type="submit">ログイン</button>
         </div>
-
     </form>
+
+    <div class="mt-5 d-grid">
+        <form action="{{url('user/request_1')}}" method="post">
+            @csrf
+            <button class="btn btn-light waves-effect waves-light text-left" type="submit">パスワードがわからない方</button>
+        </form>
+        <form action="{{url('user/request_2')}}" method="post">
+            @csrf
+            <button class="btn btn-light waves-effect waves-light text-left" type="submit">IDがわからない方、または両方ともわからない方</button>
+        </form>
+
+    </div>
 @endsection

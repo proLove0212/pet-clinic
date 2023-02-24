@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\UserLoginRequest;
 use DB;
 use Hash;
 use Illuminate\Support\Facades\Validator;
@@ -32,7 +33,7 @@ class AuthController extends Controller
         return view('auth.admin_login', $data)->withErrors($data);
     }
 
-    public function user_login(Request $req){
+    public function user_login(UserLoginRequest $req){
 
     }
 
