@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('/user/login', function () {
-    return view('temp');
+    return view('auth.user_login');
 });
 
 Route::get('/customer/login', function () {
@@ -28,7 +28,7 @@ Route::get('/customer/login', function () {
 Route::get('/admin/login', function () {
     return view('auth.admin_login');
 });
-
+Route::post('/logout', 'App\HTTP\Controllers\AuthController@logout');
 Route::post('/admin/login', 'App\HTTP\Controllers\AuthController@admin_login')->name('admin_login');
 Route::post('/user/login', 'App\HTTP\Controllers\AuthController@user_login')->name('user_login');
 Route::post('/customer/login', 'App\HTTP\Controllers\AuthController@customer_login')->name('customer_login');
