@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\HTTP\Requests\NewUserRequest;
 use App\HTTP\Requests\UpdateUserRequest;
+use App\HTTP\Requests\NewMaintainRequest;
 use App\Models\User;
 use App\Models\MaintainLog;
 use Carbon\Carbon;
@@ -147,7 +148,7 @@ class AdminController extends Controller
 
     public function maintain(Request $request){
 
-        $plans = MaintainLog::paginate(10);
+        $plans = MaintainLog::orderBy('from', 'desc')->paginate(10);
         $data = [
             'title' => 'サーバーメンテナンス',
             'auth' => $request->session()->all(),
@@ -156,5 +157,27 @@ class AdminController extends Controller
         ];
 
         return view('pages.admin.maintain', $data);
+    }
+
+    public function add_maintain(NewMaintainRequest $request){
+
+        $data = new MaintainLog;
+        $data->from = $request->input('start_time');
+        $data->to = $request->input('end_time');
+        if($request->input('memo')){
+            $data->memo = $request->input('memo');
+        }
+        $data->save();
+
+        $res = [
+            "success" => true,
+        ];
+
+        return response()->json($res);
+    }
+
+    public function delete_maintain(Request $request, $id){
+        MaintainLog::where("id", '=', $id)->delete();
+        return redirect('admin/maintain');
     }
 }

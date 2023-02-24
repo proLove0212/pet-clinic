@@ -11,7 +11,7 @@ class NewMaintainRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,7 @@ class NewMaintainRequest extends FormRequest
     {
         return [
             'start_time' => 'required|date',
-            'end_time' => 'required|date|after:start_date',
+            'end_time' => 'required|date|after:start_time',
         ];
     }
 

@@ -4,6 +4,13 @@
     {{$title}}
 @endsection
 
+@section('stylesheet')
+
+    <!-- Sweet Alert-->
+    <link href="{{url('assets/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
+
+@endsection
+
 @section('content')
 <div class="d-flex justify-content-end">
     <!-- Scrollable modal button -->
@@ -17,43 +24,46 @@
                     <h5 class="modal-title" id="exampleModalScrollableTitle">サーバーメンテナンス</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <div class="modal-body">
+                    <div class="mb-3 row">
+                        <label for="example-datetime-local-input" class="col-md-3 col-form-label">開始日時</label>
+                        <div class="col-md-9">
+                            <input class="form-control" id="start_time" type="datetime-local" >
 
-                <form action="{{url('admin/maintain')}}" method="POST">
-                    @csrf
-                    <div class="modal-body">
-
-                        <div class="mb-3 row">
-                            <label for="example-datetime-local-input" class="col-md-3 col-form-label">開始日時</label>
-                            <div class="col-md-9">
-                                <input class="form-control" name="start_time" type="datetime-local" id="example-datetime-local-input">
-                            </div>
+                            <div class="msg-danger" id="start_time_msg"></div>
                         </div>
+                    </div>
 
-                        <div class="mb-3 row">
-                            <label for="example-datetime-local-input" class="col-md-3 col-form-label">終了日時</label>
-                            <div class="col-md-9">
-                                <input class="form-control" name="end_time" type="datetime-local" id="example-datetime-local-input">
-                            </div>
+                    <div class="mb-3 row">
+                        <label for="example-datetime-local-input" class="col-md-3 col-form-label">終了日時</label>
+                        <div class="col-md-9">
+                            <input class="form-control" id="end_time" type="datetime-local">
+
+                            <div class="msg-danger" id="end_time_msg"></div>
                         </div>
-
-                        <p class="p-3 mt-3">
-                            WEB情報検索サービスのサイトは[STARTDATE]にサーバーのメンテナンスを実施します。
-                            <br>
-                            停止に伴い、下記の通り情報検索サービスを一時休止いたします。
-                            <br>
-                            <B>■サービスの休止日時</B><br>
-                            　開始：[STARTDATETIME]<br>
-                            　終了：[ENDDATETIME]<br>
-                            <br>
-                            ※作業の状況により終了時間が前後することがございますのでご了承ください。
-                        </p>
-
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light" >キャンセル</button>
-                        <button type="submit" class="btn btn-primary">保存</button>
+
+                    <div class="mb-3">
+                        <textarea id="elm1" name="memo"></textarea>
                     </div>
-                </form>
+
+                    <p class="p-3 mt-3">
+                        WEB情報検索サービスのサイトは[STARTDATE]にサーバーのメンテナンスを実施します。
+                        <br>
+                        停止に伴い、下記の通り情報検索サービスを一時休止いたします。
+                        <br>
+                        <B>■サービスの休止日時</B><br>
+                        　開始：[STARTDATETIME]<br>
+                        　終了：[ENDDATETIME]<br>
+                        <br>
+                        ※作業の状況により終了時間が前後することがございますのでご了承ください。
+                    </p>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btn_close" class="btn btn-light" >キャンセル</button>
+                    <button type="button" id='btn_save' class="btn btn-primary">保存</button>
+                </div>>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
@@ -70,7 +80,7 @@
                                 <th scope="col" style="width: 70px;"></th>
                                 <th scope="col">From</th>
                                 <th scope="col">To</th>
-                                <th scope="col">Status</th>
+                                <th scope="col">Memo</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -80,14 +90,44 @@
                                 @foreach ($plans as $key => $plan_item)
                                     <tr>
                                         <td>
-                                            <img src="{{url('/assets/images/avatar_m.png')}}" alt="" class="rounded-circle header-profile-user">
+                                            <?php
+                                                $now = \Carbon\Carbon::now();
+                                                $from = \Carbon\Carbon::parse($plan_item->from);
+                                                $to = \Carbon\Carbon::parse($plan_item->to);
+
+                                                if($now->greaterThan($to)){
+                                                    echo "
+                                                        <div class='flex-shrink-0 align-self-center me-3'>
+                                                            <i class='mdi mdi-circle text-success font-size-17'></i>
+                                                        </div>
+                                                        ";
+                                                }else if($now->lessThan($from)){
+                                                    echo "
+                                                        <div class='flex-shrink-0 align-self-center me-3'>
+                                                            <i class='mdi mdi-circle text-warning font-size-17'></i>
+                                                        </div>
+                                                        ";
+                                                }else{
+                                                    echo "
+                                                        <div class='flex-shrink-0 align-self-center me-3'>
+                                                            <i class='mdi mdi-circle text-primary font-size-17'></i>
+                                                        </div>
+                                                        ";
+                                                }
+                                            ?>
                                         </td>
                                         <td>
-                                            {{$plan_item->from}}
+
+                                            <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{date('Y-m-d', strtotime($plan_item->from))}}</a></h5>
+                                            <p class="text-muted mb-0">{{date('h:i:s', strtotime($plan_item->from))}}</p>
+
                                         </td>
-                                        <td>{{$plan_item->to}}</td>
                                         <td>
-                                            Progress
+                                            <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{date('Y-m-d', strtotime($plan_item->to))}}</a></h5>
+                                            <p class="text-muted mb-0">{{date('h:i:s', strtotime($plan_item->to))}}</p>
+                                        </td>
+                                        <td>
+                                            {!! $plan_item->memo !!}
                                         </td>
                                         <td>
                                             <ul class="list-inline font-size-20 contact-links mb-0">
@@ -138,6 +178,7 @@
                         </div>
                     </div>
                 @endif
+
             </div>
         </div>
     </div>
@@ -152,7 +193,15 @@
     <!-- Sweet alert init js-->
     <script src="{{url('assets/js/pages/sweet-alerts.init.js')}}"></script>
 
-    <script type="text/javascript">
+
+    <!--tinymce js-->
+    <script src="{{url('assets/libs/tinymce/tinymce.min.js')}}"></script>
+
+    <!-- init js -->
+    <script src="{{url('assets/js/pages/form-editor.init.js')}}"></script>
+
+    <script>
+
         function deletePlan(id) {
             Swal.fire({
                     title: 'PetClinic',
@@ -167,14 +216,42 @@
         }
 
         $( document ).ready(function() {
-            var input = document.getElementById("search");
-            input.addEventListener("keypress", function(event) {
-                if (event.key === "Enter") {
-                    event.preventDefault();
-                    window.location.href = "{{url('/admin/users?key=')}}"+document.getElementById("search").value
-                }
+            $("#btn_close").click(function(){
+                $("#exampleModalScrollable").modal('toggle');
+            })
+            $("#btn_save").click(function (e) {
+                console.log(tinyMCE.get('elm1').getContent());
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{url('admin/maintain')}}",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        start_time: jQuery('#start_time').val(),
+                        end_time: jQuery('#end_time').val(),
+                        memo: tinyMCE.get('elm1').getContent()
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if(data.success){
+                            window.location.href = "{{url('admin/maintain')}}"
+                            $("#btn_close").click();
+                        }
+                    },
+                    error: function (data) {
+                        console.log(data)
+                        if(data.responseJSON && data.responseJSON.errors){
+                            if(data.responseJSON.errors.start_time)
+                                document.getElementById("start_time_msg").innerHTML = data.responseJSON.errors.start_time[0];
+
+                            if(data.responseJSON.errors.end_time)
+                                document.getElementById("end_time_msg").innerHTML = data.responseJSON.errors.end_time[0];
+                        }
+
+                    }
+                });
             });
         });
-
     </script>
 @endsection
+
