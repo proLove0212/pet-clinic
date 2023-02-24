@@ -75,6 +75,8 @@ class AdminController extends Controller
 
         $pwd = Hash::make(Str::random(8));
 
+        // $pwd = Hash::make("password");
+
         $data = new User;
         $data->user_no = $request->input('user_no');
         $data->clinic_name = $request->input('name');

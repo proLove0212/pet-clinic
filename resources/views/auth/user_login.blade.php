@@ -11,7 +11,7 @@
         <div class="mb-3">
             <label class="form-label">ID</label>
             <div class="input-group auth-pass-inputgroup">
-              <input type="text" class="form-control" name="name" value="{{old('id')}}" placeholder="IDもしくはメールアドレスと病院の電話番号を入力してください。">
+              <input type="text" class="form-control" name="id" value="{{old('id')}}" placeholder="IDもしくはメールアドレスと病院の電話番号を入力してください。">
             </div>
             @error('id')
                 <div class="msg-danger">{{ $message }}</div>

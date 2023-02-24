@@ -23,7 +23,7 @@ class NewUserRequest extends FormRequest
     {
         return [
             'user_no' => 'required|unique:users,user_no|digits:6',
-            'name' => 'required|unique:users,cust_name',
+            'name' => 'required|unique:users,clinic_name',
             'phone' => 'required',
             'email' => 'required|unique:users,email'
         ];
