@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use App\HTTP\Requests\NewUserRequest;
 use App\HTTP\Requests\UpdateUserRequest;
 use App\Models\User;
+use App\Models\MaintainLog;
 use Carbon\Carbon;
 use Hash;
 use Str;
@@ -146,7 +147,7 @@ class AdminController extends Controller
 
     public function maintain(Request $request){
 
-        $plans = User::paginate(10);
+        $plans = MaintainLog::paginate(10);
         $data = [
             'title' => 'サーバーメンテナンス',
             'auth' => $request->session()->all(),

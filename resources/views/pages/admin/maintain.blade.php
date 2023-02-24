@@ -6,9 +6,57 @@
 
 @section('content')
 <div class="d-flex justify-content-end">
-    <button type="button" class="btn btn-primary waves-effect waves-light">
-        <i class="bx bx-smile font-size-16 align-middle me-2"></i> 追加
-    </button>
+    <!-- Scrollable modal button -->
+    <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#exampleModalScrollable"> 追加</button>
+
+    <!-- Scrollable modal -->
+    <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">サーバーメンテナンス</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <form action="{{url('admin/maintain')}}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+
+                        <div class="mb-3 row">
+                            <label for="example-datetime-local-input" class="col-md-3 col-form-label">開始日時</label>
+                            <div class="col-md-9">
+                                <input class="form-control" name="start_time" type="datetime-local" id="example-datetime-local-input">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="example-datetime-local-input" class="col-md-3 col-form-label">終了日時</label>
+                            <div class="col-md-9">
+                                <input class="form-control" name="end_time" type="datetime-local" id="example-datetime-local-input">
+                            </div>
+                        </div>
+
+                        <p class="p-3 mt-3">
+                            WEB情報検索サービスのサイトは[STARTDATE]にサーバーのメンテナンスを実施します。
+                            <br>
+                            停止に伴い、下記の通り情報検索サービスを一時休止いたします。
+                            <br>
+                            <B>■サービスの休止日時</B><br>
+                            　開始：[STARTDATETIME]<br>
+                            　終了：[ENDDATETIME]<br>
+                            <br>
+                            ※作業の状況により終了時間が前後することがございますのでご了承ください。
+                        </p>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" >キャンセル</button>
+                        <button type="submit" class="btn btn-primary">保存</button>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 </div>
 
 <div class="row">
@@ -59,7 +107,7 @@
                             @else
                                 <tr>
                                     <td colspan="6">
-                                        <div class="alert alert-secondary text-center mt-3" style="font-size: 24px"> <span class="bx bx-data"></span> No Data</div>
+                                        <div class="alert alert-secondary text-center mt-3" style="font-size: 24px"> <span class="bx bx-data"></span> データなし </div>
                                     </td>
                                 </tr>
                             @endif

@@ -82,7 +82,7 @@
                             @else
                                 <tr>
                                     <td colspan="6">
-                                        <div class="alert alert-secondary text-center mt-3" style="font-size: 24px"> <span class="bx bx-data"></span> No Data</div>
+                                        <div class="alert alert-secondary text-center mt-3" style="font-size: 24px"> <span class="bx bx-data"></span> データなし</div>
                                     </td>
                                 </tr>
                             @endif
