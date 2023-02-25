@@ -19,4 +19,16 @@ class UserController extends Controller
 
         return view('pages.user.index', $data);
     }
+
+    public function getUploadPage(Request $request){
+
+        $data = [
+            'title' => 'アップロード',
+            'auth' => $request->session()->all(),
+            // 'plans' => $plans,
+            // 'links' => json_decode(json_encode($plans))->links
+        ];
+
+        return view('pages.user.upload', $data);
+    }
 }
