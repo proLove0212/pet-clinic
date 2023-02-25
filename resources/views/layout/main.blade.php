@@ -243,7 +243,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{url('/users/reception/reason')}}" class="waves-effect {{ Request::is('reception/reason') ? 'active' : '' }}">
+                                    <a href="{{url('/reception/reason')}}" class="waves-effect {{ Request::is('reception/reason') ? 'active' : '' }}">
                                         <i class="bx bx-list-check"></i>
                                         <span key="t-mail">来院理由の設定</span>
                                     </a>

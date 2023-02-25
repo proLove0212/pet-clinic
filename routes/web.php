@@ -51,4 +51,5 @@ Route::middleware(['customAuth:user'])->group(function () {
     Route::get('/dashboard', 'App\HTTP\Controllers\UserController@index');
 
     Route::get('/reception/settings', 'App\HTTP\Controllers\UserReceptionController@getReceptionSetting');
+    Route::get('/reception/reason', 'App\HTTP\Controllers\UserReceptionController@getReceptionReason');
 });
