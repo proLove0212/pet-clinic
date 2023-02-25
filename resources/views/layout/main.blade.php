@@ -12,11 +12,11 @@
         <link rel="shortcut icon" href="{{url('assets/images/favicon.ico')}}">
 
         <!-- Bootstrap Css -->
-        <link href="{{url('assets/css/bootstrap.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+        <link href="{{url('assets/css/bootstrap-dark.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
         <!-- Icons Css -->
         <link href="{{url('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
         <!-- App Css-->
-        <link href="{{url('assets/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
+        <link href="{{url('assets/css/app-dark.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
         <link href="{{url('assets/css/custom.css')}}" id="custom-style" rel="stylesheet" type="text/css" />
 
         @yield('stylesheet')
@@ -174,7 +174,6 @@
                                 <a class="dropdown-item text-danger" onclick="document.getElementById('logout').click()"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Logout</span></a>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </header>
@@ -218,6 +217,38 @@
                                 </li>
                             @endif
 
+                            @if ($auth['role'] == "user")
+                                <li>
+                                    <a href="{{url('/dashboard')}}" class="waves-effect {{ Request::is('customers') ? 'active' : '' }}">
+                                        <i class="bx bx-group"></i>
+                                        <span key="t-users">顧客管理</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/search')}}" class="waves-effect {{ Request::is('search') ? 'active' : '' }}">
+                                        <i class="bx bx-search-alt"></i>
+                                        <span key="t-add">高度な検索</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/upload')}}" class="waves-effect {{ Request::is('upload') ? 'active' : '' }}">
+                                        <i class="bx bx-upload"></i>
+                                        <span key="t-mail">一括アップロード</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/reception/settings')}}" class="waves-effect {{ Request::is('reception/settings') ? 'active' : '' }}">
+                                        <i class="bx bx-time"></i>
+                                        <span key="t-mail">時間帯の設定</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/users/reception/reason')}}" class="waves-effect {{ Request::is('reception/reason') ? 'active' : '' }}">
+                                        <i class="bx bx-list-check"></i>
+                                        <span key="t-mail">来院理由の設定</span>
+                                    </a>
+                                </li>
+                            @endif
                         </ul>
                     </div>
                     <!-- Sidebar -->

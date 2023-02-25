@@ -47,8 +47,9 @@ class AuthController extends Controller
                 $req->session()->put('name', $user->clinic_name);
                 $req->session()->put('role', 'user');
                 $req->session()->put('email', $user->email);
+                $req->session()->put('user_no', $user->user_no);
 
-                return redirect($user->user_no.'/customers');
+                return redirect('/dashboard');
             }
 
             $data = [
