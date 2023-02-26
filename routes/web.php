@@ -49,6 +49,8 @@ Route::middleware(['customAuth:admin'])->group(function () {
 
 Route::middleware(['customAuth:user'])->group(function () {
     Route::get('/dashboard', 'App\HTTP\Controllers\UserController@index');
+    Route::get('/search/name', 'App\HTTP\Controllers\UserController@getSearchNamePage');
+    Route::get('/search/phone', 'App\HTTP\Controllers\UserController@getSearchPhonePage');
     Route::get('/upload', 'App\HTTP\Controllers\UserController@getUploadPage');
     Route::get('/reception/settings', 'App\HTTP\Controllers\UserReceptionController@getReceptionSetting');
     Route::get('/reception/reason', 'App\HTTP\Controllers\UserReceptionController@getReceptionReason');

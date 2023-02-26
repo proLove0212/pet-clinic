@@ -31,4 +31,28 @@ class UserController extends Controller
 
         return view('pages.user.upload', $data);
     }
+
+    public function getSearchNamePage(Request $request){
+
+        $data = [
+            'title' => '名前検索',
+            'auth' => $request->session()->all(),
+            // 'plans' => $plans,
+            // 'links' => json_decode(json_encode($plans))->links
+        ];
+
+        return view('pages.user.search_name', $data);
+    }
+
+    public function getSearchPhonePage(Request $request){
+
+        $data = [
+            'title' => '番号検索',
+            'auth' => $request->session()->all(),
+            // 'plans' => $plans,
+            // 'links' => json_decode(json_encode($plans))->links
+        ];
+
+        return view('pages.user.search_phone', $data);
+    }
 }

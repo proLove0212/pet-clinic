@@ -225,10 +225,14 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{url('/search')}}" class="waves-effect {{ Request::is('search') ? 'active' : '' }}">
+                                    <a  class="waves-effect {{ Request::is('search/*') ? 'active' : '' }}">
                                         <i class="bx bx-search-alt"></i>
-                                        <span key="t-add">高度な検索</span>
+                                        <span key="t-tables">高度な検索</span>
                                     </a>
+                                    <ul class="sub-menu mm-collapse" aria-expanded="false">
+                                        <li><a href="{{url('/search/phone')}}" key="t-basic-tables" class="{{ Request::is('search/phone') ? 'active' : '' }}" >番号検索</a></li>
+                                        <li><a href="{{url('/search/name')}}" key="t-data-tables" class="{{ Request::is('search/name') ? 'active' : '' }}">名前検索</a></li>
+                                    </ul>
                                 </li>
                                 <li>
                                     <a href="{{url('/upload')}}" class="waves-effect {{ Request::is('upload') ? 'active' : '' }}">
