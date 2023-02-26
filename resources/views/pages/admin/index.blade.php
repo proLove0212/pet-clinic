@@ -13,23 +13,28 @@
 
 @section('content')
 
-<div class="row">
-    <div class="col-sm-6">
-
-        <!-- App Search-->
-        <form class="app-search d-lg-block">
-            <div class="position-relative">
-                <input type="text" id="search" class="form-control" placeholder="Search..." value = "{{$key}}">
-                <span class="bx bx-search-alt"></span>
-            </div>
-        </form>
-    </div>
-</div>
 
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
+
+                <div class="d-flex align-items-start mb-3">
+                    <div class="me-2">
+                        <h5 class="card-title mb-4">ユーザーリスト</h5>
+                    </div>
+
+                    <div class="row ms-auto">
+                        <!-- App Search-->
+                        <form class="app-search d-lg-block">
+                            <div class="position-relative">
+                                <input type="text" id="search" class="form-control" placeholder="Search..." value = "{{$key}}">
+                                <span class="bx bx-search-alt"></span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
                 <div class="table-responsive">
                     <table class="table align-middle table-nowrap table-hover">
                         <thead class="table-light">

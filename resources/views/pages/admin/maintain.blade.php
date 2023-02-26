@@ -13,9 +13,6 @@
 
 @section('content')
 <div class="d-flex justify-content-end">
-    <!-- Scrollable modal button -->
-    <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#exampleModalScrollable"> 追加</button>
-
     <!-- Scrollable modal -->
     <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable">
@@ -73,6 +70,17 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
+                <div class="d-flex align-items-start mb-3">
+                    <div class="me-2">
+                        <h5 class="card-title mb-4">時間リスト</h5>
+                    </div>
+                    <div class="dropdown ms-auto">
+                        <a class="text-muted font-size-16" role="button" data-bs-toggle="modal" data-bs-target="#exampleModalScrollable">
+                            <i class="mdi mdi-lock-plus-outline"></i>
+                        </a>
+                    </div>
+                </div>
+
                 <div class="table-responsive">
                     <table class="table align-middle table-nowrap table-hover">
                         <thead class="table-light">
