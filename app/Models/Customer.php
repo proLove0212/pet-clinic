@@ -13,20 +13,46 @@ class Customer extends Model
     protected $table = 'customers';
 
     protected $fillable = [
-        'user_id',
-        'cust_no',
-        'family_name',
-        'name',
-        'family_name_furigana',
-        'name_furigana',
-        'address',
-        'email',
-        'kind',
-        'last_recept_id',
-        'next_recept_id',
-        'cust_valid',
-        'replace',
-        'edit_id',
+        'DBNo',
+        'ClinicID',
+        'CustNo',
+        'CustFamilyName',
+        'CustName',
+        'CustFamilyName_furigana',
+        'CustName_furigana',
+        'Address',
+        'Tel1',
+        'Tel2',
+        'Tel3',
+        'Tel4',
+        'Tel5',
+        'Tel6',
+        'Tel7',
+        'Tel8',
+        'Tel1Num',
+        'Tel2Num',
+        'Tel3Num',
+        'Tel4Num',
+        'Tel5Num',
+        'Tel6Num',
+        'Tel7Num',
+        'Tel8Num',
+        'Tel1Last4',
+        'Tel2Last4',
+        'Tel3Last4',
+        'Tel4Last4',
+        'Tel5Last4',
+        'Tel6Last4',
+        'Tel7Last4',
+        'Tel8Last4',
+        'MailAddress',
+        'Kubun',
+        'LastCommingDate',
+        'NextDate',
+        'NextReason',
+        'CustValid',
+        'Replace',
+        'EditID',
         'created_at',
         'updated_at',
         'deleted_at'
@@ -40,24 +66,4 @@ class Customer extends Model
     protected $hidden = [
 
     ];
-
-    public function user()
-    {
-        return $this->belongsTo('App\Models\User', 'id', 'user_id');
-    }
-
-    public function phones()
-    {
-        return $this->hasMany('App\Models\CustomerPhone', 'cust_id', 'id');
-    }
-
-    public function lastReception()
-    {
-        return $this->hasOne('App\Models\Reception', 'id', 'last_recept_id');
-    }
-
-    public function NextReception()
-    {
-        return $this->hasOne('App\Models\Reception', 'id', 'next_recept_id');
-    }
 }

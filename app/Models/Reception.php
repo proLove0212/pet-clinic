@@ -12,16 +12,16 @@ class Reception extends Model
     protected $table = 'receptions';
 
     protected $fillable = [
-        'user_id',
-        'cust_id',
-        'visit_at',
-        'visit_order',
-        'visit_reason',
-        'entry_at',
-        'take_time',
-        'status',
-        'patient_no',
-        'regist_done',
+        'ClinicID',
+        'CustNo',
+        'VisitDate',
+        'VisitOrderIndex',
+        'VisitReason',
+        'EntryTime',
+        'TakeTime',
+        'Status',
+        'NewPatientNo',
+        'RegistDone',
         'created_at',
         'updated_at',
         'deleted_at'

@@ -12,15 +12,17 @@ class ReceptionSetting extends Model
     protected $table = 'reception_settings';
 
     protected $fillable = [
-        'user_id',
-        'time1_enable_date',
-        'running_column1',
-        'start_time1',
-        'end_time1',
-        'time2_enable_date',
-        'running_column2',
-        'start_time2',
-        'end_time2',
+        'PeaksUserNo',
+        'ClinicID',
+        'ClinicName',
+        'Time1EnableDate',
+        'RunningColumn1',
+        'StartTime1',
+        'EndTime1',
+        'Time2EnableDate',
+        'RunningColumn2',
+        'StartTime2',
+        'EndTime2',
         'created_at',
         'updated_at',
         'deleted_at'
@@ -34,10 +36,5 @@ class ReceptionSetting extends Model
     protected $hidden = [
 
     ];
-
-    public function user()
-    {
-        return $this->belongsTo('App\Models\User', 'user_id', 'id');
-    }
 
 }
