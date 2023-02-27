@@ -9,7 +9,7 @@ class ClinicSetting extends Model
 {
     use HasFactory;
 
-    protected $table = 'clinic_settings';
+    protected $table = 'pckreasonsettings';
 
     protected $fillable = [
         'user_id',

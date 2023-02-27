@@ -17,7 +17,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $table = 'users';
+    protected $table = 'pckusers';
 
     protected $fillable = [
         'PeaksUserNo',

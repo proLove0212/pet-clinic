@@ -9,7 +9,7 @@ class ReceptionSetting extends Model
 {
     use HasFactory;
 
-    protected $table = 'reception_settings';
+    protected $table = 'pckreceptionsettings';
 
     protected $fillable = [
         'PeaksUserNo',

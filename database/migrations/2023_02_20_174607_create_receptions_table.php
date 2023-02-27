@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('receptions', function (Blueprint $table) {
+        Schema::create('pckreceptionlists', function (Blueprint $table) {
             $table->id();
             $table->string('ClinicID', 10);                                 //病院ID　ゼロパディング数字5桁（00000)
             $table->string('CustNo', 10);                                   //顧客番号
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('receptions');
+        Schema::dropIfExists('pckreceptionlists');
     }
 };
