@@ -66,7 +66,7 @@
                         <div class="mt-5 text-center">
 
                             <div>
-                                <p>©2023 Skote. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</p>
+                                <p>©2023 PetClinic.</p>
                             </div>
                         </div>
 

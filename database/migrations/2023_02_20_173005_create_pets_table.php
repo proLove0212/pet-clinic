@@ -11,23 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pets', function (Blueprint $table) {
+        Schema::create('pckpetlists', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->unsigned();
-            $table->integer('cust_id')->unsigned();
-            $table->string('karte_no', 10);
-            $table->string('pet_no', 3)->unique();
-            $table->string('name', 100);
-            $table->string('name_furigana', 100)->nullable()->default('');
-            $table->string('kind', 15)->nullable();
-            $table->string('breed', 80)->nullable();
-            $table->date('birthday')->nullable();
-            $table->tinyInteger('death_type')->nullable()->default(0);
-            $table->date('death_date')->nullable();
-            $table->string('sex', 5)->nullable()->default('M');
-            $table->boolean('is_valid')->nullable()->default(true);
-            $table->string('vacc_info', 500)->nullable()->default('');
-            $table->string('memo', 500)->nullable()->default('');
+            $table->string('ClinicID', 10);                                         //病院ID　ゼロパディング数字5桁（00000)
+            $table->string('CustNo', 10);                                           //顧客番号
+            $table->string('KarteNo', 10);                                          //カルテ番号　XXXXX-XXもしくはXXXXXX-XX形式
+            $table->string('PetNo', 3)->unique();                                   //ペットの枝番　01～99　注：現状２桁だが３桁を確保
+            $table->string('PetName', 100);                                         //ペット名
+            $table->string('PetName_furigana', 100)->nullable()->default('');       //ペット名のふりがな
+            $table->string('PetKind', 15)->nullable();                              //動物種類　犬、猫、うさぎ　など
+            $table->string('PetBreed', 80)->nullable();                             //動物品種
+            $table->date('PetBirthday')->nullable();                                //生年月日　yyyy-mm-dd、yyyy-mm-dd、yyyy　など
+            $table->tinyInteger('PetDeathType')->nullable()->default(0);            //死亡情報　0=生存、1=死亡、2=失踪、3=譲渡
+            $table->date('PetDeathDate')->nullable();                               //死亡日　Nullもしくは日付形式yyyy-mm-dd
+            $table->string('PetSex', 10)->nullable()->default('M');                 //性別：　M、F、C、S、不明
+            $table->boolean('PetValid')->nullable()->default(true);                 //有効 = True / 無効 = False　無効時は表示、検索が行われない
+            $table->string('VacInfo', 500)->nullable()->default('');                //予防などの情報
+            $table->string('Memo', 500)->nullable()->default('');                   //メモ情報
             $table->timestamps();
         });
     }
@@ -37,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pets');
+        Schema::dropIfExists('pckpetlists');
     }
 };

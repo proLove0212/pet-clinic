@@ -40,8 +40,11 @@
                         </div>
                     </div>
 
-                    <div class="mb-3">
-                        <textarea id="elm1" name="memo"></textarea>
+                    <div class="row mb-3">
+                        <label class="col-md-3 col-form-label">ユーザー番号</label>
+                        <div class="col-md-9">
+                          <input type="text range" id="memo" class="form-control" value="" placeholder="">
+                        </div>
                     </div>
 
                     <p class="p-3 mt-3">
@@ -201,13 +204,6 @@
     <!-- Sweet alert init js-->
     <script src="{{url('assets/js/pages/sweet-alerts.init.js')}}"></script>
 
-
-    <!--tinymce js-->
-    <script src="{{url('assets/libs/tinymce/tinymce.min.js')}}"></script>
-
-    <!-- init js -->
-    <script src="{{url('assets/js/pages/form-editor.init.js')}}"></script>
-
     <script>
 
         function deletePlan(id) {
@@ -228,7 +224,6 @@
                 $("#exampleModalScrollable").modal('toggle');
             })
             $("#btn_save").click(function (e) {
-                console.log(tinyMCE.get('elm1').getContent());
 
                 $.ajax({
                     type: "POST",
@@ -237,7 +232,7 @@
                         _token: "{{ csrf_token() }}",
                         start_time: jQuery('#start_time').val(),
                         end_time: jQuery('#end_time').val(),
-                        memo: tinyMCE.get('elm1').getContent()
+                        memo: jQuery('#memo').val()
                     },
                     dataType: 'json',
                     success: function (data) {

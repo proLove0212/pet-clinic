@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('receptions', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->unsigned();
-            $table->integer('cust_id')->unsigned();
-            $table->date('visit_at')->nullable();
-            $table->tinyInteger('visit_order');
-            $table->string('visit_reason', 100)->nullable()->default(null);
-            $table->dateTime('entry_at')->nullable();
-            $table->tinyInteger('take_time')->nullable()->default(0);
-            $table->tinyInteger('status')->nullable()->default(0);
-            $table->string('patient_no', 100);
-            $table->boolean('regist_done')->nullable()->default(false);
+            $table->string('ClinicID', 10);                                 //病院ID　ゼロパディング数字5桁（00000)
+            $table->string('CustNo', 10);                                   //顧客番号
+            $table->date('VisitDate');                                      //来院日　日付形式yyyy-mm-dd
+            $table->tinyInteger('VisitOrderIndex')->nullable()->default(0); //受付順番号 ClinicID内でVisitDate順に１から採番
+            $table->string('VisitReason', 200)->nullable()->default(null);  //来院理由
+            $table->dateTime('EntryTime')->nullable();                      //受付登録時間（yyyy-mm-dd hh:mm:ss)
+            $table->tinyInteger('TakeTime')->nullable()->default(0);        //診察にかかる予想時間
+            $table->tinyInteger('Status')->nullable()->default(0);          //1=順番受付中　2=診察開始　3=帰院　0=キャンセル
+            $table->string('NewPatientNo', 10);                             //XX-XXXのように数字5桁が入る
+            $table->date('RegistDone')->nullable();                         //PCKのDBに登録された時間（yyyy-mm-dd hh:mm:ss)
             $table->timestamps();
         });
     }

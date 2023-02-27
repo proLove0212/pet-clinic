@@ -40,7 +40,7 @@
                                 これにより、外出先においてもWeb接続が可能な携帯端末(iPhoneやAndroidなどのスマートフォン)やタブレットPC、ノートPCなどがあればどこでもアクセス可能です。</p>
 	                        <div class="hero-cta">
                                 <a class="button button-primary" href="{{url('user/login')}}">ユーザーログイン</a>
-                                <a class="button" href="{{url('customer/login')}}">顧客ログイン</a>
+                                <a class="button" id="customer_login">顧客ログイン</a>
                             </div>
 						</div>
 						<div class="hero-figure anime-element">
@@ -71,20 +71,6 @@
 							<img class="header-logo-image" src="{{url('landing/images/logo.svg')}}" alt="Logo">
 						</a>
                     </div>
-                    <ul class="footer-links list-reset">
-                        <li>
-                            <a href="#">Contact</a>
-                        </li>
-                        <li>
-                            <a href="#">About us</a>
-                        </li>
-                        <li>
-                            <a href="#">FAQ's</a>
-                        </li>
-                        <li>
-                            <a href="#">Support</a>
-                        </li>
-                    </ul>
                     <ul class="footer-social-links list-reset">
                         <li>
                             <a href="#">

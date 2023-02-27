@@ -11,29 +11,29 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('pckusers', function (Blueprint $table) {
             $table->id();
-            $table->string('user_no', 10)->unique();
-            $table->string('clinic_id', 6)->unique();
-            $table->string('clinic_name', 100);
-            $table->string('tel_no_new', 13);
-            $table->string('tel_num_new', 13);
-            $table->string('tel_no_old', 13)->nullable()->default(null);
-            $table->string('tel_num_old', 13)->nullable()->default(null);
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->date('password_expired_at');
-            $table->dateTime('login_at')->nullable();
-            $table->date('license_at')->nullable();
-            $table->boolean('patient_reg_opt')->nullable()->default(false);
-            $table->boolean('reception_opt')->nullable()->default(false);
-            $table->boolean('reserve_opt')->nullable()->default(false);
-            $table->boolean('opt1')->nullable()->default(false);
-            $table->boolean('opt2')->nullable()->default(false);
-            $table->tinyInteger('db_no')->nullable()->default(0);
-            $table->boolean('maintainance_lock')->nullable()->default(false);
-            $table->string('memo')->nullable();
-            $table->tinyInteger('cust_status')->nullable()->default(1);
+            $table->string('PeaksUserNo', 10)->unique();                    //ピークス内のユーザー番号 (000000)
+            $table->string('ClinicID', 6)->unique();                        //病院ID　ゼロパディング数字5桁（000000)　　ログイン用
+            $table->string('ClinicName', 100);                              //病院名
+            $table->string('TelNo', 13);                                    //現在の電話番号（ハイフンあり）　画面表示用
+            $table->string('TelNum', 13);                                   //現在の電話番号（ハイフン無し）　検索用
+            $table->string('TelNo_2', 13)->nullable()->default(null);       //転居する前の電話番号（ハイフンあり）　画面表示用
+            $table->string('TelNum_2', 13)->nullable()->default(null);      //転居する前の電話番号（ハイフン無し）　検索用
+            $table->string('MailAddress')->unique();                        //メールアドレス
+            $table->string('Password');                                     //不可逆暗号化
+            $table->date('PasswordExpiry');                                 //仮パスワードの有効期限　yyyy-mm-dd　通常有効期限は発行後3日間
+            $table->dateTime('LoginDateTime')->nullable();                  //Userがログインした日時　yyyy-mm-dd hh:mm:ss
+            $table->date('License')->nullable();                            //ライセンスの期限日　yyyy-mm-dd
+            $table->boolean('PatientRegOpt')->nullable()->default(false);   //診察券オプション
+            $table->boolean('ReceptionOpt')->nullable()->default(false);    //順番予約オプション
+            $table->boolean('ReserveOpt')->nullable()->default(false);      //予約オプション
+            $table->boolean('Option1')->nullable()->default(false);         //オプション1 （予備）
+            $table->boolean('Option2')->nullable()->default(false);         //オプション2 （予備）
+            $table->tinyInteger('DBNo')->nullable()->default(0);            //データベースの番号：1〜10
+            $table->boolean('MaintenanceLock')->nullable()->default(false); //メンテナンス中は顧客リストペットリストへのデータ書き込みをロックする
+            $table->string('Memo')->nullable();                             //メモ情報
+            $table->tinyInteger('CustStatus')->nullable()->default(1);      //サービスの利用状況　0：システム利用停止　1：新規(仮パスワード発行状態)　 2：パスワード再発行(仮パスワード発行状態)　 5：通常利用　
             $table->timestamps();
         });
     }
@@ -43,6 +43,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('pckusers');
     }
 };
