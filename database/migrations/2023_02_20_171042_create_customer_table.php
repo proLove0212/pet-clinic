@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('pckcustlists', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('DBNo');                                    //データベースの番号：1〜10
-            $table->string('ClinicID', 10)->unique();                       //病院ID　ゼロパディング数字5桁（00000)
+            $table->tinyInteger('DBNo')->nullable()->default(0);                                    //データベースの番号：1〜10
+            $table->string('ClinicID', 10);                       //病院ID　ゼロパディング数字5桁（00000)
             $table->string('CustNo', 10)->unique();                         //顧客番号
             $table->string('CustFamilyName', 100)->default('0');            //顧客姓　データがない場合はNullではなく文字数ゼロが入る
             $table->string('CustName', 100)->default('0');                  //顧客姓ふりがな　データがない場合はNullではなく文字数ゼロが入る
@@ -49,7 +49,7 @@ return new class extends Migration
             $table->string('Kubun', 10)->nullable()->default('null');       //区分
             $table->date('LastCommingDate')->nullable();                    //最終来院日
             $table->date('NextDate')->nullable();                           //次回来院予定日
-            $table->string('NextReason', 200)->nullable()->default('text'); //次回来院理由
+            $table->string('NextReason', 200)->nullable()->default(''); //次回来院理由
             $table->boolean('CustValid')->nullable()->default(true);        //有効 = True / 無効 = False　無効時は表示、検索が行われない
             $table->boolean('Replace')->nullable()->default(false);         //一括更新中に追加されたデータはTrue。　一括更新が終了したらFalse
             $table->string('EditID')->nullable();                           //個別で更新された際に送られてきたEditIDを保管。　重複してUpdateさせないため

@@ -59,16 +59,16 @@ class UserSeeder extends Seeder
         foreach ($user_data as $key => $item) {
             # code...
             $user = new User;
-            $user->PeaksUserNo = $item->PeaksUserNo;
-            $user->ClinicID = $item->ClinicID;
-            $user->ClinicName = $item->ClinicName;
-            $user->TelNo = $item->TelNo;
-            $user->TelNum = $item->TelNum;
-            $user->MailAddress = $item->MailAddress;
-            $user->Password = $item->Password;
-            $user->PasswordExpiry = $item->PasswordExpiry;
-            $user->Memo = $item->Memo;
-            $uesr->save();
+            $user->PeaksUserNo = $item["PeaksUserNo"];
+            $user->ClinicID = $item["ClinicID"];
+            $user->ClinicName = $item["ClinicName"];
+            $user->TelNo = $item["TelNo"];
+            $user->TelNum = $item["TelNum"];
+            $user->MailAddress = $item["MailAddress"];
+            $user->Password = $item["Password"];
+            $user->PasswordExpiry = $item["PasswordExpiry"];
+            $user->Memo = $item["Memo"];
+            $user->save();
 
         }
     }
