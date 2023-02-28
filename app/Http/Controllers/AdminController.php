@@ -201,7 +201,7 @@ class AdminController extends Controller
 
         $plans = MaintainLog::orderBy('from', 'desc')->paginate(10);
         $data = [
-            'title' => 'サーバーメンテナンス',
+            'title' => 'メンテナンス',
             'auth' => $request->session()->all(),
             'plans' => $plans,
             'links' => json_decode(json_encode($plans))->links

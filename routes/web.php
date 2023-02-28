@@ -28,9 +28,13 @@ Route::get('/customer/login', function () {
 Route::get('/admin/login', function () {
     return view('auth.admin_login');
 });
+
+
+Route::get('/maintain', 'App\HTTP\Controllers\AuthController@notification');
+
 Route::post('/logout', 'App\HTTP\Controllers\AuthController@logout');
 Route::post('/admin/login', 'App\HTTP\Controllers\AuthController@admin_login')->name('admin_login');
-Route::post('/user/login', 'App\HTTP\Controllers\AuthController@user_login')->name('user_login');
+Route::post('/user/login', 'App\HTTP\Controllers\AuthController@user_login')->name('user_login')->middleware("maintain");
 Route::post('/customer/login', 'App\HTTP\Controllers\AuthController@customer_login')->name('customer_login');
 
 Route::middleware(['customAuth:admin'])->group(function () {
@@ -47,7 +51,7 @@ Route::middleware(['customAuth:admin'])->group(function () {
 });
 
 
-Route::middleware(['customAuth:user'])->group(function () {
+Route::middleware(['customAuth:user', 'maintain'])->group(function () {
     Route::get('/dashboard', 'App\HTTP\Controllers\UserController@index');
     Route::get('/search/name', 'App\HTTP\Controllers\UserController@getSearchNamePage');
     Route::get('/search/phone', 'App\HTTP\Controllers\UserController@getSearchPhonePage');

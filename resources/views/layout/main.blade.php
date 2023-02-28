@@ -210,8 +210,7 @@
                                 <li>
                                     <a href="{{url('/admin/maintain')}}" class="waves-effect {{ Request::is('admin/maintain') ? 'active' : '' }}">
                                         <i class="bx bx-wrench"></i>
-                                        <span key="t-maintain_server">サーバーメンテナンス
-                                        </span>
+                                        <span key="t-maintain_server">メンテナンス</span>
                                     </a>
                                 </li>
                             @endif
