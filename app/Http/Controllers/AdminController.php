@@ -189,9 +189,12 @@ class AdminController extends Controller
 
     public function mail(Request $request){
 
+        $users = User::get();
+
         $data = [
             'title' => 'メール連絡',
             'auth' => $request->session()->all(),
+            "users" => $users
         ];
 
         return view('pages.admin.mail', $data);
