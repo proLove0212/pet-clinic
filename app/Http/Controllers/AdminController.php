@@ -8,11 +8,12 @@ use Illuminate\Support\Facades\Mail;
 use App\HTTP\Requests\NewUserRequest;
 use App\HTTP\Requests\UpdateUserRequest;
 use App\HTTP\Requests\NewMaintainRequest;
+use App\HTTP\Requests\SendEmailRequest;
 use Carbon\Carbon;
 use Hash;
 use Str;
 
-use App\Mail\UserCreated;
+use App\Mail\CustomMail;
 
 use App\Models\User;
 use App\Models\Customer;
@@ -106,6 +107,12 @@ class AdminController extends Controller
         $data->save();
 
         //Mail::to($data->email)->send(new UserCreated($pwd));
+        $receiver = $request->input('MailAddress');
+        $subject = "PetClinic";
+        $content = "
+            <h1>Your Password is ".$pwd."</h1>
+        ";
+        Mail::to($receiver)->send(new CustomMail($subject, $content));
 
         $res = [
             "success" => true,
@@ -198,6 +205,25 @@ class AdminController extends Controller
         ];
 
         return view('pages.admin.mail', $data);
+    }
+
+    public function sendMails(SendEmailRequest $request){
+
+        $subject = $request->input('subject', 'PetClinic');
+        $content = $request->input('content', '...');
+        $receivers = $request->input('receivers', []);
+
+        foreach ($receivers as $key => $receiver) {
+
+            Mail::to($receiver)->send(new CustomMail($subject, $content));
+        }
+
+        $res = [
+            "success" => true,
+        ];
+
+        return response()->json($res);
+
     }
 
     public function maintain(Request $request){
