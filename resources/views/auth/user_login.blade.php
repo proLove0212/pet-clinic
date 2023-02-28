@@ -11,7 +11,7 @@
         <div class="mb-3">
             <label class="form-label">ID</label>
             <div class="input-group auth-pass-inputgroup">
-              <input type="text" class="form-control" name="id" value="{{old('id')}}" placeholder="IDもしくはメールアドレスと病院の電話番号を入力してください。">
+              <input type="text" class="form-control" name="id" value="{{old('id')}}"  >
             </div>
             @error('id')
                 <div class="msg-danger">{{ $message }}</div>
@@ -20,7 +20,7 @@
         <div class="mb-3">
             <label class="form-label">パスワード</label>
             <div class="input-group auth-pass-inputgroup">
-                <input type="password" name="password" class="form-control" placeholder="パスワードを入力してください。" aria-label="Password" aria-describedby="password-addon">
+                <input type="password" name="password" class="form-control" aria-describedby="password-addon">
                 <button class="btn btn-light " type="button" id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
             </div>
             @error('password')

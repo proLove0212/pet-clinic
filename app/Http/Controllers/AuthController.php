@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\UserLoginRequest;
+use App\Http\Requests\UserPwdResetRequest;
 use DB;
 use Hash;
 use Illuminate\Support\Facades\Validator;
@@ -41,7 +42,8 @@ class AuthController extends Controller
     public function user_login(UserLoginRequest $req){
         $id = $req->input('id');
 
-        $user = User::where("PeaksUserNo", "=", $id)
+
+        $user = User::where("ClinicID", "=", $id)
         ->orWhere("MailAddress", "=", $id)
         ->orWhere("TelNo", "=", $id)
         ->orWhere("TelNum", "=", $id)
@@ -49,18 +51,27 @@ class AuthController extends Controller
 
         if($user){
 
-            if(Hash::check($req->input('Password'), $user->Password)){
+            if(Hash::check($req->input('password'), $user->Password)){
+
                 $req->session()->put('name', $user->ClinicName);
                 $req->session()->put('role', 'user');
                 $req->session()->put('email', $user->MailAddress);
-                $req->session()->put('PeaksUserNo', $user->PeaksUserNo);
+                $req->session()->put('ClinicID', $user->ClinicID);
 
-                return redirect('/dashboard');
+                if($user->CustStatus == 5){
+                    $user->LoginDateTime = Carbon::now();
+                    $user->save();
+
+                    return redirect('/dashboard');
+                }else{
+                    return redirect("/user/pwd_reset");
+                }
             }
 
             $data = [
                 'password' => 'パスワードが正しくありません。'
             ];
+            return view('auth.user_login', $data)->withErrors($data);
         }
 
         $data = [
@@ -68,6 +79,59 @@ class AuthController extends Controller
         ];
 
         return view('auth.user_login', $data)->withErrors($data);
+    }
+
+    public function getPasswordResetPage(Request $request){
+
+        $cid = $request->session()->get('ClinicID', 'default');
+        $user = User::where("ClinicID", "=", $cid)
+        ->first();
+
+        if($user && $user->CurStatus != 5){
+            $now = Carbon::now();
+            if($now->greaterThan($user->PasswordExpiry)){
+
+                $pwd = Hash::make(Str::random(8));
+                $user->Password = $pwd;
+                $user->PasswordExpiry = Carbon::now()->addDays(3);
+                $user->save();
+
+                $receiver = $request->input('MailAddress');
+                $subject = "PetClinic";
+                $content = "
+                    <h1>Your Password is ".$pwd."</h1>
+                ";
+                Mail::to($receiver)->send(new CustomMail($subject, $content));
+
+                $data = [
+                    'password' => 'パスワードの有効期限が切れています。新しいパスワードが生成されます。'
+                ];
+                return redirect('/user/login')->withErrors($data);
+            }
+
+            return view('auth.user_pwd_reset', ["ClinicID" => $user->ClinicID]);
+        }else{
+            return redirect('/user/login');
+        }
+
+    }
+
+    public function user_pwd_reset(UserPwdResetRequest $requeset){
+
+        $pwd = $request->input('password', 'password');
+        $cid = $request->session()->get('ClinicID', 'default');
+        $user = User::where("ClinicID", "=", $cid)->first();
+
+        if($user){
+            $user->Password = Hash::make($pwd);
+            $user->LoginDateTime = Cabon::now();
+            $user->CurStatus = 5;
+            $user->save();
+            return redirect('/dashboard');
+        }else{
+            $request->session()->flush();
+            return redirect('/user/login');
+        }
     }
 
     public function customer_login(Request $req){

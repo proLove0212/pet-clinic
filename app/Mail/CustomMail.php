@@ -41,7 +41,7 @@ class CustomMail extends Mailable
     {
         return new Content(
             view: 'mail.custom',
-            with: ["content" => $this->data]
+            with: ["content" => $this->data, "subject" => $this->subject]
         );
     }
 

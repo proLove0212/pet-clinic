@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserLoginRequest extends FormRequest
+class UserPwdResetRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,23 +20,24 @@ class UserLoginRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
      */
 
+
      public function rules(): array
      {
          return [
-             'id' => 'required',
-             'password' => 'required|min:8',
+             'password' => 'required',
+             'password_confirmdation' => 'required|same:password',
          ];
      }
 
      public function messages(): array
      {
          return [
-            "id" => [
-                "required" => "IDもしくはメールアドレスと病院の電話番号を入力してください。"
-            ],
             "password" => [
+                "required" => "パスワードを入力してください。"
+            ],
+            "password_confirmdation" => [
                 "required" => "パスワードを入力してください。",
-                "min" => "パスワードは8文字以上でなければなりません。"
+                "same" => "パスワードは同じではありません。"
             ]
          ];
      }
