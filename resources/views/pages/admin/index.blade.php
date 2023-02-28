@@ -19,20 +19,17 @@
         <div class="card">
             <div class="card-body">
 
-                <div class="d-flex align-items-start mb-3">
-                    <div class="me-2">
-                        <h5 class="card-title mb-4">ユーザーリスト</h5>
-                    </div>
-
-                    <div class="row ms-auto">
-                        <!-- App Search-->
-                        <form class="app-search d-lg-block">
-                            <div class="position-relative">
-                                <input type="text" id="search" class="form-control" placeholder="Search..." value = "{{$key}}">
-                                <span class="bx bx-search-alt"></span>
-                            </div>
-                        </form>
-                    </div>
+                <div class="me-2">
+                    <h5 class="card-title mb-4">ユーザーリスト</h5>
+                </div>
+                <div class="row ms-auto">
+                    <!-- App Search-->
+                    <form class="app-search d-lg-block">
+                        <div class="position-relative">
+                            <input type="text" id="search" class="form-control" placeholder="Search..." value = "{{$key}}">
+                            <span class="bx bx-search-alt"></span>
+                        </div>
+                    </form>
                 </div>
 
                 <div class="table-responsive">
@@ -40,11 +37,12 @@
                         <thead class="table-light">
                             <tr>
                                 <th scope="col" style="width: 70px;"></th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Phone</th>
-                                <th scope="col">Customers</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">病院名</th>
+                                <th scope="col" style="min-width: 100px">メールアドレス</th>
+                                <th scope="col">電話番号</th>
+                                <th scope="col">顧客</th>
+                                <th scope="col">ペット</th>
+                                <th scope="col"> </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -56,28 +54,26 @@
                                             <img src="{{url('/assets/images/avatar_m.png')}}" alt="" class="rounded-circle header-profile-user">
                                         </td>
                                         <td>
-                                            <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{$user_item->clinic_name}}</a></h5>
-                                            <p class="text-muted mb-0">{{$user_item->user_no}}</p>
+                                            <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{$user_item->ClinicName}}</a></h5>
+                                            <p class="text-muted mb-0">{{$user_item->ClinicID}}</p>
                                         </td>
-                                        <td>{{$user_item->email}}</td>
+                                        <td>{{$user_item->MailAddress}}</td>
                                         <td>
-                                            {{$user_item->tel_no_new}}
+                                            {{$user_item->TelNo}}
                                         </td>
                                         <td>
                                             {{$user_item->customer_cnt}}
                                         </td>
                                         <td>
+                                            {{$user_item->pet_cnt}}
+                                        </td>
+                                        <td>
                                             <ul class="list-inline font-size-20 contact-links mb-0">
                                                 <li class="list-inline-item px-2">
-                                                    <a href="{{url('admin/users/edit/'.$user_item->id)}}" title="Message"><i class="bx bx-edit-alt text-primary"></i></a>
+                                                    <a href="{{url('admin/users/edit?uid='.$user_item->ClinicID)}}" title="Message"><i class="bx bx-edit-alt text-primary"></i></a>
                                                 </li>
                                                 <li class="list-inline-item px-2">
-                                                    <form action="{{url('admin/users/delete/'.$user_item->id)}}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <a onclick="deleteUser('{{$user_item->id}}')" ><i class="bx bx-trash-alt text-danger"></i></a>
-                                                        <button type="submit" class="d-none" id="delete_user_{{$user_item->id}}" ></button>
-                                                    </form>
+                                                    <a onclick="deleteUser('{{$user_item->ClinicID}}')" ><i class="bx bx-trash-alt text-danger"></i></a>
                                                 </li>
 
                                             </ul>
@@ -86,8 +82,8 @@
                                 @endforeach
                             @else
                                 <tr>
-                                    <td colspan="6">
-                                        <div class="alert alert-secondary text-center mt-3" style="font-size: 24px"> <span class="bx bx-data"></span> データなし</div>
+                                    <td colspan="7">
+                                        <div class="text-center mt-3" style="font-size: 24px"> <span class="bx bx-data"></span> データなし</div>
                                     </td>
                                 </tr>
                             @endif
@@ -135,15 +131,85 @@
     <script type="text/javascript">
         function deleteUser(id) {
             Swal.fire({
-                    title: 'PetClinic',
-                    text: '続行しますか？',
-                    icon: 'info',
-                    confirmButtonText: 'はい'
-                }).then((result) => {
-                    if (result.value) {
-                        $("#delete_user_"+id).click();
-                    }
-                })
+                title: 'PetClinic',
+                text: '続行しますか？',
+                icon: 'info',
+                confirmButtonText: 'はい'
+            }).then((result) => {
+                if (result.value) {
+
+                    $.ajax({
+                        type: "DELETE",
+                        url: "{{url('/admin/users/delete?uid=')}}"+id,
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                            if(data.success){
+                                Swal.fire({
+                                    title: 'PetClinic',
+                                    text: 'ユーザーが削除されました。',
+                                    icon: 'success',
+                                }).then((result)=>{
+                                    if(result.value){
+                                        window.location.href = "{{url('/admin/users')}}"
+                                    }
+                                })
+                            }
+                        },
+                        error: function (data) {
+                            if(data.responseJSON && data.responseJSON.errors){
+                                var errors = data.responseJSON.errors;
+
+                                if(typeof errors.PeaksUserNo[0] == "string"){
+                                    $("#PeaksUserNo_error").html(errors.PeaksUserNo[0])
+                                }else if(typeof errors.PeaksUserNo[0] == "object"){
+                                    var keys = Object.keys(errors.PeaksUserNo[0]);
+
+                                    const element = errors.PeaksUserNo[0][keys[0]];
+                                    $("#PeaksUserNo_error").html(element)
+                                }else{
+                                    $("#PeaksUserNo_error").html("")
+                                }
+
+                                if(typeof errors.ClinicName[0] == "string"){
+                                    $("#ClinicName_error").html(errors.ClinicName[0])
+                                }else if(typeof errors.ClinicName[0] == "object"){
+                                    var keys = Object.keys(errors.ClinicName[0]);
+
+                                    const element = errors.ClinicName[0][keys[0]];
+                                    $("#ClinicName_error").html(element)
+                                }else{
+                                    $("#ClinicName_error").html("")
+                                }
+
+                                if(typeof errors.TelNo[0] == "string"){
+                                    $("#TelNo_error").html(errors.TelNo[0])
+                                }else if(typeof errors.TelNo[0] == "object"){
+                                    var keys = Object.keys(errors.TelNo[0]);
+
+                                    const element = errors.TelNo[0][keys[0]];
+                                    $("#TelNo_error").html(element)
+                                }else{
+                                    $("#TelNo_error").html("")
+                                }
+
+                                if(typeof errors.MailAddress[0] == "string"){
+                                    $("#MailAddress_error").html(errors.MailAddress[0])
+                                }else if(typeof errors.MailAddress[0] == "object"){
+                                    var keys = Object.keys(errors.MailAddress[0]);
+
+                                    const element = errors.MailAddress[0][keys[0]];
+                                    $("#MailAddress_error").html(element)
+                                }else{
+                                    $("#MailAddress_error").html("")
+                                }
+                            }
+                        }
+                    });
+                }
+            })
         }
 
         $( document ).ready(function() {

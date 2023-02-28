@@ -25,6 +25,7 @@ return new class extends Migration
             $table->time('StartTime2')->nullable()->default("16:30");           //2番目の予約開始時間
             $table->time('EndTime2')->nullable()->default("19:30");             //2番目の予約開始時間
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

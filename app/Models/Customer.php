@@ -54,9 +54,6 @@ class Customer extends Model
         'CustValid',
         'Replace',
         'EditID',
-        'created_at',
-        'updated_at',
-        'deleted_at'
     ];
 
     /**

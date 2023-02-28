@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email', 100)->nullable()->default('text');
             $table->string('password', 100)->nullable()->default('text');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

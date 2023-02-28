@@ -3,17 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\HTTP\Requests\NewUserRequest;
 use App\HTTP\Requests\UpdateUserRequest;
 use App\HTTP\Requests\NewMaintainRequest;
-use App\Models\User;
-use App\Models\MaintainLog;
 use Carbon\Carbon;
 use Hash;
 use Str;
 
 use App\Mail\UserCreated;
+
+use App\Models\User;
+use App\Models\Customer;
+use App\Models\Pet;
+use App\Models\Reception;
+use App\Models\MaintainLog;
 
 class AdminController extends Controller
 {
@@ -23,16 +28,17 @@ class AdminController extends Controller
 
         $key = $request->query('key', '');
 
-        $users = User::where('clinic_name', 'like', '%'.$key.'%')
-            ->orWhere('user_no', 'like', '%'.$key.'%')
-            ->orWhere('clinic_id', 'like', '%'.$key.'%')
-            ->orWhere('tel_num_new', 'like', '%'.$key.'%')
-            ->orWhere('tel_no_new', 'like', '%'.$key.'%')
-            // ->orWhere('email', 'like', '%'.$key.'%')
-            ->leftJoin('customers', 'customers.user_id', '=', 'users.id')
-            ->groupBy('users.id')
-            ->orderBy('users.created_at', 'desc')
-            ->selectRaw('users.*, count(customers.id) as customer_cnt')
+        $users = User::leftJoin('pckcustlists', 'pckcustlists.ClinicID', '=', 'pckusers.ClinicID')
+            ->leftJoin('pckpetlists', 'pckpetlists.ClinicID', '=', 'pckusers.ClinicID')
+            ->where('pckusers.ClinicName', 'like', '%'.$key.'%')
+            ->orWhere('pckusers.PeaksUserNo', 'like', '%'.$key.'%')
+            ->orWhere('pckusers.ClinicID', 'like', '%'.$key.'%')
+            ->orWhere('pckusers.TelNo', 'like', '%'.$key.'%')
+            ->orWhere('pckusers.TelNum', 'like', '%'.$key.'%')
+            // ->orWhere('pckusers.email', 'like', '%'.$key.'%')
+            ->groupBy('pckusers.ClinicID')
+            ->orderBy('pckusers.created_at', 'desc')
+            ->selectRaw('pckusers.*, count(DISTINCT pckcustlists.id) as customer_cnt, count(DISTINCT pckpetlists.id) as pet_cnt')
             ->paginate(10);
 
         $data = [
@@ -62,80 +68,123 @@ class AdminController extends Controller
         return view('pages.admin.new_user', $data);
     }
 
-    public function create_user(NewUserRequest $request){
-        $number = $request->input('user_no');
+    public function makeClinicID($PeaksNo){
+        $number = $PeaksNo;
         $num_arr  = array_map('intval', str_split($number));
-        $arr_sum = array_sum($num_arr);
-        $temp_sum = $num_arr[2] + $num_arr[5];
-        $pre = ($arr_sum % 10) * ($temp_sum % 10);
-
-        if($pre == 0){
-            $pre = $num_arr[4]*10 + $num_arr[2];
+        $arr_sum = ($num_arr[2] + $num_arr[3]) * ($num_arr[4] + $num_arr[5]);
+        $num_arr1 = array_map('intval', str_split($arr_sum));
+        $suf_val = 0;
+        foreach ($num_arr1 as $key => $num_at) {
+            # code...
+            if($suf_val + $num_at > 10){
+                break;
+            }else{
+                $suf_val = $suf_val + $num_at;
+            }
         }
+
+        return ($number%10000)*10 + $suf_val;
+    }
+
+    public function create_user(NewUserRequest $request){
+        $clinic_id = $this->makeClinicID($request->input('PeaksUserNo'));
 
         $pwd = Hash::make(Str::random(8));
 
-        // $pwd = Hash::make("password");
-
         $data = new User;
-        $data->user_no = $request->input('user_no');
-        $data->clinic_name = $request->input('name');
-        $data->clinic_id = $pre * 10000 + $num_arr[2]*1000+$num_arr[3]*100+$num_arr[4]*10+$num_arr[5];
-        $data->tel_no_new = $request->input('phone');
-        $data->tel_num_new = Str::replace('-', '', $request->input('phone'));
-        $data->email = $request->input('email');
-        $data->password = $pwd;
-        $data->password_expired_at = Carbon::now()->addDays(3);
+        $data->PeaksUserNo = $request->input('PeaksUserNo');
+        $data->ClinicName = $request->input('ClinicName');
+        $data->ClinicID = $clinic_id;
+        $data->TelNo = $request->input('TelNo');
+        $data->TelNum = Str::replace('-', '', $request->input('TelNo'));
+        $data->MailAddress = $request->input('MailAddress');
+        $data->Password = $pwd;
+        $data->PasswordExpiry = Carbon::now()->addDays(3);
+        $data->PatientRegOpt = $request->input('PatientRegOpt') ? $request->input('PatientRegOpt') : false ;
+        $data->ReceptionOpt = $request->input('ReceptionOpt') ? $request->input('ReceptionOpt') : false ;
+        $data->Memo = $request->input('Memo') ? $request->input('Memo') : "" ;
         $data->save();
 
-        Mail::to($data->email)->send(new UserCreated($pwd));
+        //Mail::to($data->email)->send(new UserCreated($pwd));
 
-        return redirect('admin/users');
+        $res = [
+            "success" => true,
+        ];
+
+        return response()->json($res);
 
     }
 
-    public function edit_user(Request $request, $id){
+    public function edit_user(Request $request){
+        $uid = $request->query('uid', 'default');
 
-        $sel_user = User::where('id', '=', $id)->first();
+        $sel_user = User::where('ClinicID', '=', $uid)->first();
+        $cust_cnt = Customer::where('ClinicID', '=', $uid)->count();
+        $pet_cnt = Pet::where('ClinicID', '=', $uid)->count();
+        $recept_cnt = Reception::where('ClinicID', '=', $uid)->count();
 
-        $data = [
-            'title' => 'ユーザーアップデート',
-            'auth' => $request->session()->all(),
-            'user' => $sel_user
-        ];
+        if($sel_user){
+            $data = [
+                'title' => 'ユーザーの変更',
+                'auth' => $request->session()->all(),
+                'user' => $sel_user,
+                'cust_cnt' => $cust_cnt,
+                'pet_cnt' => $pet_cnt,
+                "recept_cnt" => $recept_cnt
+            ];
 
-        return view('pages.admin.edit_user', $data);
+            return view('pages.admin.edit_user', $data);
+        }else
+            return redirect('admin/users');
+
     }
 
     public function update_user(UpdateUserRequest $request, $id){
-        $number = $request->input('user_no');
-        $num_arr  = array_map('intval', str_split($number));
-        $arr_sum = array_sum($num_arr);
-        $temp_sum = $num_arr[2] + $num_arr[5];
-        $pre = ($arr_sum % 10) * ($temp_sum % 10);
-
-        if($pre == 0){
-            $pre = $num_arr[4]*10 + $num_arr[2];
-        }
-
+        $clinic_id = $this->makeClinicID($request->input('PeaksUserNo'));
 
         $data = User::where('id', '=', $id)->first();
-        $data->user_no = $request->input('user_no');
-        $data->clinic_name = $request->input('name');
-        $data->clinic_id = $pre * 10000 + $num_arr[2]*1000+$num_arr[3]*100+$num_arr[4]*10+$num_arr[5];
-        $data->tel_no_new = $request->input('phone');
-        $data->tel_num_new = Str::replace('-', '', $request->input('phone'));
-        $data->email = $request->input('email');
+        if($data->ClinicID != $clinic_id){
+            Customer::where("ClinicID", "=", $data->ClinicID)->update([
+                "ClinicID" => $clinic_id
+            ]);
+            Pet::where("ClinicID", "=", $data->ClinicID)->update([
+                "ClinicID" => $clinic_id
+            ]);
+        }
+
+        $data->PeaksUserNo = $request->input('PeaksUserNo');
+        $data->ClinicName = $request->input('ClinicName');
+        $data->ClinicID = $clinic_id;
+        $data->TelNo_2 = $data->TelNo;
+        $data->TelNum_2 = $data->TelNum;
+        $data->TelNo = $request->input('TelNo');
+        $data->TelNum = Str::replace('-', '', $request->input('TelNo'));
+        $data->MailAddress = $request->input('MailAddress');
+
         $data->save();
 
 
-        return redirect('admin/users');
+
+        $res = [
+            "success" => true,
+        ];
+
+        return response()->json($res);
 
     }
 
-    public function delete_user(Request $request, $id){
-        User::where("id", '=', $id)->delete();
-        return redirect('admin/users');
+    public function delete_user(Request $request){
+        $ClinicID = $request->query('uid', 'default');
+
+        User::where("ClinicID", '=', $ClinicID)->delete();
+        Customer::where("ClinicID", "=", $ClinicID)->delete();
+        Pet::where("ClinicID", "=", $ClinicID)->delete();
+
+        $res = [
+            "success" => true,
+        ];
+
+        return response()->json($res);
     }
 
     public function mail(Request $request){

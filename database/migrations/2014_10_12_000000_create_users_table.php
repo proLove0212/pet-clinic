@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string('Memo')->nullable();                             //メモ情報
             $table->tinyInteger('CustStatus')->nullable()->default(1);      //サービスの利用状況　0：システム利用停止　1：新規(仮パスワード発行状態)　 2：パスワード再発行(仮パスワード発行状態)　 5：通常利用　
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -29,9 +29,6 @@ class Pet extends Model
         'PetValid',
         'VacInfo',
         'Memo',
-        'created_at',
-        'updated_at',
-        'deleted_at'
     ];
 
     /**

@@ -16,7 +16,7 @@ class CustomerSeeder extends Seeder
     public function run(): void
     {
 
-        $user_data = [
+        $cust_data = [
             [
                 "ClinicID" => "24083",
                 "CustNo" => "00001",
@@ -111,7 +111,7 @@ class CustomerSeeder extends Seeder
 
         Customer::truncate();
 
-        foreach ($user_data as $key => $item) {
+        foreach ($cust_data as $key => $item) {
             # code...
             $customer = new Customer;
             $customer->ClinicID = $item["ClinicID"];

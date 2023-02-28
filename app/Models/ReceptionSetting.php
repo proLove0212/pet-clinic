@@ -25,9 +25,6 @@ class ReceptionSetting extends Model
         'RunningColumn2',
         'StartTime2',
         'EndTime2',
-        'created_at',
-        'updated_at',
-        'deleted_at'
     ];
 
     /**

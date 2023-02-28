@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('NewPatientNo', 10);                             //XX-XXXのように数字5桁が入る
             $table->date('RegistDone')->nullable();                         //PCKのDBに登録された時間（yyyy-mm-dd hh:mm:ss)
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

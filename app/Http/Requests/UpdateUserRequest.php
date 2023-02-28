@@ -22,16 +22,33 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_no' => 'required|digits:6|unique:users,user_no,'.$this->id,
-            'name' => 'required|unique:users,clinic_name,'.$this->id,
-            'phone' => 'required',
-            'email' => 'required|unique:users,email,'.$this->id
+            'PeaksUserNo' => 'required|digits:6|unique:pckusers,PeaksUserNo,'.$this->id,
+            'ClinicName' => 'required|unique:pckusers,ClinicName,'.$this->id,
+            'TelNo' => 'required',
+            'MailAddress' => 'required|unique:pckusers,MailAddress,'.$this->id."|email"
         ];
     }
 
     public function messages(): array
     {
         return [
+            "PeaksUserNo" => [
+                "required" => "ユーザー番号を入力する必要があります。",
+                "digits" => "6桁の数字でなければなりません。",
+                "unique" => "すでに存在します。"
+            ],
+            "ClinicName" => [
+                "required" => "病院名を入力する必要があります。",
+                "unique" => "すでに存在します。"
+            ],
+            "TelNo" => [
+                "required" => "電話番号を入力する必要があります。",
+            ],
+            "MailAddress" => [
+                "required" => "メールを入力する必要があります。",
+                "unique" => "すでに存在します。",
+                "email" => "メールが間違っています。"
+            ],
 
         ];
     }

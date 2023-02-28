@@ -17,8 +17,5 @@ class MaintainLog extends Model
         'from',
         'to',
         'memo',
-        'created_at',
-        'updated_at',
-        'deleted_at'
     ];
 }

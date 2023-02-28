@@ -24,9 +24,6 @@ class Reception extends Model
         'Status',
         'NewPatientNo',
         'RegistDone',
-        'created_at',
-        'updated_at',
-        'deleted_at'
     ];
 
     /**

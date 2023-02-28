@@ -18,9 +18,6 @@ class ClinicSetting extends Model
         'visit_reason',
         'visit_disp_order',
         'take_time',
-        'created_at',
-        'updated_at',
-        'deleted_at'
     ];
 
     /**

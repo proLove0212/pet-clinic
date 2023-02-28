@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('VacInfo', 500)->nullable()->default('');                //予防などの情報
             $table->string('Memo', 500)->nullable()->default('');                   //メモ情報
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
