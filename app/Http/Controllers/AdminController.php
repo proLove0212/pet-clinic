@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Crypt;
 
 use App\HTTP\Requests\NewUserRequest;
 use App\HTTP\Requests\UpdateUserRequest;
@@ -98,8 +97,8 @@ class AdminController extends Controller
         $data->PeaksUserNo = $request->input('PeaksUserNo');
         $data->ClinicName = $request->input('ClinicName');
         $data->ClinicID = $clinic_id;
-        $data->TelNo = Crypt::encryptString($request->input('TelNo'));
-        $data->TelNum = Crypt::encryptString(Str::replace('-', '', $request->input('TelNo')));
+        $data->TelNo = $request->input('TelNo');
+        $data->TelNum = Str::replace('-', '', $request->input('TelNo'));
         $data->MailAddress = $request->input('MailAddress');
         $data->Password = $pwd;
         $data->PasswordExpiry = Carbon::now()->addDays(3);
@@ -133,19 +132,10 @@ class AdminController extends Controller
             $pet_cnt = Pet::where('ClinicID', '=', $uid)->count();
             $recept_cnt = Reception::where('ClinicID', '=', $uid)->count();
 
-            $decrypted = "";
-            try {
-                $decrypted = Crypt::decryptString($sel_user->TelNo);
-            } catch (Illuminate\Contracts\Encryption\DecryptException $e) {
-
-                $decrypted = "error";
-            }
-
             $data = [
                 'title' => 'ユーザーの変更',
                 'auth' => $request->session()->all(),
                 'user' => $sel_user,
-                'TelNo' => $decrypted,
                 'cust_cnt' => $cust_cnt,
                 'pet_cnt' => $pet_cnt,
                 "recept_cnt" => $recept_cnt
@@ -175,8 +165,8 @@ class AdminController extends Controller
         $data->ClinicID = $clinic_id;
         $data->TelNo_2 = $data->TelNo;
         $data->TelNum_2 = $data->TelNum;
-        $data->TelNo = Crypt::encryptString($request->input('TelNo'));
-        $data->TelNum = Crypt::encryptString(Str::replace('-', '', $request->input('TelNo')));
+        $data->TelNo = $request->input('TelNo');
+        $data->TelNum = Str::replace('-', '', $request->input('TelNo'));
         $data->MailAddress = $request->input('MailAddress');
 
         $data->save();

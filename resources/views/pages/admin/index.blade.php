@@ -59,15 +59,7 @@
                                         </td>
                                         <td>{{$user_item->MailAddress}}</td>
                                         <td>
-                                            <?php
-
-                                                try {
-                                                    $decrypted = Crypt::decryptString($user_item->TelNo);
-                                                    echo $decrypted;
-                                                } catch (Illuminate\Contracts\Encryption\DecryptException $e) {
-                                                    echo "Error";
-                                                }
-                                            ?>
+                                            {{$user_item->TelNo}}
                                         </td>
                                         <td>
                                             {{$user_item->customer_cnt}}

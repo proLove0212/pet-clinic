@@ -11,6 +11,7 @@ class Customer extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use EncryptedAttribute;
 
     protected $table = 'pckcustlists';
 

@@ -14,82 +14,84 @@
 
 @section('content')
 <div class="row">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">ユーザーの変更</h4>
-            <p class="card-title-desc">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">ユーザーの変更</h4>
+                <p class="card-title-desc">
 
-            </p>
-            <div class="row my-3">
-                <label class="col-sm-3 col-form-label">ユーザーの変更</label>
-                <div class="col-sm-9">
-                  <input type="text range" id="PeaksUserNo_input" value="{{$user->PeaksUserNo}}" class="form-control" placeholder="Eピークス内のユーザー番号 (000000)">
-                  <div class="msg-danger" id="PeaksUserNo_error"> </div>
+                </p>
+                <div class="row my-3">
+                    <label class="col-sm-3 col-form-label">ユーザーの変更</label>
+                    <div class="col-sm-9">
+                      <input type="text range" id="PeaksUserNo_input" value="{{$user->PeaksUserNo}}" class="form-control" placeholder="Eピークス内のユーザー番号 (000000)">
+                      <div class="msg-danger" id="PeaksUserNo_error"> </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row mb-3">
-                <label class="col-sm-3 col-form-label">病院名</label>
-                <div class="col-sm-9">
-                  <input type="text" id="ClinicName_input" value="{{$user->ClinicName}}" class="form-control" placeholder="病院の名前を入力してください。">
-                  <div class="msg-danger" id="ClinicName_error" > </div>
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">病院名</label>
+                    <div class="col-sm-9">
+                      <input type="text" id="ClinicName_input" value="{{$user->ClinicName}}" class="form-control" placeholder="病院の名前を入力してください。">
+                      <div class="msg-danger" id="ClinicName_error" > </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row mb-3">
-                <label class="col-sm-3 col-form-label">電話番号</label>
-                <div class="col-sm-9">
-                  <input type="text" id="TelNo_input" value="{{$TelNo}}" class="form-control"  placeholder="ハイフンあり">
-                  <div class="msg-danger" id="TelNo_error"> </div>
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">電話番号</label>
+                    <div class="col-sm-9">
+                      <input type="text" id="TelNo_input" value="{{$user->TelNo}}" class="form-control"  placeholder="ハイフンあり">
+                      <div class="msg-danger" id="TelNo_error"> </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row mb-3">
-                <label class="col-sm-3 col-form-label">メール</label>
-                <div class="col-sm-9">
-                    <input type="email" id="MailAddress_input" value="{{$user->MailAddress}}" class="form-control"  placeholder="メールアドレスを入力。">
-                    <div class="msg-danger"  id="MailAddress_error" > </div>
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">メール</label>
+                    <div class="col-sm-9">
+                        <input type="email" id="MailAddress_input" value="{{$user->MailAddress}}" class="form-control"  placeholder="メールアドレスを入力。">
+                        <div class="msg-danger"  id="MailAddress_error" > </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row mb-3">
-                <label class="col-sm-3 col-form-label">オプション</label>
-                <div class="col-sm-9">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-check form-switch form-switch-md mb-3" dir="ltr">
-                                @if ($user->PatientRegOpt)
-                                    <input class="form-check-input" type="checkbox" id="PatientRegOpt"  checked>
-                                @else
-                                    <input class="form-check-input" type="checkbox" id="PatientRegOpt">
-                                @endif
-                                <label class="form-check-label" for="PatientRegOpt">診察券オプション</label>
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">オプション</label>
+                    <div class="col-sm-9">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-check form-switch form-switch-md mb-3" dir="ltr">
+                                    @if ($user->PatientRegOpt)
+                                        <input class="form-check-input" type="checkbox" id="PatientRegOpt"  checked>
+                                    @else
+                                        <input class="form-check-input" type="checkbox" id="PatientRegOpt">
+                                    @endif
+                                    <label class="form-check-label" for="PatientRegOpt">診察券オプション</label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-check form-switch form-switch-md mb-3" dir="ltr">
-                                @if ($user->ReceptionOpt)
-                                    <input class="form-check-input" type="checkbox"  id="ReceptionOpt" checked>
-                                @else
-                                    <input class="form-check-input" type="checkbox"  id="ReceptionOpt">
-                                @endif
-                                <label class="form-check-label" for="ReceptionOpt">順番予約オプション</label>
+                            <div class="col-sm-6">
+                                <div class="form-check form-switch form-switch-md mb-3" dir="ltr">
+                                    @if ($user->ReceptionOpt)
+                                        <input class="form-check-input" type="checkbox"  id="ReceptionOpt" checked>
+                                    @else
+                                        <input class="form-check-input" type="checkbox"  id="ReceptionOpt">
+                                    @endif
+                                    <label class="form-check-label" for="ReceptionOpt">順番予約オプション</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row mb-3">
-                <label class="col-sm-3 col-form-label">メモ情報</label>
-                <div class="col-sm-9">
-                    <textarea id="Memo" cols="30" rows="5" class="form-control">{{$user->Memo}}</textarea>
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">メモ情報</label>
+                    <div class="col-sm-9">
+                        <textarea id="Memo" cols="30" rows="5" class="form-control">{{$user->Memo}}</textarea>
+                    </div>
                 </div>
-            </div>
-            <div class="d-flex flex-wrap gap-2">
-                <button id="submit_btn" class="btn btn-primary waves-effect waves-light">
-                    変更
-                </button>
-                <button id="clear_btn" class="btn btn-secondary waves-effect">
-                    キャンセル
-                </button>
-            </div>
+                <div class="d-flex flex-wrap gap-2">
+                    <button id="submit_btn" class="btn btn-primary waves-effect waves-light">
+                        変更
+                    </button>
+                    <button id="clear_btn" class="btn btn-secondary waves-effect">
+                        キャンセル
+                    </button>
+                </div>
 
+            </div>
         </div>
     </div>
 </div>

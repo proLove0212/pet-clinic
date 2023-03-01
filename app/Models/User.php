@@ -12,6 +12,7 @@ use ESolution\DBEncryption\Traits\EncryptedAttribute;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    use EncryptedAttribute;
 
     /**
      * The attributes that are mass assignable.

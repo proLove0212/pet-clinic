@@ -85,7 +85,7 @@
                 </p>
 
                 <div class="row collapse" id = 'search_rslt_acc'>
-
+                    <div class="text-center mt-3" style="font-size: 24px"> <span class="bx bx-data"></span> データなし </div>
                 </div>
             </div>
         </div>
@@ -133,7 +133,14 @@
                             $("#search_rslt_acc").html(data.html)
                             $("#toggler").click()
                         }else{
-                            $("#search_rslt_acc").html("")
+                            Swal.fire({
+                                title: 'PetClinic',
+                                text: 'データなし',
+                                icon: 'info',
+                                confirmButtonText: 'はい'
+                            })
+
+                            $("#search_rslt_acc").html("<div class='text-center mt-3' style='font-size: 24px'> <span class='bx bx-data'></span> データなし </div>")
                         }
                     },
                     error: function (data) {

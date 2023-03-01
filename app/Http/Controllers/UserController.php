@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
 use Str;
 
 use App\Models\User;
@@ -74,12 +73,6 @@ class UserController extends Controller
         $mode = $request->input('mode', "default");
         $key = $request->input('key', '');
 
-        return response()->json([
-            "n" => Crypt::encryptString("asdf"),
-            "ne" => Crypt::encryptString("asdf")
-        ], 200);
-
-
         if($key == "")
             return "";
 
@@ -92,15 +85,21 @@ class UserController extends Controller
             ->limit(30)
             ->get();
 
-            $rslt = view("parts.customer_list")->with("customers", $customers)->render();
+            if(count($customers)){
+                $rslt = view("parts.customer_list")->with("customers", $customers)->render();
 
-            return response()->json( array(
-                'success' => true,
-                'html'=> $rslt
-            ));
+                return response()->json( array(
+                    'success' => true,
+                    'html'=> $rslt
+                ));
+            }else{
+                return response()->json( array(
+                    'success' => false,
+                ));
+            }
         }else if($mode == "tel") {
             if( strlen($key) == 4 ){
-                $tel = Crypt::encryptString($key);
+                $tel = $key;
                 $customers = Customer::where("Tel1Last4", "=", $tel)
                 ->orWhere("Tel2Last4", "=", $tel)
                 ->orWhere("Tel3Last4", "=", $tel)
@@ -113,15 +112,21 @@ class UserController extends Controller
                 ->limit(30)
                 ->get();
 
-                $rslt = view("parts.customer_list")->with("customers", $customers)->render();
+                if(count($customers)){
+                    $rslt = view("parts.customer_list")->with("customers", $customers)->render();
 
-                return response()->json( array(
-                    'success' => true,
-                    'html'=> $rslt
-                ));
+                    return response()->json( array(
+                        'success' => true,
+                        'html'=> $rslt
+                    ));
+                }else{
+                    return response()->json( array(
+                        'success' => false,
+                    ));
+                }
 
             }else{
-                $tel = Crypt::encryptString(Str::replace('-', '', $key));
+                $tel = Str::replace('-', '', $key);
                 $customers = Customer::where("ClinicID", "=", $cid)
                 ->where(function($query) use($tel) {
                     $query->where("Tel1Last4", "=", $tel)
@@ -137,12 +142,18 @@ class UserController extends Controller
                 ->limit(30)
                 ->get();
 
-                $rslt = view("parts.customer_list")->with("customers", $customers)->render();
+                if(count($customers)){
+                    $rslt = view("parts.customer_list")->with("customers", $customers)->render();
 
-                return response()->json( array(
-                    'success' => true,
-                    'html'=> $rslt
-                ));
+                    return response()->json( array(
+                        'success' => true,
+                        'html'=> $rslt
+                    ));
+                }else{
+                    return response()->json( array(
+                        'success' => false,
+                    ));
+                }
             }
         }
     }

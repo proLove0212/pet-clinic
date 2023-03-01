@@ -21,80 +21,46 @@
                     <div class="col-sm-3 col-md-2 mb-1"><i class="dripicons-phone"></i>&nbsp;&nbsp;電話番号:</div>
                     <div class="col-sm-9 col-md-10" style="padding-left:24px">
                         <div class="row">
-                            <div class="mb-1 col-md-4 col-sm-6 col-lg-3"><i class="dripicons-phone"></i>&nbsp;&nbsp;
-                                <?php
-                                    try {
-                                        $decrypted = Crypt::decryptString($customer->Tel1);
-                                        echo $decrypted;
-                                    } catch (Illuminate\Contracts\Encryption\DecryptException $e) {
-                                        echo "-";
-                                    }
-                                ?>
-                            </div>
-                            <div class="mb-1 col-md-4 col-sm-6 col-lg-3"><i class="dripicons-phone"></i>&nbsp;&nbsp;
-                                <?php
-                                    try {
-                                        $decrypted = Crypt::decryptString($customer->Tel2);
-                                        echo $decrypted;
-                                    } catch (Illuminate\Contracts\Encryption\DecryptException $e) {
-                                        echo "-";
-                                    }
-                                ?>
-                            </div><div class="mb-1 col-md-4 col-sm-6 col-lg-3"><i class="dripicons-phone"></i>&nbsp;&nbsp;
-                                <?php
-                                    try {
-                                        $decrypted = Crypt::decryptString($customer->Tel3);
-                                        echo $decrypted;
-                                    } catch (Illuminate\Contracts\Encryption\DecryptException $e) {
-                                        echo "-";
-                                    }
-                                ?>
-                            </div><div class="mb-1 col-md-4 col-sm-6 col-lg-3"><i class="dripicons-phone"></i>&nbsp;&nbsp;
-                                <?php
-                                    try {
-                                        $decrypted = Crypt::decryptString($customer->Tel4);
-                                        echo $decrypted;
-                                    } catch (Illuminate\Contracts\Encryption\DecryptException $e) {
-                                        echo "-";
-                                    }
-                                ?>
-                            </div><div class="mb-1 col-md-4 col-sm-6 col-lg-3"><i class="dripicons-phone"></i>&nbsp;&nbsp;
-                                <?php
-                                    try {
-                                        $decrypted = Crypt::decryptString($customer->Tel5);
-                                        echo $decrypted;
-                                    } catch (Illuminate\Contracts\Encryption\DecryptException $e) {
-                                        echo "-";
-                                    }
-                                ?>
-                            </div><div class="mb-1 col-md-4 col-sm-6 col-lg-3"><i class="dripicons-phone"></i>&nbsp;&nbsp;
-                                <?php
-                                    try {
-                                        $decrypted = Crypt::decryptString($customer->Tel6);
-                                        echo $decrypted;
-                                    } catch (Illuminate\Contracts\Encryption\DecryptException $e) {
-                                        echo "-";
-                                    }
-                                ?>
-                            </div><div class="mb-1 col-md-4 col-sm-6 col-lg-3"><i class="dripicons-phone"></i>&nbsp;&nbsp;
-                                <?php
-                                    try {
-                                        $decrypted = Crypt::decryptString($customer->Tel7);
-                                        echo $decrypted;
-                                    } catch (Illuminate\Contracts\Encryption\DecryptException $e) {
-                                        echo "-";
-                                    }
-                                ?>
-                            </div><div class="mb-1 col-md-4 col-sm-6 col-lg-3"><i class="dripicons-phone"></i>&nbsp;&nbsp;
-                                <?php
-                                    try {
-                                        $decrypted = Crypt::decryptString($customer->Tel8);
-                                        echo $decrypted;
-                                    } catch (Illuminate\Contracts\Encryption\DecryptException $e) {
-                                        echo "-";
-                                    }
-                                ?>
-                            </div>
+                            @if ($customer->Tel1 != "")
+                                <div class="mb-1 col-md-4 col-sm-6 col-lg-3"><i class="dripicons-phone"></i>&nbsp;&nbsp;
+                                    {{$customer->Tel1}}
+                                </div>
+                            @endif
+                            @if ($customer->Tel2 != "")
+                                <div class="mb-1 col-md-4 col-sm-6 col-lg-3"><i class="dripicons-phone"></i>&nbsp;&nbsp;
+                                    {{$customer->Tel2}}
+                                </div>
+                            @endif
+                            @if ($customer->Tel3 != "")
+                                <div class="mb-1 col-md-4 col-sm-6 col-lg-3"><i class="dripicons-phone"></i>&nbsp;&nbsp;
+                                    {{$customer->Tel3}}
+                                </div>
+                            @endif
+                            @if ($customer->Tel4 != "")
+                                <div class="mb-1 col-md-4 col-sm-6 col-lg-3"><i class="dripicons-phone"></i>&nbsp;&nbsp;
+                                    {{$customer->Tel4}}
+                                </div>
+                            @endif
+                            @if ($customer->Tel5 != "")
+                                <div class="mb-1 col-md-4 col-sm-6 col-lg-3"><i class="dripicons-phone"></i>&nbsp;&nbsp;
+                                    {{$customer->Tel5 != ""}}
+                                </div>
+                            @endif
+                            @if ($customer->Tel6 != "")
+                                <div class="mb-1 col-md-4 col-sm-6 col-lg-3"><i class="dripicons-phone"></i>&nbsp;&nbsp;
+                                    {{$customer->Tel6}}
+                                </div>
+                            @endif
+                            @if ($customer->Tel7 != "")
+                                <div class="mb-1 col-md-4 col-sm-6 col-lg-3"><i class="dripicons-phone"></i>&nbsp;&nbsp;
+                                    {{$customer->Tel7}}
+                                </div>
+                            @endif
+                            @if ($customer->Tel8 != "")
+                                <div class="mb-1 col-md-4 col-sm-6 col-lg-3"><i class="dripicons-phone"></i>&nbsp;&nbsp;
+                                    {{$customer->Tel8}}
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

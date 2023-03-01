@@ -277,15 +277,15 @@
 
         function deletePlan(id) {
             Swal.fire({
-                    title: 'PetClinic',
-                    text: '続行しますか？',
-                    icon: 'info',
-                    confirmButtonText: 'はい'
-                }).then((result) => {
-                    if (result.value) {
-                        $("#delete_plan_"+id).click();
-                    }
-                })
+                title: 'PetClinic',
+                text: '続行しますか？',
+                icon: 'info',
+                confirmButtonText: 'はい'
+            }).then((result) => {
+                if (result.value) {
+                    $("#delete_plan_"+id).click();
+                }
+            })
         }
 
         $( document ).ready(function() {
