@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="text-center mb-5 text-muted">
-                            <a href="index.html" class="d-block auth-logo">
+                            <a href="" class="d-block auth-logo">
                                 <img src="assets/images/logo-dark.png" alt="" height="20" class="auth-logo-dark mx-auto">
                                 <img src="assets/images/logo-light.png" alt="" height="20" class="auth-logo-light mx-auto">
                             </a>

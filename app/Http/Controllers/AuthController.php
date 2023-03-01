@@ -42,7 +42,6 @@ class AuthController extends Controller
     public function user_login(UserLoginRequest $req){
         $id = $req->input('id');
 
-
         $user = User::where("ClinicID", "=", $id)
         ->orWhere("MailAddress", "=", $id)
         ->orWhere("TelNo", "=", $id)
@@ -87,7 +86,7 @@ class AuthController extends Controller
         $user = User::where("ClinicID", "=", $cid)
         ->first();
 
-        if($user && $user->CurStatus != 5){
+        if($user && $user->CustStatus != 5){
             $now = Carbon::now();
             if($now->greaterThan($user->PasswordExpiry)){
 
@@ -116,7 +115,7 @@ class AuthController extends Controller
 
     }
 
-    public function user_pwd_reset(UserPwdResetRequest $requeset){
+    public function user_pwd_reset(UserPwdResetRequest $request){
 
         $pwd = $request->input('password', 'password');
         $cid = $request->session()->get('ClinicID', 'default');
@@ -124,14 +123,22 @@ class AuthController extends Controller
 
         if($user){
             $user->Password = Hash::make($pwd);
-            $user->LoginDateTime = Cabon::now();
-            $user->CurStatus = 5;
+            $user->LoginDateTime = Carbon::now();
+            $user->CustStatus = 5;
             $user->save();
             return redirect('/dashboard');
         }else{
             $request->session()->flush();
             return redirect('/user/login');
         }
+    }
+
+    public function user_request1_handle(Request $request){
+
+    }
+
+    public function user_request2_handle(Request $request){
+
     }
 
     public function customer_login(Request $req){

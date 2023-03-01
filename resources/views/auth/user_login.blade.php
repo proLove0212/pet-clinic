@@ -36,12 +36,11 @@
     <div class="mt-5 d-grid">
         <form action="{{url('user/request_1')}}" method="post">
             @csrf
-            <button class="btn btn-light waves-effect waves-light text-left" type="submit">パスワードがわからない方</button>
+            <button class="btn btn-light waves-effect waves-light text-left" style="width:100%" type="submit">パスワードがわからない方</button>
         </form>
         <form action="{{url('user/request_2')}}" method="post">
             @csrf
-            <button class="btn btn-light waves-effect waves-light text-left" type="submit">IDがわからない方、または両方ともわからない方</button>
+            <button class="btn btn-light waves-effect waves-light text-left" style="width:100%" type="submit">IDがわからない方、または両方ともわからない方</button>
         </form>
-
     </div>
 @endsection
