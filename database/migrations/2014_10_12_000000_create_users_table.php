@@ -16,10 +16,10 @@ return new class extends Migration
             $table->string('PeaksUserNo', 10)->unique();                    //ピークス内のユーザー番号 (000000)
             $table->string('ClinicID', 6)->unique();                        //病院ID　ゼロパディング数字5桁（000000)　　ログイン用
             $table->string('ClinicName', 100);                              //病院名
-            $table->string('TelNo', 13);                                    //現在の電話番号（ハイフンあり）　画面表示用
-            $table->string('TelNum', 13);                                   //現在の電話番号（ハイフン無し）　検索用
-            $table->string('TelNo_2', 13)->nullable()->default(null);       //転居する前の電話番号（ハイフンあり）　画面表示用
-            $table->string('TelNum_2', 13)->nullable()->default(null);      //転居する前の電話番号（ハイフン無し）　検索用
+            $table->string('TelNo');                                    //現在の電話番号（ハイフンあり）　画面表示用
+            $table->string('TelNum');                                   //現在の電話番号（ハイフン無し）　検索用
+            $table->string('TelNo_2')->nullable()->default(null);       //転居する前の電話番号（ハイフンあり）　画面表示用
+            $table->string('TelNum_2')->nullable()->default(null);      //転居する前の電話番号（ハイフン無し）　検索用
             $table->string('MailAddress')->unique();                        //メールアドレス
             $table->string('Password');                                     //不可逆暗号化
             $table->date('PasswordExpiry');                                 //仮パスワードの有効期限　yyyy-mm-dd　通常有効期限は発行後3日間

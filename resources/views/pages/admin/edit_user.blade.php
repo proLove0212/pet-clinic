@@ -37,7 +37,7 @@
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">電話番号</label>
                 <div class="col-sm-9">
-                  <input type="text" id="TelNo_input" value="{{$user->TelNo}}" class="form-control"  placeholder="ハイフンあり">
+                  <input type="text" id="TelNo_input" value="{{$TelNo}}" class="form-control"  placeholder="ハイフンあり">
                   <div class="msg-danger" id="TelNo_error"> </div>
                 </div>
             </div>

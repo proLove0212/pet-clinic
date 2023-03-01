@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use ESolution\DBEncryption\Traits\EncryptedAttribute;
 
 class User extends Authenticatable
 {
@@ -25,6 +26,7 @@ class User extends Authenticatable
         'ClinicName',
         'TelNo',
         'TelNum',
+        'TelNo_2',
         'TelNum_2',
         'MailAddress',
         'Password',
@@ -61,5 +63,10 @@ class User extends Authenticatable
      */
     protected $casts = [
 
+    ];
+
+
+    protected $encryptable = [
+        'TelNo','TelNum','TelNo_2', 'TelNum_2'
     ];
 }

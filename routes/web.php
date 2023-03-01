@@ -60,10 +60,12 @@ Route::middleware(['customAuth:user', 'maintain'])->group(function () {
     Route::get('/dashboard', 'App\HTTP\Controllers\UserController@index');
     Route::get('/search/name', 'App\HTTP\Controllers\UserController@getSearchNamePage');
     Route::get('/search/phone', 'App\HTTP\Controllers\UserController@getSearchPhonePage');
+    Route::post('/search/phone', 'App\HTTP\Controllers\UserController@getSearchPhoneResult');
     Route::get('/upload', 'App\HTTP\Controllers\UserController@getUploadPage');
     Route::get('/reception/settings', 'App\HTTP\Controllers\UserReceptionController@getReceptionSetting');
     Route::get('/reception/reason', 'App\HTTP\Controllers\UserReceptionController@getReceptionReason');
     Route::get('/user/pwd_reset', 'App\HTTP\Controllers\AuthController@getPasswordResetPage');
     Route::post('/user/pwd_reset', 'App\HTTP\Controllers\AuthController@user_pwd_reset');
+    Route::get('/customer/view/{c_no}', 'App\HTTP\Controllers\UserController@getCustomerInfo');
 
 });

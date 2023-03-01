@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->tinyInteger('DBNo')->nullable()->default(0);                                    //データベースの番号：1〜10
             $table->string('ClinicID', 10);                       //病院ID　ゼロパディング数字5桁（00000)
-            $table->string('CustNo', 10)->unique();                         //顧客番号
+            $table->string('CustNo', 10);                         //顧客番号
             $table->string('CustFamilyName', 100)->default('0');            //顧客姓　データがない場合はNullではなく文字数ゼロが入る
             $table->string('CustName', 100)->default('0');                  //顧客姓ふりがな　データがない場合はNullではなく文字数ゼロが入る
             $table->string('CustFamilyName_furigana', 100)->default('0');   //顧客名　データがない場合はNullではなく文字数ゼロが入る
