@@ -142,12 +142,12 @@
                     url: "{{url('/search/name')}}",
                     data: {
                         _token: "{{ csrf_token() }}",
-                        cust_family_name: $("#cust_family_name").val(),
-                        cust_name: $("#cust_name").val(),
-                        cust_family_name_furigana: $("#cust_family_name_furigana").val(),
-                        cust_name_furigana: $("#cust_name_furigana").val(),
-                        address: $("#address").val(),
-                        pet_name: $("#pet_name").val()
+                        cust_family_name: $("#cust_family_name-input").val(),
+                        cust_name: $("#cust_name-input").val(),
+                        cust_family_name_furigana: $("#cust_family_name_furigana-input").val(),
+                        cust_name_furigana: $("#cust_name_furigana-input").val(),
+                        address: $("#address-input").val(),
+                        pet_name: $("#pet_name-input").val()
                     },
                     dataType: 'json',
                     success: function (data) {

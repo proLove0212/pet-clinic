@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 use Str;
 
 use App\Models\User;
@@ -54,6 +55,49 @@ class UserController extends Controller
         ];
 
         return view('pages.user.search_name', $data);
+    }
+
+    public function getSearchNameResult(Request $request){
+        $cust_family_name = $request->input('cust_family_name', '');
+        $cust_name = $request->input('cust_name', '');
+        $cust_family_name_furigana = $request->input('cust_family_name_furigana', '');
+        $cust_name_furigana = $request->input('cust_name_furigana', '');
+        $address = $request->input('address', '');
+        $pet_name = $request->input('pet_name', '');
+
+        $cid = $request->session()->get('ClinicID', 'default');
+
+        $pets = Pet::where("ClinicID", $cid)
+            ->where(function (Builder $query) use ($pet_name) {
+                $query->where('PetName', 'like', "%{$pet_name}%")
+                    ->orWhere('PetName_furigana', 'like', "%{$pet_name}%");
+            })
+            ->pluck("CustNo");
+
+
+
+        $customers = Customer::where("ClinicID", "=", $cid)
+            ->where("CustFamilyName", "like", "%".$cust_family_name."%")
+            ->where("CustName", "like", "%".$cust_name."%")
+            ->where("CustFamilyName_furigana", "like", "%".$cust_family_name_furigana."%")
+            ->where("CustName_furigana", "like", "%".$cust_name_furigana."%")
+            ->where("Address", "like", "%".$address."%")
+            ->whereIn("CustNo", $pets)
+            ->get();
+
+
+        if(count($customers)){
+            $rslt = view("parts.customer_list")->with("customers", $customers)->render();
+
+            return response()->json( array(
+                'success' => true,
+                'html'=> $rslt
+            ));
+        }else{
+            return response()->json( array(
+                'success' => false,
+            ));
+        }
     }
 
 
