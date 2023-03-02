@@ -24,7 +24,7 @@ class PetSeeder extends Seeder
                 "PetName_furigana" => "こたろう",
                 "PetKind" => "犬",
                 "PetBreed" => "柴犬",
-                "PetBirthday" => "2019/01",
+                "PetBirthday" => "2019/01/01",
                 "PetDeathType" => 0,
                 "PetSex" => "M",
                 "VacInfo" => "８種混合ワクチン	2021/08/21	2021/08/21,狂犬病	2021/04/16	",

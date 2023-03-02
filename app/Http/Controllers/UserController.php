@@ -67,37 +67,62 @@ class UserController extends Controller
 
         $cid = $request->session()->get('ClinicID', 'default');
 
-        $pets = Pet::where("ClinicID", $cid)
-            ->where(function (Builder $query) use ($pet_name) {
-                $query->where('PetName', 'like', "%{$pet_name}%")
-                    ->orWhere('PetName_furigana', 'like', "%{$pet_name}%");
-            })
-            ->pluck("CustNo");
+        if($pet_name == ""){
+
+            $customers = Customer::where("ClinicID", "=", $cid)
+                ->where("CustFamilyName", "like", "%".$cust_family_name."%")
+                ->where("CustName", "like", "%".$cust_name."%")
+                ->where("CustFamilyName_furigana", "like", "%".$cust_family_name_furigana."%")
+                ->where("CustName_furigana", "like", "%".$cust_name_furigana."%")
+                ->where("Address", "like", "%".$address."%")
+                ->get();
 
 
+            if(count($customers)){
+                $rslt = view("parts.customer_list")->with("customers", $customers)->render();
 
-        $customers = Customer::where("ClinicID", "=", $cid)
-            ->where("CustFamilyName", "like", "%".$cust_family_name."%")
-            ->where("CustName", "like", "%".$cust_name."%")
-            ->where("CustFamilyName_furigana", "like", "%".$cust_family_name_furigana."%")
-            ->where("CustName_furigana", "like", "%".$cust_name_furigana."%")
-            ->where("Address", "like", "%".$address."%")
-            ->whereIn("CustNo", $pets)
-            ->get();
-
-
-        if(count($customers)){
-            $rslt = view("parts.customer_list")->with("customers", $customers)->render();
-
-            return response()->json( array(
-                'success' => true,
-                'html'=> $rslt
-            ));
+                return response()->json( array(
+                    'success' => true,
+                    'html'=> $rslt
+                ));
+            }else{
+                return response()->json( array(
+                    'success' => false,
+                ));
+            }
         }else{
-            return response()->json( array(
-                'success' => false,
-            ));
+            $pets = Pet::where("ClinicID", $cid)
+                ->where(function (Builder $query) use ($pet_name) {
+                    $query->where('PetName', 'like', "%{$pet_name}%")
+                        ->orWhere('PetName_furigana', 'like', "%{$pet_name}%");
+                })
+                ->pluck("CustNo");
+
+            $customers = Customer::where("ClinicID", "=", $cid)
+                ->where("CustFamilyName", "like", "%".$cust_family_name."%")
+                ->where("CustName", "like", "%".$cust_name."%")
+                ->where("CustFamilyName_furigana", "like", "%".$cust_family_name_furigana."%")
+                ->where("CustName_furigana", "like", "%".$cust_name_furigana."%")
+                ->where("Address", "like", "%".$address."%")
+                ->whereIn("CustNo", $pets)
+                ->get();
+
+
+            if(count($customers)){
+                $rslt = view("parts.customer_list")->with("customers", $customers)->render();
+
+                return response()->json( array(
+                    'success' => true,
+                    'html'=> $rslt
+                ));
+            }else{
+                return response()->json( array(
+                    'success' => false,
+                ));
+            }
         }
+
+
     }
 
 
@@ -203,8 +228,28 @@ class UserController extends Controller
     }
 
     public function getCustomerInfo(Request $request, $c_no){
+        $cid = $request->session()->get('ClinicID', 'default');
+        $customer = Customer::where("CustNo", $c_no)
+            ->where("ClinicID", $cid)
+            ->first();
 
+        if($customer){
+            $pets = Pet::where("CustNo", $c_no)
+            ->where("ClinicID", $cid)
+            ->get();
 
-        return view("pages.customer.info");
+            $data = [
+                'title' => '顧客情報',
+                'auth' => $request->session()->all(),
+                "customer" => $customer,
+                "pets" => $pets
+            ];
+
+            return view("pages.customer.info", $data);
+        }else{
+            $request->session()->flush();
+            return redirect('/');
+        }
+
     }
 }
