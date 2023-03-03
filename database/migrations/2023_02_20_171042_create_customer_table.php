@@ -54,7 +54,6 @@ return new class extends Migration
             $table->boolean('Replace')->nullable()->default(false);         //一括更新中に追加されたデータはTrue。　一括更新が終了したらFalse
             $table->string('EditID')->nullable();                           //個別で更新された際に送られてきたEditIDを保管。　重複してUpdateさせないため
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

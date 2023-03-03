@@ -4,20 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ClinicSetting extends Model
+class ReceptionReason extends Model
 {
     use HasFactory;
-    use SoftDeletes;
-
     protected $table = 'pckreasonsettings';
 
     protected $fillable = [
-        'user_id',
-        'visit_reason',
-        'visit_disp_order',
-        'take_time',
+        'PeaksUserNo',
+        'ClinicID',
+        'VisitReason',
+        'VisitReasonDispOrder',
+        'TakeTime',
     ];
 
     /**
@@ -28,11 +26,4 @@ class ClinicSetting extends Model
     protected $hidden = [
 
     ];
-
-
-    public function user()
-    {
-        return $this->belongsTo('App\Models\User', 'user_id', 'id');
-    }
-
 }

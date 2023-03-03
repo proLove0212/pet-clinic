@@ -70,10 +70,6 @@
     </div> <!-- end col -->
 </div>
 
-<div class="text-center">
-    <i class="dripicons-chevron-up font-size-20 waves-effect" id="toggler"></i>
-</div>
-
 <!-- end row -->
 <div class="row">
     <div class="col-lg-12">
@@ -84,7 +80,7 @@
 
                 </p>
 
-                <div class="row collapse" id = 'search_rslt_acc'>
+                <div class="row collapse show" id = 'search_rslt_acc'>
                     <div class="text-center mt-3" style="font-size: 24px"> <span class="bx bx-data"></span> データなし </div>
                 </div>
             </div>
@@ -131,7 +127,7 @@
                     success: function (data) {
                         if(data.success){
                             $("#search_rslt_acc").html(data.html)
-                            $("#toggler").click()
+
                         }else{
                             Swal.fire({
                                 title: 'PetClinic',
@@ -146,17 +142,10 @@
                     error: function (data) {
                         if(data.responseJSON && data.responseJSON.errors){
                             var errors = data.responseJSON.errors;
-                            console.log(errors)
+
                         }
                     }
                 });
-            })
-
-            $("#toggler").click(function(){
-                $("#toggler").toggleClass("dripicons-chevron-up")
-                $("#toggler").toggleClass("dripicons-chevron-down")
-                $("#search_dlg_acc").collapse("toggle")
-                $("#search_rslt_acc").collapse("toggle")
             })
         });
     </script>

@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Hash;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\ReceptionSetting;
 
 class UserSeeder extends Seeder
 {
@@ -70,6 +71,19 @@ class UserSeeder extends Seeder
             $user->Memo = $item["Memo"];
             $user->save();
 
+            $rcp_setting = new ReceptionSetting;
+            $rcp_setting->PeaksUserNo = $item["PeaksUserNo"];
+            $rcp_setting->ClinicID = $item["ClinicID"];
+            $rcp_setting->ClinicName = $item["ClinicName"];
+            $rcp_setting->Time1EnableDate = "2023/03/03";
+            $rcp_setting->RunningColumn1 = 1;
+            $rcp_setting->StartTime1 = "09:00";
+            $rcp_setting->EndTime1 = "12:00";
+            $rcp_setting->Time2EnableDate = "2023/03/03";
+            $rcp_setting->RunningColumn2 = 1;
+            $rcp_setting->StartTime2 = "15:00";
+            $rcp_setting->EndTime2 = "17:00";
+            $rcp_setting->save();
         }
     }
 }

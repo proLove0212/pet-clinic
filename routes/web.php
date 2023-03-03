@@ -64,8 +64,15 @@ Route::middleware(['customAuth:user', 'maintain'])->group(function () {
     Route::post('/search/phone', 'App\HTTP\Controllers\UserController@getSearchPhoneResult');
     Route::get('/upload', 'App\HTTP\Controllers\UserController@getUploadPage');
     Route::post('/upload', 'App\HTTP\Controllers\UserController@uploadCustomerData');
-    Route::get('/reception/settings', 'App\HTTP\Controllers\UserReceptionController@getReceptionSetting');
-    Route::get('/reception/reason', 'App\HTTP\Controllers\UserReceptionController@getReceptionReason');
+
+    Route::get('/reception/settings', 'App\HTTP\Controllers\ReceptionSettingController@index');
+    Route::post('/reception/settings', 'App\HTTP\Controllers\ReceptionSettingController@update');
+
+    Route::get('/reception/reason', 'App\HTTP\Controllers\ReceptionReasonController@index');
+    Route::post('/reception/reason', 'App\HTTP\Controllers\ReceptionReasonController@store');
+    Route::post('/reception/reason/order', 'App\HTTP\Controllers\ReceptionReasonController@swap');
+    Route::delete('/reception/reason/{id}', 'App\HTTP\Controllers\ReceptionReasonController@delete');
+
     Route::get('/user/pwd_reset', 'App\HTTP\Controllers\AuthController@getPasswordResetPage');
     Route::post('/user/pwd_reset', 'App\HTTP\Controllers\AuthController@user_pwd_reset');
     Route::get('/customer/view/{c_no}', 'App\HTTP\Controllers\UserController@getCustomerInfo');

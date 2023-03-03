@@ -19,7 +19,6 @@ return new class extends Migration
             $table->tinyInteger('VisitReasonDispOrder')->nullable()->default(1);    //来院理由の表示順
             $table->tinyInteger('TakeTime')->nullable()->default(20);               //来院理由別に一人当たりに必要な時間を設定（単位：分）
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

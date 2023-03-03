@@ -75,12 +75,7 @@
                     <p class="col-sm-9 col-md-10" style="padding-left:24px">{{date('Y年 m月 d日', strtotime($customer->LastCommingDate))}}</p>
                 </div>
 
-                <div class="row mb-2 d-flex justify-content-end">
-                    <a href="{{url("/customer/view/".$customer->CustNo)}}" class="btn btn-link waves-effect waves-light">
-                        <i class="dripicons-arrow-thin-right font-size-16 align-middle me-2"></i> もっと
-                    </a>
-                </div>
-
+                <div class="text-center mt-4"><a href="{{url("/customer/view/".$customer->CustNo)}}" class="btn btn-primary waves-effect waves-light btn-sm">もっと <i class="mdi mdi-arrow-right ms-1"></i></a></div>
 
             </div>
         </div>

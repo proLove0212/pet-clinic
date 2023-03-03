@@ -17,7 +17,6 @@ return new class extends Migration
             $table->dateTime('to');
             $table->string('memo')->nullable()->default('');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
