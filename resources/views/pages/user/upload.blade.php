@@ -50,7 +50,7 @@
         <div class="card">
             <div class="card-body">
 
-                <h4 class="card-title mb-3">顧客リスト</h4>
+                <h4 class="card-title mb-3">アップロードデータ</h4>
 
                 <div class="mb-3">
                     <textarea class="form-control" id="rslt_content" cols="30" rows="10"></textarea>

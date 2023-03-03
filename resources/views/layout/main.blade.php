@@ -131,8 +131,8 @@
                             @if ($auth['role'] == "user")
                                 <li>
                                     <a href="{{url('/dashboard')}}" class="waves-effect {{ Request::is('customers') ? 'active' : '' }}">
-                                        <i class="bx bx-group"></i>
-                                        <span key="t-users">顧客管理</span>
+                                        <i class="bx bx-home"></i>
+                                        <span key="t-users">管理画面</span>
                                     </a>
                                 </li>
                                 <li>
@@ -141,7 +141,7 @@
                                         <span key="t-tables">高度な検索</span>
                                     </a>
                                     <ul class="sub-menu mm-collapse" aria-expanded="false">
-                                        <li><a href="{{url('/search/phone')}}" key="t-basic-tables" class="{{ Request::is('search/phone') ? 'active' : '' }}" >番号検索</a></li>
+                                        <li><a href="{{url('/search/no')}}" key="t-basic-tables" class="{{ Request::is('search/phone') ? 'active' : '' }}" >番号検索</a></li>
                                         <li><a href="{{url('/search/name')}}" key="t-data-tables" class="{{ Request::is('search/name') ? 'active' : '' }}">名前検索</a></li>
                                     </ul>
                                 </li>
@@ -189,7 +189,7 @@
 
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">HOME</a></li>
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">トップページ</a></li>
                                             <li class="breadcrumb-item active">@yield('title')</li>
                                         </ol>
                                     </div>

@@ -57,13 +57,16 @@ Route::middleware(['customAuth:admin'])->group(function () {
 
 
 Route::middleware(['customAuth:user', 'maintain'])->group(function () {
-    Route::get('/dashboard', 'App\HTTP\Controllers\UserController@index');
-    Route::get('/search/name', 'App\HTTP\Controllers\UserController@getSearchNamePage');
-    Route::post('/search/name', 'App\HTTP\Controllers\UserController@getSearchNameResult');
-    Route::get('/search/phone', 'App\HTTP\Controllers\UserController@getSearchPhonePage');
-    Route::post('/search/phone', 'App\HTTP\Controllers\UserController@getSearchPhoneResult');
-    Route::get('/upload', 'App\HTTP\Controllers\UserController@getUploadPage');
-    Route::post('/upload', 'App\HTTP\Controllers\UserController@uploadCustomerData');
+    Route::get('/dashboard', 'App\HTTP\Controllers\UserDashboardController@index');
+
+    Route::get('/search/name', 'App\HTTP\Controllers\SearchNameController@index');
+    Route::post('/search/name', 'App\HTTP\Controllers\SearchNameController@search');
+
+    Route::get('/search/no', 'App\HTTP\Controllers\SearchNoController@index');
+    Route::post('/search/no', 'App\HTTP\Controllers\SearchNoController@search');
+
+    Route::get('/upload', 'App\HTTP\Controllers\UploadController@index');
+    Route::post('/upload', 'App\HTTP\Controllers\UploadController@store');
 
     Route::get('/reception/settings', 'App\HTTP\Controllers\ReceptionSettingController@index');
     Route::post('/reception/settings', 'App\HTTP\Controllers\ReceptionSettingController@update');

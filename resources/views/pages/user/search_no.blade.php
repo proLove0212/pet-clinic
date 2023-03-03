@@ -75,7 +75,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">検索結果</h4>
+                <h4 class="card-title">検索結果(<span id = "search_cnt">0</span>件)</h4>
                 <p class="card-title-desc">
 
                 </p>
@@ -117,7 +117,7 @@
             $("#search_btn").click(function(){
                 $.ajax({
                     type: "POST",
-                    url: "{{url('/search/phone')}}",
+                    url: "{{url('/search/no')}}",
                     data: {
                         _token: "{{ csrf_token() }}",
                         mode: $('#radio_cust_no').is(":checked") ? "cust" : "tel",
@@ -127,7 +127,7 @@
                     success: function (data) {
                         if(data.success){
                             $("#search_rslt_acc").html(data.html)
-
+                            $("#search_cnt").html(data.rslt_cnt)
                         }else{
                             Swal.fire({
                                 title: 'PetClinic',
@@ -137,13 +137,12 @@
                             })
 
                             $("#search_rslt_acc").html("<div class='text-center mt-3' style='font-size: 24px'> <span class='bx bx-data'></span> データなし </div>")
+                            $("#search_cnt").html(0)
                         }
                     },
                     error: function (data) {
-                        if(data.responseJSON && data.responseJSON.errors){
-                            var errors = data.responseJSON.errors;
-
-                        }
+                        $("#search_rslt_acc").html("<div class='text-center mt-3' style='font-size: 24px'> <span class='bx bx-data'></span> データなし </div>")
+                        $("#search_cnt").html(0)
                     }
                 });
             })

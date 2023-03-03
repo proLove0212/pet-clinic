@@ -22,7 +22,7 @@
                 <form action="{{url('/reception/reason')}}" method="post">
                     @csrf
                     <div class="mb-3 row">
-                        <label for="example-text-input" class="col-md-2 col-form-label">来院理由の                        </label>
+                        <label for="example-text-input" class="col-md-2 col-form-label">来院理由                        </label>
                         <div class="col-md-10">
                             <input class="form-control" type="text" value="{{old('reason_name')}}" name="reason_name">
                             @error('reason_name')
@@ -34,7 +34,7 @@
                     <div class="mb-3 row">
                         <label for="example-number-input" class="col-md-2 col-form-label">1枠時間                   </label>
                         <div class="col-md-10">
-                            <input class="form-control" type="number" value="{{old('reason_time')}}"  placeholder="Enter Number" name="reason_time">
+                            <input class="form-control" type="number" value="{{old('reason_time')}}"  placeholder="" name="reason_time">
                             @error('reason_time')
                                 <div class="msg-danger"> {{$message}} </div>
                             @enderror
