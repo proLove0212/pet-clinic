@@ -89,85 +89,25 @@
                 </div>
                 <div data-simplebar class="mt-2" style="max-height: 280px;">
                     <ul class="verti-timeline list-unstyled">
-                        <li class="event-list active">
-                            <div class="event-timeline-dot">
-                                <i class="bx bxs-right-arrow-circle font-size-18 bx-fade-right"></i>
-                            </div>
-                            <div class="d-flex">
-                                <div class="flex-shrink-0 me-3">
-                                    <h5 class="font-size-14">10 Nov <i class="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2"></i></h5>
+                        @foreach ($receptions as $reception)
+                            <li class="event-list {{$reception->Status == 2 ? 'active' : ""}}">
+                                <div class="event-timeline-dot">
+                                    <i class="bx bxs-right-arrow-circle font-size-18  {{$reception->Status == 2 ? 'bx-fade-right' : ""}}"></i>
                                 </div>
-                                <div class="flex-grow-1">
-                                    <div>
-                                        Posted <span class="fw-semibold">Beautiful Day with Friends</span> blog... <a href="javascript: void(0);">View</a>
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0 me-3">
+                                        <h5 class="font-size-14">{{date('m月 d日', strtotime($reception->VisitDate))}} <i class="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2"></i></h5>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div>
+                                             {{$reception->CustName}}  {{$reception->VisitReason}}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li class="event-list">
-                            <div class="event-timeline-dot">
-                                <i class="bx bx-right-arrow-circle font-size-18"></i>
-                            </div>
-                            <div class="d-flex">
-                                <div class="flex-shrink-0 me-3">
-                                    <h5 class="font-size-14">08 Nov <i class="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2"></i></h5>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <div>
-                                        If several languages coalesce, the grammar of the resulting... <a href="javascript: void(0);">Read</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="event-list">
-                            <div class="event-timeline-dot">
-                                <i class="bx bx-right-arrow-circle font-size-18"></i>
-                            </div>
-                            <div class="d-flex">
-                                <div class="flex-shrink-0 me-3">
-                                    <h5 class="font-size-14">02 Nov <i class="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2"></i></h5>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <div>
-                                        Create <span class="fw-semibold">Drawing a sketch blog</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="event-list">
-                            <div class="event-timeline-dot">
-                                <i class="bx bx-right-arrow-circle font-size-18"></i>
-                            </div>
-                            <div class="d-flex">
-                                <div class="flex-shrink-0 me-3">
-                                    <h5 class="font-size-14">24 Oct <i class="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2"></i></h5>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <div>
-                                        In enim justo, rhoncus ut, imperdiet a venenatis vitae
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="event-list">
-                            <div class="event-timeline-dot">
-                                <i class="bx bx-right-arrow-circle font-size-18"></i>
-                            </div>
-                            <div class="d-flex">
-                                <div class="flex-shrink-0 me-3">
-                                    <h5 class="font-size-14">21 Oct <i class="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2"></i></h5>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <div>
-                                        Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
-
-                <div class="text-center mt-4"><a href="javascript: void(0);" class="btn btn-primary waves-effect waves-light btn-sm">View More <i class="mdi mdi-arrow-right ms-1"></i></a></div>
             </div>
         </div>
         <!-- end card -->

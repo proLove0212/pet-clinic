@@ -30,6 +30,66 @@ class PetSeeder extends Seeder
                 "VacInfo" => "８種混合ワクチン	2021/08/21	2021/08/21,狂犬病	2021/04/16	",
                 "Memo" => ""
             ],
+            [
+                "CustNo" => "00001",
+                "ClinicID" => "24083",
+                "KarteNo" => "00001-02",
+                "PetNo" => "02",
+                "PetName" => "小太郎",
+                "PetName_furigana" => "こたろう",
+                "PetKind" => "犬",
+                "PetBreed" => "柴犬",
+                "PetBirthday" => "2019/01/01",
+                "PetDeathType" => 0,
+                "PetSex" => "M",
+                "VacInfo" => "８種混合ワクチン	2021/08/21	2021/08/21,狂犬病	2021/04/16	",
+                "Memo" => ""
+            ],
+            [
+                "CustNo" => "00002",
+                "ClinicID" => "37843",
+                "KarteNo" => "00002-01",
+                "PetNo" => "01",
+                "PetName" => "小太郎",
+                "PetName_furigana" => "こたろう",
+                "PetKind" => "犬",
+                "PetBreed" => "柴犬",
+                "PetBirthday" => "2019/01/01",
+                "PetDeathType" => 0,
+                "PetSex" => "M",
+                "VacInfo" => "８種混合ワクチン	2021/08/21	2021/08/21,狂犬病	2021/04/16	",
+                "Memo" => ""
+            ],
+            [
+                "CustNo" => "00002",
+                "ClinicID" => "37843",
+                "KarteNo" => "00002-02",
+                "PetNo" => "02",
+                "PetName" => "小太郎",
+                "PetName_furigana" => "こたろう",
+                "PetKind" => "犬",
+                "PetBreed" => "柴犬",
+                "PetBirthday" => "2019/01/01",
+                "PetDeathType" => 0,
+                "PetSex" => "M",
+                "VacInfo" => "８種混合ワクチン	2021/08/21	2021/08/21,狂犬病	2021/04/16	",
+                "Memo" => ""
+            ],
+            [
+                "CustNo" => "00003",
+                "ClinicID" => "30279",
+                "KarteNo" => "00003-02",
+                "PetNo" => "02",
+                "PetName" => "小太郎",
+                "PetName_furigana" => "こたろう",
+                "PetKind" => "犬",
+                "PetBreed" => "柴犬",
+                "PetBirthday" => "2019/01/01",
+                "PetDeathType" => 0,
+                "PetSex" => "M",
+                "VacInfo" => "８種混合ワクチン	2021/08/21	2021/08/21,狂犬病	2021/04/16	",
+                "Memo" => ""
+            ],
 
         ];
 

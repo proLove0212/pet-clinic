@@ -42,17 +42,19 @@ Route::post('/user/request2', 'App\HTTP\Controllers\AuthController@user_request2
 Route::post('/customer/login', 'App\HTTP\Controllers\AuthController@customer_login')->name('customer_login');
 
 Route::middleware(['customAuth:admin'])->group(function () {
-    Route::get('/admin/users', 'App\HTTP\Controllers\AdminController@all_users');
-    Route::get('/admin/users/add', 'App\HTTP\Controllers\AdminController@add_user');
-    Route::post('/admin/users/add', 'App\HTTP\Controllers\AdminController@create_user');
-    Route::get('/admin/users/edit', 'App\HTTP\Controllers\AdminController@edit_user');
-    Route::post('/admin/users/edit/{id}', 'App\HTTP\Controllers\AdminController@update_user');
-    Route::delete('/admin/users/delete', 'App\HTTP\Controllers\AdminController@delete_user');
-    Route::get('/admin/mail', 'App\HTTP\Controllers\AdminController@mail');
-    Route::post('/admin/mail/send', 'App\HTTP\Controllers\AdminController@sendMails');
-    Route::get('/admin/maintain', 'App\HTTP\Controllers\AdminController@maintain');
-    Route::post('/admin/maintain', 'App\HTTP\Controllers\AdminController@add_maintain');
-    Route::delete('/admin/maintain/delete/{id}', 'App\HTTP\Controllers\AdminController@delete_maintain');
+    Route::get('/admin/users', 'App\HTTP\Controllers\AdminController@index');
+    Route::get('/admin/users/add', 'App\HTTP\Controllers\AdminController@create');
+    Route::post('/admin/users/add', 'App\HTTP\Controllers\AdminController@store');
+    Route::get('/admin/users/edit', 'App\HTTP\Controllers\AdminController@edit');
+    Route::post('/admin/users/edit/{id}', 'App\HTTP\Controllers\AdminController@update');
+    Route::delete('/admin/users/delete', 'App\HTTP\Controllers\AdminController@delete');
+
+    Route::get('/admin/mail', 'App\HTTP\Controllers\AdminMailController@index');
+    Route::post('/admin/mail/send', 'App\HTTP\Controllers\AdminMailController@send');
+
+    Route::get('/admin/maintain', 'App\HTTP\Controllers\MaintainController@index');
+    Route::post('/admin/maintain', 'App\HTTP\Controllers\MaintainController@store');
+    Route::delete('/admin/maintain/delete/{id}', 'App\HTTP\Controllers\MaintainController@delete');
 });
 
 

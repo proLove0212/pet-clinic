@@ -35,61 +35,60 @@
 @endsection
 
 @section('content')
-<div class="d-flex justify-content-end">
-    <!-- Scrollable modal -->
-    <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalScrollableTitle">サーバーメンテナンス</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title mb-4">メンテナンス  </h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3 row">
+                            <label for="example-datetime-local-input" class="col-md-3 col-form-label">開始日時</label>
+                            <div class="col-md-9">
+                                <input class="form-control" id="start_time" type="datetime-local" >
+
+                                <div class="msg-danger" id="start_time_msg"></div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="example-datetime-local-input" class="col-md-3 col-form-label">終了日時</label>
+                            <div class="col-md-9">
+                                <input class="form-control" id="end_time" type="datetime-local">
+
+                                <div class="msg-danger" id="end_time_msg"></div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-form-label">メモ</label>
+                            <div class="col-md-9">
+                                <input type="text range" id="memo" class="form-control" value="" placeholder="">
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <button type="button" id='btn_save' class="btn btn-primary">保存</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="">
+                            WEB情報検索サービスのサイトは[STARTDATE]にサーバーのメンテナンスを実施します。
+                            <br>
+                            停止に伴い、下記の通り情報検索サービスを一時休止いたします。
+                            <br>
+                            <B>■サービスの休止日時</B><br>
+                            　開始：[STARTDATETIME]<br>
+                            　終了：[ENDDATETIME]<br>
+                            <br>
+                            ※作業の状況により終了時間が前後することがございますのでご了承ください。
+                        </p>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <div class="mb-3 row">
-                        <label for="example-datetime-local-input" class="col-md-3 col-form-label">開始日時</label>
-                        <div class="col-md-9">
-                            <input class="form-control" id="start_time" type="datetime-local" >
-
-                            <div class="msg-danger" id="start_time_msg"></div>
-                        </div>
-                    </div>
-
-                    <div class="mb-3 row">
-                        <label for="example-datetime-local-input" class="col-md-3 col-form-label">終了日時</label>
-                        <div class="col-md-9">
-                            <input class="form-control" id="end_time" type="datetime-local">
-
-                            <div class="msg-danger" id="end_time_msg"></div>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label class="col-md-3 col-form-label">メモ</label>
-                        <div class="col-md-9">
-                          <input type="text range" id="memo" class="form-control" value="" placeholder="">
-                        </div>
-                    </div>
-
-                    <p class="p-3 mt-3">
-                        WEB情報検索サービスのサイトは[STARTDATE]にサーバーのメンテナンスを実施します。
-                        <br>
-                        停止に伴い、下記の通り情報検索サービスを一時休止いたします。
-                        <br>
-                        <B>■サービスの休止日時</B><br>
-                        　開始：[STARTDATETIME]<br>
-                        　終了：[ENDDATETIME]<br>
-                        <br>
-                        ※作業の状況により終了時間が前後することがございますのでご了承ください。
-                    </p>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="btn_close" class="btn btn-light" >キャンセル</button>
-                    <button type="button" id='btn_save' class="btn btn-primary">保存</button>
-                </div>>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="row">
@@ -98,7 +97,7 @@
             <div class="card-body">
                 <div class="d-flex align-items-start mb-3">
                     <div class="me-2">
-                        <h5 class="card-title mb-4">メンテナンス  </h5>
+                        <h5 class="card-title mb-4">メンテナンスリスト  </h5>
                     </div>
                     <div class="dropdown ms-auto">
                         <a class="text-muted font-size-16" role="button" data-bs-toggle="modal" data-bs-target="#exampleModalScrollable">

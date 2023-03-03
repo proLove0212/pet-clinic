@@ -22,14 +22,25 @@ class UserDashboardController extends Controller
 
         $customer_cnt = Customer::where("ClinicID", "=", $cid)->count();
         $pet_cnt = Pet::where("ClinicID", "=", $cid)->count();
-        $reception_cnt = Reception::where("ClinicID", "=", $cid)->count();
+        $reception_cnt = Reception::where("ClinicID", "=", $cid)
+            ->where("Status", "<>", 0)
+            ->count();
+
+        $receptions = Reception::where("ClinicID", $cid)
+            ->where(function($query) {
+                $query->where("Status", 1)
+                    ->orWhere("Status", 2);
+            })
+            ->orderBy("VisitOrderIndex", "asc")
+            ->get();
 
         $data = [
             'title' => '管理画面',
             'auth' => $request->session()->all(),
             'customer_cnt' => $customer_cnt,
             'pet_cnt' => $pet_cnt,
-            'reception_cnt' => $reception_cnt
+            'reception_cnt' => $reception_cnt,
+            "receptions" => $receptions
         ];
 
         return view('pages.user.index', $data);
