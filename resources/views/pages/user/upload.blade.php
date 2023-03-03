@@ -53,7 +53,11 @@
                 <h4 class="card-title mb-3">顧客リスト</h4>
 
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-primary w-md">アップロード開始</button>
+                    <textarea class="form-control" id="rslt_content" cols="30" rows="10"></textarea>
+                </div>
+
+                <div class="mb-3" id="btn_content">
+                    <button id="submit_btn" class="btn btn-primary w-md">アップロード開始</button>
                 </div>
             </div>
         </div>
@@ -73,15 +77,62 @@
 
     <script>
         $( document ).ready(function() {
+
             $("#uploadFileSelector").change(function(event){
                 var input = event.target;
 
                 var reader = new FileReader();
                 reader.onload = function() {
-                    alert(reader.result)
+                    $("#rslt_content").val(reader.result)
                 };
                 reader.readAsText(input.files[0]);
             })
+
+            $("#submit_btn").click(function(){
+                try{
+                    data = JSON.parse($("#rslt_content").val());
+                    $.ajax({
+                        type: "POST",
+                        url: "{{url('/upload')}}",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            cust_data: data
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                            if(data.success){
+                                Swal.fire({
+                                    title: 'PetClinic',
+                                    text:  "登録されました。",
+                                    icon: 'success',
+                                    confirmButtonText: 'はい'
+                                })
+                            }
+                        },
+                        error: function (data) {
+                            if(data.responseJSON){
+                                var errors = data.responseJSON;
+
+                                Swal.fire({
+                                    title: 'PetClinic',
+                                    text:  errors.msg,
+                                    icon: 'info',
+                                    confirmButtonText: 'はい'
+                                })
+                            }
+                        }
+                    });
+                }catch (e){
+                    Swal.fire({
+                        title: 'PetClinic',
+                        text:  "JSONファイルではありません。",
+                        icon: 'info',
+                        confirmButtonText: 'はい'
+                    })
+                }
+
+            })
+
         });
     </script>
 @endsection

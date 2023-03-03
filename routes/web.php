@@ -63,6 +63,7 @@ Route::middleware(['customAuth:user', 'maintain'])->group(function () {
     Route::get('/search/phone', 'App\HTTP\Controllers\UserController@getSearchPhonePage');
     Route::post('/search/phone', 'App\HTTP\Controllers\UserController@getSearchPhoneResult');
     Route::get('/upload', 'App\HTTP\Controllers\UserController@getUploadPage');
+    Route::post('/upload', 'App\HTTP\Controllers\UserController@uploadCustomerData');
     Route::get('/reception/settings', 'App\HTTP\Controllers\UserReceptionController@getReceptionSetting');
     Route::get('/reception/reason', 'App\HTTP\Controllers\UserReceptionController@getReceptionReason');
     Route::get('/user/pwd_reset', 'App\HTTP\Controllers\AuthController@getPasswordResetPage');

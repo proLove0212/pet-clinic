@@ -104,8 +104,8 @@
                             <h2 class="accordion-header" id="pet-heading-{{$pet->id}}">
                                 <div class="accordion-button fw-medium collapsed"  data-bs-toggle="collapse" data-bs-target="#pet-collapse-{{$pet->id}}" aria-expanded="false" aria-controls="flush-collapse-{{$pet->id}}">
                                     <div class="flex-grow-1">
-                                        <h6 class="mb-2">小太郎（犬）</h6>
-                                        <p class="text-muted mb-0">00123-01 </p>
+                                        <h6 class="mb-2">{{$pet->PetName}}（{{$pet->PetKind}}）</h6>
+                                        <p class="text-muted mb-0">{{$pet->KarteNo}} </p>
                                     </div>
                                 </div>
                             </h2>

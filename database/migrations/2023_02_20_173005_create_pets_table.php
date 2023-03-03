@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('ClinicID', 10);                                         //病院ID　ゼロパディング数字5桁（00000)
             $table->string('CustNo', 10);                                           //顧客番号
             $table->string('KarteNo', 10);                                          //カルテ番号　XXXXX-XXもしくはXXXXXX-XX形式
-            $table->string('PetNo', 3)->unique();                                   //ペットの枝番　01～99　注：現状２桁だが３桁を確保
+            $table->string('PetNo', 3);                                   //ペットの枝番　01～99　注：現状２桁だが３桁を確保
             $table->string('PetName', 100);                                         //ペット名
             $table->string('PetName_furigana', 100)->nullable()->default('');       //ペット名のふりがな
             $table->string('PetKind', 15)->nullable();                              //動物種類　犬、猫、うさぎ　など
