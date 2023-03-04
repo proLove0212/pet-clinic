@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 use App\HTTP\Requests\NewUserRequest;
 use App\HTTP\Requests\UpdateUserRequest;
-use App\HTTP\Requests\SendEmailRequest;
 use Carbon\Carbon;
 use Hash;
 use Str;
@@ -105,7 +103,6 @@ class AdminController extends Controller
         $data->Memo = $request->input('Memo') ? $request->input('Memo') : "" ;
         $data->save();
 
-        //Mail::to($data->email)->send(new UserCreated($pwd));
         $receiver = $request->input('MailAddress');
         $subject = "PetClinic";
         $content = "

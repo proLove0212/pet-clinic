@@ -35,11 +35,17 @@ Route::get('/maintain', 'App\HTTP\Controllers\AuthController@notification');
 Route::post('/logout', 'App\HTTP\Controllers\AuthController@logout');
 
 Route::post('/admin/login', 'App\HTTP\Controllers\AuthController@admin_login')->name('admin_login');
-Route::post('/user/login', 'App\HTTP\Controllers\AuthController@user_login')->name('user_login')->middleware("maintain");
-Route::post('/user/request1', 'App\HTTP\Controllers\AuthController@user_request1_handle')->name('user_request1')->middleware("maintain");
-Route::post('/user/request2', 'App\HTTP\Controllers\AuthController@user_request2_handle')->name('user_request2')->middleware("maintain");
 
-Route::post('/customer/login', 'App\HTTP\Controllers\AuthController@customer_login')->name('customer_login');
+Route::middleware(['maintain'])->group(function () {
+    Route::post('/user/login', 'App\HTTP\Controllers\AuthController@user_login')->name('user_login');
+    Route::post('/customer/login', 'App\HTTP\Controllers\AuthController@customer_login')->name('customer_login');
+
+    Route::get('/password_reset_requests/new', 'App\HTTP\Controllers\UserForgotController@index_pwd');
+    Route::post('/password_reset_requests/new', 'App\HTTP\Controllers\UserForgotController@reset_pwd');
+    Route::get('/password_reset_requests/all', 'App\HTTP\Controllers\UserForgotController@index_all');
+    Route::post('/password_reset_requests/all', 'App\HTTP\Controllers\UserForgotController@reset_all');
+
+});
 
 Route::middleware(['customAuth:admin'])->group(function () {
     Route::get('/admin/users', 'App\HTTP\Controllers\AdminController@index');

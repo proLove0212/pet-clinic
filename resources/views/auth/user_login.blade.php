@@ -34,13 +34,7 @@
     </form>
 
     <div class="mt-5 d-grid">
-        <form action="{{url('user/request_1')}}" method="post">
-            @csrf
-            <button class="btn btn-light waves-effect waves-light text-left" style="width:100%" type="submit">パスワードがわからない方</button>
-        </form>
-        <form action="{{url('user/request_2')}}" method="post">
-            @csrf
-            <button class="btn btn-light waves-effect waves-light text-left" style="width:100%" type="submit">IDがわからない方、または両方ともわからない方</button>
-        </form>
+        <a href="{{url('password_reset_requests/new')}}" class="mb-3" >パスワードがわからない方</a>
+        <a href="{{url('password_reset_requests/all')}}" class="mb-3">IDがわからない方、または両方ともわからない方</a>
     </div>
 @endsection
