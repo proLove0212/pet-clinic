@@ -10,7 +10,6 @@ use Hash;
 use Illuminate\Support\Facades\Validator;
 
 use App\Models\User;
-use App\Models\Customer;
 use App\Models\MaintainLog;
 use Carbon\Carbon;
 

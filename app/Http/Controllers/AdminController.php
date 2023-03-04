@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Mail;
 
 use App\HTTP\Requests\NewUserRequest;
 use App\HTTP\Requests\UpdateUserRequest;
-use App\HTTP\Requests\NewMaintainRequest;
 use App\HTTP\Requests\SendEmailRequest;
 use Carbon\Carbon;
 use Hash;

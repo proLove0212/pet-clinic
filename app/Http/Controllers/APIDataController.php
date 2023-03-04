@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Str;
 use DB;
-use App\Models\User;
 use App\Models\Customer;
 use App\Models\Pet;
 use App\Models\Reception;
@@ -28,7 +27,7 @@ class APIDataController extends Controller
             ], 202);
         }
 
-        $cg_check = sum(array_map('intval', explode(',', $cid))) + sum(array_map('intval', explode(',', $dt)));
+        $cg_check = array_sum(array_map('intval', explode(',', $cid))) + array_sum(array_map('intval', explode(',', $dt)));
 
         if($cg !== $cg_check){
             return response()->json([
@@ -162,7 +161,7 @@ class APIDataController extends Controller
                     return response()->json([
                         "success" => true,
                         "msg" => "Pet deleted!"
-                    ], 200);
+                    ], 101);
                 }else{
                     return response()->json([
                         "success" => false,
@@ -190,7 +189,7 @@ class APIDataController extends Controller
 
         try {
             $customer = Customer::where("ClinicID", $cid)
-                    ->where("CustNo", $cust_no)
+                    ->where("CustNo", $cust_data["CustNo"])
                     ->first();
 
 
@@ -280,7 +279,7 @@ class APIDataController extends Controller
 
             }else{
                 $customer = new Customer;
-                $customer->ClinicID = $cust_json->ClinicID;
+                $customer->ClinicID = $cid;
                 $customer->CustNo = $cust_data["CustNo"];
                 $customer->CustFamilyName = $cust_data["CustFamilyName"];
                 $customer->CustName = $cust_data["CustName"];
@@ -344,11 +343,11 @@ class APIDataController extends Controller
 
 
                 Pet::where("ClinicID", $cid)
-                    ->where("CustNo", $cust_no)
+                    ->where("CustNo", $cust_data["CustNo"])
                     ->delete();
 
                 $pet = new Pet;
-                $pet->CustNo = $cust_no;
+                $pet->CustNo = $cust_data["CustNo"];
                 $pet->ClinicID = $cid;
                 $pet->KarteNo = $pet_data["KarteNo"];
                 $pet->PetNo = $pet_data["PetNo"];

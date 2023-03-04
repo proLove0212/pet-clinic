@@ -3,16 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
-use App\HTTP\Requests\SendEmailRequest;
-
-use App\Mail\CustomMail;
-use App\Models\User;
-use App\Models\Customer;
-use App\Models\Pet;
-use App\Models\Reception;
-use App\Models\Maintain;
+use App\HTTP\Requests\NewMaintainRequest;
 use App\Models\MaintainLog;
 
 class MaintainController extends Controller
