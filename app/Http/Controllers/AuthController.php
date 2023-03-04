@@ -23,7 +23,7 @@ class AuthController extends Controller
             'password' => 'required|min:8'
         ]);
 
-        $user = DB::table('admin')->where("name", "administrator")->first();
+        $user = DB::table('admin')->where("name", "管理者")->first();
         if(Hash::check($req->input('password'), $user->password)){
             $req->session()->put('name', $user->name);
             $req->session()->put('role', 'admin');
