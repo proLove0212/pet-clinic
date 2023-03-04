@@ -9,29 +9,6 @@
     <!-- Sweet Alert-->
     <link href="{{url('assets/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
 
-    <style>
-        #clock {
-            font-family: 'Share Tech Mono', monospace;
-            color: #ffffff;
-            text-align: center;
-            color: #daf6ff;
-            text-shadow: 0 0 20px rgba(10, 175, 230, 1),  0 0 20px rgba(10, 175, 230, 0);
-        }
-        #clock .time {
-            letter-spacing: 0.05em;
-            font-size: 40px;
-            padding: 5px 0;
-        }
-        #clock .date {
-            letter-spacing: 0.1em;
-            font-size: 24px;
-        }
-        #clock .text {
-            letter-spacing: 0.1em;
-            font-size: 12px;
-            padding: 20px 0 0;
-        }
-    </style>
 @endsection
 
 @section('content')
@@ -131,19 +108,19 @@
                                                 if($now->greaterThan($to)){
                                                     echo "
                                                         <div class='flex-shrink-0 align-self-center me-3'>
-                                                            <i class='mdi mdi-circle text-warning font-size-17'></i>
+                                                            <i class='mdi mdi-check-all text-success font-size-20'></i>
                                                         </div>
                                                         ";
                                                 }else if($now->lessThan($from)){
                                                     echo "
                                                         <div class='flex-shrink-0 align-self-center me-3'>
-                                                            <i class='mdi mdi-circle text-success font-size-17'></i>
+                                                            <i class='mdi mdi-progress-wrench text-warning font-size-20'></i>
                                                         </div>
                                                         ";
                                                 }else{
                                                     echo "
                                                         <div class='flex-shrink-0 align-self-center me-3'>
-                                                            <i class='mdi mdi-circle text-primary font-size-17'></i>
+                                                            <i class='mdi mdi-tools text-primary font-size-20'></i>
                                                         </div>
                                                         ";
                                                 }
@@ -216,36 +193,6 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-body">
-
-                <div class="row aligh-items-center">
-                    <div class="col-sm-6">
-                        <div id="clock">
-                            <p class="time" id="time"></p>
-                            <p class="date" id="date"></p>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="my-3">
-                            <i class='mdi mdi-circle text-success font-size-17'></i>メンテナンス終了
-                        </div>
-                        <div class="mb-3">
-                            <i class='mdi mdi-circle text-primary font-size-17'></i>メンテナンス中
-                        </div>
-                        <div class="mb-3">
-                            <i class='mdi mdi-circle text-warning font-size-17'></i>メンテナンス予定
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 @endsection
 
 
@@ -257,22 +204,6 @@
     <script src="{{url('assets/js/pages/sweet-alerts.init.js')}}"></script>
 
     <script>
-        var week = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-        var timerID = setInterval(updateTime, 1000);
-        updateTime();
-        function updateTime() {
-            var cd = new Date();
-            $("#time").html(zeroPadding(cd.getHours(), 2) + ':' + zeroPadding(cd.getMinutes(), 2) + ':' + zeroPadding(cd.getSeconds(), 2));
-            $("#date").html(zeroPadding(cd.getFullYear(), 4) + '-' + zeroPadding(cd.getMonth()+1, 2) + '-' + zeroPadding(cd.getDate(), 2) + ' ' + week[cd.getDay()]);
-        };
-
-        function zeroPadding(num, digit) {
-            var zero = '';
-            for(var i = 0; i < digit; i++) {
-                zero += '0';
-            }
-            return (zero + num).slice(-digit);
-        }
 
         function deletePlan(id) {
             Swal.fire({

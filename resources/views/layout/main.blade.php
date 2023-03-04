@@ -12,17 +12,17 @@
         <link rel="shortcut icon" href="{{url('assets/images/favicon.ico')}}">
 
         <!-- Bootstrap Css -->
-        <link href="{{url('assets/css/bootstrap-dark.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+        <link href="{{url('assets/css/bootstrap.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
         <!-- Icons Css -->
         <link href="{{url('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
         <!-- App Css-->
-        <link href="{{url('assets/css/app-dark.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
+        <link href="{{url('assets/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
         <link href="{{url('assets/css/custom.css')}}" id="custom-style" rel="stylesheet" type="text/css" />
 
         @yield('stylesheet')
     </head>
 
-    <body data-sidebar="dark">
+    <body>
 
     <!-- <body data-layout="horizontal" data-topbar="dark"> -->
 
@@ -37,10 +37,10 @@
                         <div class="navbar-brand-box">
                             <a href="" class="logo logo-dark">
                                 <span class="logo-sm">
-                                    <img src="{{url('assets/images/logo.svg')}}" alt="" height="22">
+                                    <img src="{{url('assets/images/logo.png')}}" alt="" height="40">
                                 </span>
                                 <span class="logo-lg">
-                                    <img src="{{url('assets/images/logo-dark.png')}}" alt="" height="17">
+                                    <img src="{{url('assets/images/logo-dark.png')}}" alt="" height="40">
                                 </span>
                             </a>
 

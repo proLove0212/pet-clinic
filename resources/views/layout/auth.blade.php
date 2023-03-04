@@ -12,16 +12,20 @@
         <link rel="shortcut icon" href="{{url('assets/images/favicon.ico')}}">
 
         <!-- Bootstrap Css -->
-        <link href="{{url('assets/css/bootstrap-dark.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+        <link href="{{url('assets/css/bootstrap.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
         <!-- Icons Css -->
         <link href="{{url('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
         <!-- App Css-->
-        <link href="{{url('assets/css/app-dark.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
+        <link href="{{url('assets/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
         <link href="{{url('assets/css/custom.css')}}" id="custom-style" rel="stylesheet" type="text/css" />
 
     </head>
 
     <body>
+        <div class="home-btn d-none d-sm-block">
+            <a href="{{url('/')}}" class="text-dark"><i class="fas fa-home h2"></i></a>
+        </div>
+
         <div class="account-pages my-5 pt-sm-5">
             <div class="container">
                 <div class="row justify-content-center">
@@ -52,7 +56,7 @@
                                     <a href="" class="auth-logo-dark">
                                         <div class="avatar-md profile-user-wid mb-4">
                                             <span class="avatar-title rounded-circle bg-light">
-                                                <img src="{{url('assets/images/logo.svg')}}" alt="" class="rounded-circle" height="34">
+                                                <img src="{{url('assets/images/logo.png')}}" alt="" class="rounded-circle" height="50">
                                             </span>
                                         </div>
                                     </a>

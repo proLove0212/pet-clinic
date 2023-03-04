@@ -15,21 +15,24 @@ class APIDataController extends Controller
 {
     //
     public function index(Request $request){
-        $cid = $request->query('key', 'default');
+
+        $cid = $request->query('cid', 'default');
         $dt = $request->query('dt', 'default');
-        $cg = $request->query('cg', 'default');
+        $dg = $request->query('dg', 'default');
         $mode = $request->query('mode', 'default');
 
-        if($cid == "default" || $dt == "default" || $cg == "default" || $mode == "default"){
+
+        if($cid == "default" || $dt == "default" || $dg == "default" || $mode == "default"){
             return response()->json([
                 "success" => false,
-                "msg" => "Invalid query!"
+                "msg" => "Query type is not corrected!"
             ], 202);
         }
 
-        $cg_check = array_sum(array_map('intval', explode(',', $cid))) + array_sum(array_map('intval', explode(',', $dt)));
+        $dg_check = array_sum(array_map('intval', str_split($cid))) + array_sum(array_map('intval', str_split($dt)));
 
-        if($cg !== $cg_check){
+
+        if($dg != $dg_check){
             return response()->json([
                 "success" => false,
                 "msg" => "Invalid query!"
@@ -37,38 +40,48 @@ class APIDataController extends Controller
         }
 
         if($mode == "addupdate"){
-            if($request->input('Version', 'default') != "Ver2.0"){
+            $body = json_decode($request->getContent());
+
+            try {
+                if($body->Version != "Ver2.0"){
+                    return response()->json([
+                        "success" => false,
+                        "msg" => "Old version"
+                    ], 202);
+                }
+
+                $ClinicID = $body->ClinicID;
+
+                if($cid != $ClinicID){
+                    return response()->json([
+                        "success" => false,
+                        "msg" => "Invalid data!"
+                    ], 202);
+                }
+
+
+                $rslt = $this->addUpdate($cid, $body);
+
+
+                if($rslt){
+                    return response()->json([
+                        "success" => true,
+                        "msg" => "Customer changed"
+                    ], 200);
+                }else{
+                    return response()->json([
+                        "success" => false,
+                        "msg" => "DB Error"
+                    ], 201);
+                }
+            } catch (\Throwable $th) {
                 return response()->json([
                     "success" => false,
-                    "msg" => "Invalid data!"
-                ], 202);
-            }
-
-            $ClinicID = $request->input('ClinicID', 'default');
-
-            if($cid !== $ClinicID){
-                return response()->json([
-                    "success" => false,
-                    "msg" => "Invalid data!"
-                ], 202);
-            }
-
-            $cust_data = $request->input('CustData', null);
-            $pet_data = $request->input('PetData', null);
-
-            $rslt = $this->addUpdate($cid, $cust_data, $pet_data);
-
-            if($rslt){
-                return response()->json([
-                    "success" => true,
-                    "msg" => "Customer changed"
-                ], 101);
-            }else{
-                return response()->json([
-                    "success" => false,
-                    "msg" => "DB Error"
+                    "msg" => "Invalid Datatype"
                 ], 201);
             }
+
+
         }else if($mode == "change_custno"){
             $body = $request->getContent();
 
@@ -76,11 +89,12 @@ class APIDataController extends Controller
 
                 $rslt = $this->changeCustNo($cid, explode("\t", $body)[0], explode("\t", $body)[1]);
 
+
                 if($rslt){
                     return response()->json([
                         "success" => true,
                         "msg" => "CustNo changed!"
-                    ], 101);
+                    ], 200);
                 }else{
                     return response()->json([
                         "success" => false,
@@ -95,7 +109,7 @@ class APIDataController extends Controller
                 ], 202);
             }
         }
-        else if($mode == "change_karteno"){
+        else if($mode == "change_kartetno"){
             $body = $request->getContent();
 
             try {
@@ -110,11 +124,11 @@ class APIDataController extends Controller
                     return response()->json([
                         "success" => true,
                         "msg" => "KarteNo changed!"
-                    ], 101);
+                    ], 200);
                 }else{
                     return response()->json([
                         "success" => false,
-                        "msg" => "DB Error"
+                        "msg" => "KarteNo Error"
                     ], 201);
                 }
             } catch (\Throwable $th) {
@@ -136,7 +150,7 @@ class APIDataController extends Controller
                     return response()->json([
                         "success" => true,
                         "msg" => "Cust deleted!"
-                    ], 101);
+                    ], 200);
                 }else{
                     return response()->json([
                         "success" => false,
@@ -161,7 +175,7 @@ class APIDataController extends Controller
                     return response()->json([
                         "success" => true,
                         "msg" => "Pet deleted!"
-                    ], 101);
+                    ], 200);
                 }else{
                     return response()->json([
                         "success" => false,
@@ -180,29 +194,30 @@ class APIDataController extends Controller
 
         return response()->json([
             "success" => true
-        ], 101);
+        ], 200);
     }
 
-    public function addUpdate($cid, $cust_data, $pet_data){
+    public function addUpdate($cid, $cust_json){
 
         DB::beginTransaction();
 
         try {
+            $cust_no = $cust_json->CustData->CustNo;
+
             $customer = Customer::where("ClinicID", $cid)
-                    ->where("CustNo", $cust_data["CustNo"])
+                    ->where("CustNo", $cust_no)
                     ->first();
 
-
             if($customer){
-                $customer->ClinicID = $cid;
-                $customer->CustNo = $cust_data["CustNo"];
-                $customer->CustFamilyName = $cust_data["CustFamilyName"];
-                $customer->CustName = $cust_data["CustName"];
-                $customer->CustFamilyName_furigana = $cust_data["CustFamilyName_furigana"];
-                $customer->CustName_furigana = $cust_data["CustName_furigana"];
-                $customer->Address = $cust_data["Address"];
+                $customer->ClinicID = $cust_json->ClinicID;
+                $customer->CustNo = $cust_json->CustData->CustNo;
+                $customer->CustFamilyName = $cust_json->CustData->CustFamilyName;
+                $customer->CustName = $cust_json->CustData->CustName;
+                $customer->CustFamilyName_furigana = $cust_json->CustData->CustFamilyName_furigana;
+                $customer->CustName_furigana = $cust_json->CustData->CustName_furigana;
+                $customer->Address = $cust_json->CustData->Address;
 
-                $tels = explode("/", $cust_data["Tel"]);
+                $tels = explode("/", $cust_json->CustData->Tel);
                 foreach ($tels as $index => $tel) {
 
                     if($index == 0){
@@ -248,46 +263,46 @@ class APIDataController extends Controller
 
                 }
 
-                $customer->MailAddress = $cust_data['MailAddress'];
-                $customer->Kubun = $cust_data['Kubun'];
-                $customer->LastCommingDate = $cust_data['LastCommingDate'];
-                $customer->NextDate = $cust_data['NextDate'];
-                $customer->NextReason = $cust_data['NextReason'];
-                $customer->CustValid = $cust_data['CustValid'];
+                $customer->MailAddress = $cust_json->CustData->MailAddress;
+                $customer->Kubun = $cust_json->CustData->Kubun;
+                $customer->LastCommingDate = $cust_json->CustData->LastCommingDate;
+                $customer->NextDate = $cust_json->CustData->NextDate;
+                $customer->NextReason = $cust_json->CustData->NextReason;
+                $customer->CustValid = $cust_json->CustData->CustValid;
                 $customer->save();
 
-                Pet::where("PetNo", $pet_data["PetNo"])
-                    ->orWhere("KarteNo", $pet_data["KarteNo"])
+                Pet::where("PetNo", $cust_json->PetData->PetNo)
+                    ->orWhere("KarteNo", $cust_json->PetData->KarteNo)
                     ->delete();
 
                 $pet = new Pet;
-                $pet->CustNo = $cust_data['CustNo'];
+                $pet->CustNo = $cust_no;
                 $pet->ClinicID = $cid;
-                $pet->KarteNo = $pet_data["KarteNo"];
-                $pet->PetNo = $pet_data["PetNo"];
-                $pet->PetName = $pet_data["PetName"];
-                $pet->PetName_furigana = $pet_data["PetName_furigana"];
-                $pet->PetKind = $pet_data["PetKind"];
-                $pet->PetBreed = $pet_data["PetBreed"];
-                $pet->PetBirthday = $pet_data["PetBirthday"];
-                $pet->PetDeathType = $pet_data["PetDeathType"];
-                $pet->PetSex = $pet_data["PetSex"];
-                $pet->VacInfo = $pet_data["VacInfo"];
-                $pet->Memo = $pet_data["Memo"];
+                $pet->KarteNo = $cust_json->PetData->KarteNo;
+                $pet->PetNo = $cust_json->PetData->PetNo;
+                $pet->PetName = $cust_json->PetData->PetName;
+                $pet->PetName_furigana = $cust_json->PetData->PetName_furigana;
+                $pet->PetKind = $cust_json->PetData->PetKind;
+                $pet->PetBreed = $cust_json->PetData->PetBreed;
+                $pet->PetBirthday = $cust_json->PetData->PetBirthday;
+                $pet->PetDeathType = $cust_json->PetData->PetDeathType;
+                $pet->PetSex = $cust_json->PetData->PetSex;
+                $pet->VacInfo = $cust_json->PetData->VacInfo;
+                $pet->Memo = $cust_json->PetData->Memo;
                 $pet->save();
 
 
             }else{
                 $customer = new Customer;
-                $customer->ClinicID = $cid;
-                $customer->CustNo = $cust_data["CustNo"];
-                $customer->CustFamilyName = $cust_data["CustFamilyName"];
-                $customer->CustName = $cust_data["CustName"];
-                $customer->CustFamilyName_furigana = $cust_data["CustFamilyName_furigana"];
-                $customer->CustName_furigana = $cust_data["CustName_furigana"];
-                $customer->Address = $cust_data["Address"];
+                $customer->ClinicID = $cust_json->ClinicID;
+                $customer->CustNo = $cust_json->CustData->CustNo;
+                $customer->CustFamilyName = $cust_json->CustData->CustFamilyName;
+                $customer->CustName = $cust_json->CustData->CustName;
+                $customer->CustFamilyName_furigana = $cust_json->CustData->CustFamilyName_furigana;
+                $customer->CustName_furigana = $cust_json->CustData->CustName_furigana;
+                $customer->Address = $cust_json->CustData->Address;
 
-                $tels = explode("/", $cust_data["Tel"]);
+                $tels = explode("/", $cust_json->CustData->Tel);
                 foreach ($tels as $index => $tel) {
 
                     if($index == 0){
@@ -332,35 +347,35 @@ class APIDataController extends Controller
                     }
 
                 }
-
-                $customer->MailAddress = $cust_data['MailAddress'];
-                $customer->Kubun = $cust_data['Kubun'];
-                $customer->LastCommingDate = $cust_data['LastCommingDate'];
-                $customer->NextDate = $cust_data['NextDate'];
-                $customer->NextReason = $cust_data['NextReason'];
-                $customer->CustValid = $cust_data['CustValid'];
+                $customer->MailAddress = $cust_json->CustData->MailAddress;
+                $customer->Kubun = $cust_json->CustData->Kubun;
+                $customer->LastCommingDate = $cust_json->CustData->LastCommingDate;
+                $customer->NextDate = $cust_json->CustData->NextDate;
+                $customer->NextReason = $cust_json->CustData->NextReason;
+                $customer->CustValid = $cust_json->CustData->CustValid;
                 $customer->save();
 
 
                 Pet::where("ClinicID", $cid)
-                    ->where("CustNo", $cust_data["CustNo"])
+                    ->where("CustNo", $cust_no)
                     ->delete();
 
                 $pet = new Pet;
-                $pet->CustNo = $cust_data["CustNo"];
+                $pet->CustNo = $cust_no;
                 $pet->ClinicID = $cid;
-                $pet->KarteNo = $pet_data["KarteNo"];
-                $pet->PetNo = $pet_data["PetNo"];
-                $pet->PetName = $pet_data["PetName"];
-                $pet->PetName_furigana = $pet_data["PetName_furigana"];
-                $pet->PetKind = $pet_data["PetKind"];
-                $pet->PetBreed = $pet_data["PetBreed"];
-                $pet->PetBirthday = $pet_data["PetBirthday"];
-                $pet->PetDeathType = $pet_data["PetDeathType"];
-                $pet->PetSex = $pet_data["PetSex"];
-                $pet->VacInfo = $pet_data["VacInfo"];
-                $pet->Memo = $pet_data["Memo"];
+                $pet->KarteNo = $cust_json->PetData->KarteNo;
+                $pet->PetNo = $cust_json->PetData->PetNo;
+                $pet->PetName = $cust_json->PetData->PetName;
+                $pet->PetName_furigana = $cust_json->PetData->PetName_furigana;
+                $pet->PetKind = $cust_json->PetData->PetKind;
+                $pet->PetBreed = $cust_json->PetData->PetBreed;
+                $pet->PetBirthday = $cust_json->PetData->PetBirthday;
+                $pet->PetDeathType = $cust_json->PetData->PetDeathType;
+                $pet->PetSex = $cust_json->PetData->PetSex;
+                $pet->VacInfo = $cust_json->PetData->VacInfo;
+                $pet->Memo = $cust_json->PetData->Memo;
                 $pet->save();
+
             }
 
             DB::commit();
@@ -377,7 +392,7 @@ class APIDataController extends Controller
         DB::beginTransaction();
 
         try {
-            $customer = Customer::where("ClinicID", $cid)
+            Customer::where("ClinicID", $cid)
                 ->where("CustNo", $cust_no_old)
                 ->update(["CustNo" => $cust_no_new]);
 
@@ -392,9 +407,9 @@ class APIDataController extends Controller
                 $pet->save();
             }
 
-            $reception = Reception::where("ClinicID", $cid)
+            Reception::where("ClinicID", $cid)
                 ->where("CustNo", $cust_no_old)
-                ->update("CustNo", $cust_no_new);
+                ->update(["CustNo" => $cust_no_new]);
 
             DB::commit();
 
@@ -407,6 +422,18 @@ class APIDataController extends Controller
     }
 
     public function changeKarteNo($cid, $karteno, $cust_no_new, $pet_no_new){
+
+        $pets = Pet::where("ClinicID", $cid)
+        ->where(function($query) use($cust_no_new, $pet_no_new) {
+            $query->where("PetNo", $pet_no_new)
+                ->orWhere($cust_no_new."-".$pet_no_new);
+        })
+        ->get();
+
+        if($pets){
+            return false;
+        }
+
         DB::beginTransaction();
 
         try {

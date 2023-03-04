@@ -12,11 +12,11 @@
         <link rel="shortcut icon" href="assets/images/favicon.ico">
 
         <!-- Bootstrap Css -->
-        <link href="{{url('assets/css/bootstrap-dark.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+        <link href="{{url('assets/css/bootstrap.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
         <!-- Icons Css -->
         <link href="{{url('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
         <!-- App Css-->
-        <link href="{{url('assets/css/app-dark.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
+        <link href="{{url('assets/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
         <link href="{{url('assets/css/custom.css')}}" id="custom-style" rel="stylesheet" type="text/css" />
 
     </head>
@@ -53,8 +53,8 @@
                                         ■サービスの休止日時
                                     </p>
                                     <ul>
-                                        <li>開始： {{date('Y年 m月 d日 h時 i分', strtotime($from))}}</li>
-                                        <li>終了： {{date('Y年 m月 d日 h時 i分', strtotime($to))}}</li>
+                                        <li>開始： {{date('Y年 m月 d日 H時 i分', strtotime($from))}}</li>
+                                        <li>終了： {{date('Y年 m月 d日 H時 i分', strtotime($to))}}</li>
                                     </ul>
 
                                     <p class="mb-3">※作業の状況により終了時間が前後することがございますのでご了承下さい</p>

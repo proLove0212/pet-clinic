@@ -19,8 +19,11 @@ class MaintainMiddleware
     public function handle(Request $request, Closure $next): Response
     {
 
-        $maintain = MaintainLog::whereDate("from", "<=", Carbon::now())
-        ->whereDate("to", ">=", Carbon::now())->first();
+        $maintain = MaintainLog::all()->filter(function($item) {
+            if (Carbon::now()->between($item->from, $item->to)) {
+              return $item;
+            }
+          })->first();
 
         if($maintain){
             $request->session()->flush();
