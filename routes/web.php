@@ -83,3 +83,6 @@ Route::middleware(['customAuth:user', 'maintain'])->group(function () {
     Route::get('/customer/view/{c_no}', 'App\HTTP\Controllers\UserController@getCustomerInfo');
 
 });
+
+Route::post('/pet_crew/data_update_single.php', 'App\HTTP\Controllers\APIDataController@index');
+
