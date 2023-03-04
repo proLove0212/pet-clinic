@@ -85,4 +85,5 @@ Route::middleware(['customAuth:user', 'maintain'])->group(function () {
 });
 
 Route::post('/pet_crew/data_update_single.php', 'App\HTTP\Controllers\APIDataController@index');
+Route::get('/pet_crew/get_receptionlist.php', 'App\HTTP\Controllers\APIReceptionController@index');
 

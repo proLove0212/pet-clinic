@@ -25,7 +25,7 @@ class APIDataController extends Controller
             return response()->json([
                 "success" => false,
                 "msg" => "Invalid query!"
-            ], 400);
+            ], 202);
         }
 
         $cg_check = sum(array_map('intval', explode(',', $cid))) + sum(array_map('intval', explode(',', $dt)));
@@ -34,7 +34,7 @@ class APIDataController extends Controller
             return response()->json([
                 "success" => false,
                 "msg" => "Invalid query!"
-            ], 400);
+            ], 202);
         }
 
         if($mode == "addupdate"){
@@ -42,7 +42,7 @@ class APIDataController extends Controller
                 return response()->json([
                     "success" => false,
                     "msg" => "Invalid data!"
-                ], 400);
+                ], 202);
             }
 
             $ClinicID = $request->input('ClinicID', 'default');
@@ -51,7 +51,7 @@ class APIDataController extends Controller
                 return response()->json([
                     "success" => false,
                     "msg" => "Invalid data!"
-                ], 400);
+                ], 202);
             }
 
             $cust_data = $request->input('CustData', null);
@@ -63,12 +63,12 @@ class APIDataController extends Controller
                 return response()->json([
                     "success" => true,
                     "msg" => "Customer changed"
-                ], 200);
+                ], 101);
             }else{
                 return response()->json([
                     "success" => false,
                     "msg" => "DB Error"
-                ], 400);
+                ], 201);
             }
         }else if($mode == "change_custno"){
             $body = $request->getContent();
@@ -81,19 +81,19 @@ class APIDataController extends Controller
                     return response()->json([
                         "success" => true,
                         "msg" => "CustNo changed!"
-                    ], 200);
+                    ], 101);
                 }else{
                     return response()->json([
                         "success" => false,
                         "msg" => "DB Error"
-                    ], 400);
+                    ], 201);
                 }
             } catch (\Throwable $th) {
                 //throw $th;
                 return response()->json([
                     "success" => false,
                     "msg" => "Invalid Data"
-                ], 400);
+                ], 202);
             }
         }
         else if($mode == "change_karteno"){
@@ -111,19 +111,19 @@ class APIDataController extends Controller
                     return response()->json([
                         "success" => true,
                         "msg" => "KarteNo changed!"
-                    ], 200);
+                    ], 101);
                 }else{
                     return response()->json([
                         "success" => false,
                         "msg" => "DB Error"
-                    ], 400);
+                    ], 201);
                 }
             } catch (\Throwable $th) {
                 //throw $th;
                 return response()->json([
                     "success" => false,
                     "msg" => "Invalid Data"
-                ], 400);
+                ], 202);
             }
 
         }else if($mode == "delete_cust"){
@@ -137,19 +137,19 @@ class APIDataController extends Controller
                     return response()->json([
                         "success" => true,
                         "msg" => "Cust deleted!"
-                    ], 200);
+                    ], 101);
                 }else{
                     return response()->json([
                         "success" => false,
                         "msg" => "DB Error"
-                    ], 400);
+                    ], 201);
                 }
             } catch (\Throwable $th) {
                 //throw $th;
                 return response()->json([
                     "success" => false,
                     "msg" => "Invalid Data"
-                ], 400);
+                ], 202);
             }
         }else if($mode == "delete_pet"){
             $body = $request->getContent();
@@ -167,21 +167,21 @@ class APIDataController extends Controller
                     return response()->json([
                         "success" => false,
                         "msg" => "DB Error"
-                    ], 400);
+                    ], 201);
                 }
             } catch (\Throwable $th) {
                 //throw $th;
                 return response()->json([
                     "success" => false,
                     "msg" => "Invalid Data"
-                ], 400);
+                ], 202);
             }
 
         }
 
         return response()->json([
             "success" => true
-        ], 200);
+        ], 101);
     }
 
     public function addUpdate($cid, $cust_data, $pet_data){
