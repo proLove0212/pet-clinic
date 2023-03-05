@@ -2,3 +2,30 @@
     color: #924040;
     background-color: transparent;
 }
+
+.main-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.section-logo{
+    width: 50%;
+}
+
+.section_adv{
+    width: 50%;
+}
+
+@media(max-width: 768px){
+
+    .section-logo{
+        width: 100%;
+    }
+
+    .section_adv{
+        width: 100%;
+    }
+
+}

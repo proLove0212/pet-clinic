@@ -30,7 +30,15 @@ class NewMaintainRequest extends FormRequest
     public function messages(): array
     {
         return [
-
+            "start_time" => [
+                "required" => "開始時間を入力する必要があります。",
+                "date" => "形式が無効です。"
+            ],
+            "end_time" => [
+                "required" => "終了時間を入力する必要があります。",
+                "date" => "形式が無効です。",
+                "after" => "終了時間が無効です。"
+            ]
         ];
     }
 }

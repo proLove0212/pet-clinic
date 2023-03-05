@@ -206,7 +206,9 @@
                         <!-- end page title -->
 
 
-                        @yield('content')
+                        <div class="container" style="padding: 0px" >
+                            @yield('content')
+                        </div>
                     </div> <!-- container-fluid -->
                 </div>
                 <!-- End Page-content -->

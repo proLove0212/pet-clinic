@@ -84,7 +84,7 @@
             <div class="card-body">
                 <div class="d-flex align-items-start">
                     <div class="me-2">
-                        <h5 class="card-title mb-4">順番受付</h5>
+                        <h5 class="card-title mb-4">順番受付リスト</h5>
                     </div>
                 </div>
                 <div data-simplebar class="mt-2" style="max-height: 280px;">

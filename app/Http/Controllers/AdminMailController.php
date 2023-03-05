@@ -3,16 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\HTTP\Requests\SendEmailRequest;
 
 use App\Mail\CustomMail;
 use App\Models\User;
-use App\Models\Customer;
-use App\Models\Pet;
-use App\Models\Reception;
-
 class AdminMailController extends Controller
 {
 
@@ -37,7 +32,11 @@ class AdminMailController extends Controller
 
         foreach ($receivers as $key => $receiver) {
 
-            Mail::to($receiver)->send(new CustomMail($subject, $content));
+            try {
+                Mail::to($receiver)->send(new CustomMail($subject, $content));
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
         }
 
         $res = [

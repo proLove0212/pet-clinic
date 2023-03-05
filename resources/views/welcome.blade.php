@@ -8,11 +8,10 @@
 
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{url('assets/images/favicon.ico')}}">
+    <link rel="stylesheet" href="{{url('assets/css/custom.css')}}">
 
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600" rel="stylesheet">
     <link rel="stylesheet" href="{{url('landing/css/style.css')}}">
-	<script src="https://unpkg.com/animejs@3.0.1/lib/anime.min.js"></script>
-    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
 </head>
 <body class="is-boxed has-animations">
     <div class="body-wrap">
@@ -22,8 +21,7 @@
                     <div class="brand header-brand">
                         <h1 class="m-0">
 							<a href="#">
-								<img class="header-logo-image" src="{{url('landing/images/logo.svg')}}" alt="Logo">
-                            </a>
+							</a>
                         </h1>
                     </div>
                 </div>
@@ -33,8 +31,11 @@
         <main>
             <section class="hero">
                 <div class="container">
-                    <div class="hero-inner">
-						<div class="hero-copy">
+                    <div class="main-container">
+                        <div class="section-logo">
+                            <img src="https://preview.colorlib.com/theme/anipat/img/banner/dog.png.webp" alt="">
+                        </div>
+                        <div class="section_adv">
 	                        <h1 class="hero-title mt-0">ペットクルーカルテ</h1>
 	                        <p class="hero-paragraph">夜間や病院の休診日など、病院への電話を携帯電話に転送して応対している病院様向けに、外出先でも簡単な顧客情報が検索・確認できるWeb顧客情報検索サービスです。<br>
                                 これにより、外出先においてもWeb接続が可能な携帯端末(iPhoneやAndroidなどのスマートフォン)やタブレットPC、ノートPCなどがあればどこでもアクセス可能です。</p>
@@ -42,22 +43,7 @@
                                 <a class="button button-primary" href="{{url('user/login')}}">ユーザーログイン</a>
                                 <a class="button" id="customer_login">顧客ログイン</a>
                             </div>
-						</div>
-						<div class="hero-figure anime-element">
-							<svg class="placeholder" width="528" height="396" viewBox="0 0 528 396">
-								<rect width="528" height="396" style="fill:transparent;" />
-							</svg>
-							<div class="hero-figure-box hero-figure-box-01" data-rotation="45deg"></div>
-							<div class="hero-figure-box hero-figure-box-02" data-rotation="-45deg"></div>
-							<div class="hero-figure-box hero-figure-box-03" data-rotation="0deg"></div>
-							<div class="hero-figure-box hero-figure-box-04" data-rotation="-135deg"></div>
-							<div class="hero-figure-box hero-figure-box-05"></div>
-							<div class="hero-figure-box hero-figure-box-06"></div>
-							<div class="hero-figure-box hero-figure-box-07"></div>
-							<div class="hero-figure-box hero-figure-box-08" data-rotation="-22deg"></div>
-							<div class="hero-figure-box hero-figure-box-09" data-rotation="-52deg"></div>
-							<div class="hero-figure-box hero-figure-box-10" data-rotation="-50deg"></div>
-						</div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -67,9 +53,7 @@
             <div class="container">
                 <div class="site-footer-inner">
                     <div class="brand footer-brand">
-						<a href="#">
-							<img class="header-logo-image" src="{{url('landing/images/logo.svg')}}" alt="Logo">
-						</a>
+
                     </div>
                     <ul class="footer-social-links list-reset">
                         <li>
@@ -103,6 +87,5 @@
         </footer>
     </div>
 
-    <script src="{{url('landing/js/main.min.js')}}"></script>
 </body>
 </html>

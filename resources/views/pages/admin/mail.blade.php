@@ -62,9 +62,6 @@
 <!-- Sweet Alerts js -->
 <script src="{{url('assets/libs/sweetalert2/sweetalert2.min.js')}}"></script>
 
-<!-- Sweet alert init js-->
-<script src="{{url('assets/js/pages/sweet-alerts.init.js')}}"></script>
-
 <!-- email editor init -->
 <script src="{{url('assets/js/pages/email-editor.init.js')}}"></script>
 <script src="{{url('assets/libs/select2/js/select2.min.js')}}"></script>
@@ -101,7 +98,6 @@
                             }
                         },
                         error: function (data) {
-                            console.log(data)
                             if(data.responseJSON && data.responseJSON.errors){
                                 errors = data.responseJSON.errors;
 

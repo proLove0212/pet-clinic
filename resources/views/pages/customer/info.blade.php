@@ -11,6 +11,13 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
+
+                <div class="d-flex align-items-start mb-3">
+                    <div class="me-2">
+                        <h5 class="card-title mb-4">顧客情報</h5>
+                    </div>
+                </div>
+
                 <div class="table-responsive">
                     <table class="table align-middle table-nowrap table-hover">
                         <tbody>
@@ -208,6 +215,16 @@
     </div> <!-- end col -->
 </div>
 <!-- end row -->
+
+
+<div class="row">
+    <div class="col-12 d-flex justify-content-center">
+        <button id="back_btn" class="btn btn-success waves-effect waves-light font-size-20">
+            <i class="bx bx-left-arrow  bx-fade-left font-size-20 align-middle me-2"></i> バック
+        </button>
+    </div>
+</div>
+
 @endsection
 
 
@@ -221,7 +238,9 @@
 
     <script>
         $( document ).ready(function() {
-
+            $("#back_btn").click(function() {
+                window.history.back();
+            })
         });
     </script>
 @endsection

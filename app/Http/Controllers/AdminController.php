@@ -108,7 +108,12 @@ class AdminController extends Controller
         $content = "
             <h1>Your Password is ".$pwd."</h1>
         ";
-        Mail::to($receiver)->send(new CustomMail($subject, $content));
+
+        try {
+            Mail::to($receiver)->send(new CustomMail($subject, $content));
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
 
         $res = [
             "success" => true,
