@@ -3,29 +3,6 @@
     background-color: transparent;
 }
 
-.main-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.section-logo{
-    width: 50%;
-}
-
-.section_adv{
-    width: 50%;
-}
-
-@media(max-width: 768px){
-
-    .section-logo{
-        width: 100%;
-    }
-
-    .section_adv{
-        width: 100%;
-    }
-
+html{
+    font-family: "Helvetica Neue", 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', "Yu Gothic", YuGothic, 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif !important;
 }
