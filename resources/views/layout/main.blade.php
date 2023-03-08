@@ -78,11 +78,17 @@
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
                                 @if ($auth['role'] == "admin")
-                                    <a class="dropdown-item" href="#"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span key="t-profile"> 管理者</span></a>
+                                    <a class="dropdown-item" href="#"><i class="bx bx-key font-size-16 align-middle me-1"></i> <span key="t-profile"> 管理者</span></a>
                                 @elseif($auth['role'] == "user")
-                                    <a class="dropdown-item" href="#"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span key="t-profile"> 病院ID {{$auth['ClinicID']}}</span></a>
+                                    <a class="dropdown-item" href="#"><i class="bx bx-key font-size-16 align-middle me-1"></i> <span key="t-profile"> 病院ID {{$auth['ClinicID']}}</span></a>
                                 @else
-                                    <a class="dropdown-item" href="#"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span key="t-profile"> 顧客ID {{$auth['CustNo']}}</span></a>
+                                    <a class="dropdown-item" href="#"><i class="bx bx-key font-size-16 align-middle me-1"></i> <span key="t-profile"> 顧客ID {{$auth['CustNo']}}</span></a>
+                                @endif
+
+                                @if ($auth['role'] == "admin")
+                                    <a class="dropdown-item" href="{{url('/admin/account')}}"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span key="t-profile"> アカウント管理</span></a>
+                                @elseif($auth['role'] == "user")
+                                    <a class="dropdown-item" href="{{url('/user/account')}}"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span key="t-profile"> アカウント管理</span></a>
                                 @endif
                                 <div class="dropdown-divider"></div>
                                 <form action="{{url('logout')}}" method="post">

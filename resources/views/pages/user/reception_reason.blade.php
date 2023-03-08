@@ -97,9 +97,7 @@
 
                                                 @endif
                                                 @if ($key == count($reasons) - 1 )
-                                                    <form action="" method="post">
-                                                        <button type="submit" class="btn btn-outline-secondary">下に移動</button>
-                                                    </form>
+                                                    <button type="submit" class="btn btn-outline-secondary">下に移動</button>
                                                 @else
                                                     <form action="{{url('/reception/reason/order')}}" method="post">
                                                         @csrf

@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use DB;
+use App\Models\Admin;
 use Hash;
 
 class AdminSeeder extends Seeder
@@ -14,11 +13,12 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('admin')->delete();
-        DB::table('admin')->insert([
-            'name' => "管理者",
-            'email' => 'proLove0212@gmail.com',
-            'password' => Hash::make('password'),
-        ]);
+        Admin::truncate();
+
+        $admin =  new Admin;
+        $admin->name = "管理者";
+        $admin->email = 'proLove0212@gmail.com';
+        $admin->password = Hash::make('password');
+        $admin->save();
     }
 }

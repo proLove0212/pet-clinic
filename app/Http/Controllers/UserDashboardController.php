@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Customer;
@@ -27,11 +28,13 @@ class UserDashboardController extends Controller
             ->count();
 
         $receptions = Reception::where("ClinicID", $cid)
+            ->whereDate("VisitDate", Carbon::now())
             ->where(function($query) {
                 $query->where("Status", 1)
                     ->orWhere("Status", 2);
             })
             ->orderBy("VisitOrderIndex", "asc")
+            ->limit(30)
             ->get();
 
         $data = [

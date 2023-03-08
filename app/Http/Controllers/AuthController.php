@@ -9,6 +9,7 @@ use DB;
 use Hash;
 use Illuminate\Support\Facades\Validator;
 
+use App\Models\Admin;
 use App\Models\User;
 use App\Models\MaintainLog;
 use Carbon\Carbon;
@@ -22,7 +23,7 @@ class AuthController extends Controller
             'password' => 'required|min:8'
         ]);
 
-        $user = DB::table('admin')->where("name", "管理者")->first();
+        $user = Admin::whereEncrypted("name", "管理者")->first();
         if(Hash::check($req->input('password'), $user->password)){
             $req->session()->put('name', $user->name);
             $req->session()->put('role', 'admin');

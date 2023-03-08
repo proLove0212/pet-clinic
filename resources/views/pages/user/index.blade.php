@@ -84,15 +84,15 @@
             <div class="card-body">
                 <div class="d-flex align-items-start">
                     <div class="me-2">
-                        <h5 class="card-title mb-4">順番受付リスト</h5>
+                        <h5 class="card-title mb-4">今日の順番受付({{count($receptions)}}件)</h5>
                     </div>
                 </div>
                 <div data-simplebar class="mt-2" style="max-height: 280px;">
                     <ul class="verti-timeline list-unstyled">
                         @foreach ($receptions as $reception)
-                            <li class="event-list {{$reception->Status == 2 ? 'active' : ""}}">
+                            <li class="event-list {{$reception->Status == 2 ? 'active' : ''}}">
                                 <div class="event-timeline-dot">
-                                    <i class="bx bxs-right-arrow-circle font-size-18  {{$reception->Status == 2 ? 'bx-fade-right' : ""}}"></i>
+                                    <i class="bx bxs-right-arrow-circle font-size-18  {{$reception->Status == 2 ? 'bx-fade-right' : ''}}"></i>
                                 </div>
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 me-3">
