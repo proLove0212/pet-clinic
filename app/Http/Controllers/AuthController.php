@@ -43,7 +43,7 @@ class AuthController extends Controller
         $id = $req->input('id');
 
         $user = User::where("ClinicID", $id)
-        ->orWhere("MailAddress", $id)
+        ->orWhereEncrypted("MailAddress", $id)
         ->first();
 
         if($user){

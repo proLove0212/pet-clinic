@@ -25,7 +25,7 @@
     <!--====== Tailwind CSS ======-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-    @vite(['resources/css/app.css'])
+    @vite(['resources/css/app.css','resources/js/app.js'])
 
     @yield('stylesheet')
 
@@ -53,12 +53,11 @@
 
     <!--====== PRELOADER PART ENDS ======-->
     @yield('content')
-
-    @yield('javascript')
     <!--====== Wow js ======-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-    <script src="{{url('assets/js/main.js')}}"></script>
+    @yield('javascript')
 </body>
 
 </html>

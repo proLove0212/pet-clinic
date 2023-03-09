@@ -66,6 +66,11 @@ class Customer extends Model
     ];
 
     protected $encryptable = [
+        'CustFamilyName',
+        'CustName',
+        'CustFamilyName_furigana',
+        'CustName_furigana',
+        'Address',
         'Tel1',
         'Tel2',
         'Tel3',
@@ -90,5 +95,6 @@ class Customer extends Model
         'Tel6Last4',
         'Tel7Last4',
         'Tel8Last4',
+        'MailAddress',
     ];
 }
