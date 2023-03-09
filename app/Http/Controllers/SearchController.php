@@ -23,7 +23,7 @@ class SearchController extends Controller
     public function index(Request $request){
 
         $data = [
-            'title' => '番号検索',
+            'title' => '顧客情報検索',
             'auth' => $request->session()->all(),
             // 'plans' => $plans,
             // 'links' => json_decode(json_encode($plans))->links
@@ -73,7 +73,7 @@ class SearchController extends Controller
         }, $rslt['data']);
 
         $data = [
-            'title' => '番号検索',
+            'title' => '顧客情報検索',
             'auth' => $request->session()->all(),
             'data' => $custs,
         ];

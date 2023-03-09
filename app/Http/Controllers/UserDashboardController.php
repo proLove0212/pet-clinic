@@ -38,7 +38,7 @@ class UserDashboardController extends Controller
             ->get();
 
         $data = [
-            'title' => '管理画面',
+            'title' => '顧客情報検索',
             'auth' => $request->session()->all(),
             'customer_cnt' => $customer_cnt,
             'pet_cnt' => $pet_cnt,

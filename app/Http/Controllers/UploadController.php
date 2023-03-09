@@ -5,10 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Str;
 use DB;
-use App\Models\User;
 use App\Models\Customer;
 use App\Models\Pet;
-use App\Models\Reception;
 
 
 class UploadController extends Controller
@@ -21,13 +19,11 @@ class UploadController extends Controller
     public function index(Request $request){
 
         $data = [
-            'title' => 'アップロード',
+            'title' => '顧客情報データファイル・アップロード',
             'auth' => $request->session()->all(),
-            // 'plans' => $plans,
-            // 'links' => json_decode(json_encode($plans))->links
         ];
 
-        return view('pages.user.upload', $data);
+        return view('pages.user.upload.index', $data);
     }
 
     public function store(Request $request){
@@ -50,8 +46,17 @@ class UploadController extends Controller
 
             ], 400);
 
+        if($cust_json['CustData']['CustNo']."-".$cust_json['PetData']['PetNo'] != $cust_json["PetData"]['KarteNo']){
+            return response()->json([
+                "success" => false,
+                "msg" => "カルテ番号を確認してください。"
 
-        DB::transaction(function () use($cust_json, $cid) {
+            ], 400);
+        }
+
+        DB::beginTransaction();
+
+        try {
             $cust_no = $cust_json['CustData']['CustNo'];
 
             $customer = Customer::where("ClinicID", $cid)
@@ -123,7 +128,7 @@ class UploadController extends Controller
                 $customer->save();
 
                 Pet::where("PetNo", $cust_json['PetData']["PetNo"])
-                    ->orWhere("KarteNo", $cust_json['PetData']["KarteNo"])
+                    ->where("ClinicID", $cid)
                     ->delete();
 
                 $pet = new Pet;
@@ -137,6 +142,7 @@ class UploadController extends Controller
                 $pet->PetBreed = $cust_json['PetData']["PetBreed"];
                 $pet->PetBirthday = $cust_json['PetData']["PetBirthday"];
                 $pet->PetDeathType = $cust_json['PetData']["PetDeathType"];
+                $pet->PetDeathDate = $cust_json['PetData']["PetDeathDate"];
                 $pet->PetSex = $cust_json['PetData']["PetSex"];
                 $pet->VacInfo = $cust_json['PetData']["VacInfo"];
                 $pet->Memo = $cust_json['PetData']["Memo"];
@@ -223,6 +229,7 @@ class UploadController extends Controller
                 $pet->PetBreed = $cust_json['PetData']["PetBreed"];
                 $pet->PetBirthday = $cust_json['PetData']["PetBirthday"];
                 $pet->PetDeathType = $cust_json['PetData']["PetDeathType"];
+                $pet->PetDeathDate = $cust_json['PetData']["PetDeathDate"];
                 $pet->PetSex = $cust_json['PetData']["PetSex"];
                 $pet->VacInfo = $cust_json['PetData']["VacInfo"];
                 $pet->Memo = $cust_json['PetData']["Memo"];
@@ -230,13 +237,22 @@ class UploadController extends Controller
 
             }
 
-        });
+            DB::commit();
+        } catch (\Throwable $th) {
+            //throw $th;
+            DB::rollback();
+
+            return response()->json([
+                "success" => true,
+                "msg" => "資料基地操作汚油"
+
+            ], 400);
+        }
 
         return response()->json([
             "success" => true,
 
         ], 200);
-
 
     }
 

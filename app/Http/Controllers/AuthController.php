@@ -59,7 +59,7 @@ class AuthController extends Controller
                     $user->LoginDateTime = Carbon::now();
                     $user->save();
 
-                    return redirect('/petcrew2/dashboard');
+                    return redirect('/petcrew/dashboard');
                 }else{
                     return redirect("/user/pwd_reset");
                 }
@@ -103,12 +103,12 @@ class AuthController extends Controller
                 $data = [
                     'password' => 'パスワードの有効期限が切れています。新しいパスワードが生成されます。'
                 ];
-                return redirect('/petcrew2/login')->withErrors($data);
+                return redirect('/petcrew/login')->withErrors($data);
             }
 
             return view('auth.user_pwd_reset', ["ClinicID" => $user->ClinicID]);
         }else{
-            return redirect('/petcrew2/login');
+            return redirect('/petcrew/login');
         }
 
     }
@@ -124,7 +124,7 @@ class AuthController extends Controller
             $user->LoginDateTime = Carbon::now();
             $user->CustStatus = 5;
             $user->save();
-            return redirect('/petcrew2/dashboard');
+            return redirect('/petcrew/dashboard');
         }else{
             $request->session()->flush();
             return redirect('/user/login');

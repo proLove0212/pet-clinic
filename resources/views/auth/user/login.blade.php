@@ -22,25 +22,35 @@
                     <p>ペットクルーカルテ 顧客情報検索</p>
                 </div>
                 <div>
-                    <form class="form-horizontal" action="{{url('/petcrew2/login')}}" method="POST">
+                    <form class="form-horizontal" action="{{url('/petcrew/login')}}" method="POST">
                         @csrf
 
                         <div class="flex -mx-3">
                             <div class="w-full px-3 mb-5">
-                                <label for="" class="text-xs font-semibold px-1">ID</label>
+                                <label for="" class="text-sm font-semibold px-1">ID</label>
                                 <div class="flex">
                                     <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-email-outline text-gray-400 text-lg"></i></div>
                                     <input type="text" name="id" class="block w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="病院IDもしくはメールアドレス" required >
                                 </div>
+                                @error("id")
+                                    <div class="mt-2 px-3 text-danger text-sm">
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="flex -mx-3">
                             <div class="w-full px-3 mb-12">
-                                <label for="" class="text-xs font-semibold px-1">パスワード</label>
+                                <label for="" class="text-sm font-semibold px-1">パスワード</label>
                                 <div class="flex">
                                     <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-lock-outline text-gray-400 text-lg"></i></div>
                                     <input type="password" name="password" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="パスワード" required>
                                 </div>
+                                @error("password")
+                                    <div class="mt-2 px-3 text-danger text-sm">
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="flex -mx-3">
@@ -56,11 +66,11 @@
                     </form>
                     <div class="flex -mx-3">
                         <div class="w-full px-3 mb-5">
-                            <form action="{{url('/petcrew2/account/password/reset_1')}}" method="get">
+                            <form action="{{url('/petcrew/account/password/reset_1')}}" method="get">
                                 @csrf
                                 <button class="text-sm w-full text-blue-500 mt-5 underline">パスワードがわからない方</button>
                             </form>
-                            <form action="{{url('/petcrew2/account/password/reset_2')}}" method="get">
+                            <form action="{{url('/petcrew/account/password/reset_2')}}" method="get">
                                 @csrf
                                 <button class="text-sm w-full text-blue-500 mt-3 underline">IDがわからない方、または両方ともわからない方</button>
                             </form>

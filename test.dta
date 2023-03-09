@@ -1,0 +1,37 @@
+{
+ "Version":"Ver2.0",
+ "WriteDateTime":"2023年03月09日(Thu) 22時23分",
+ "ClinicID":"00001",
+ "CustData":{
+  "CustNo":"00001",
+  "CustFamilyName":"新宿",
+  "CustName":"一郎",
+  "CustFamilyName_furigana":"しんじゅく",
+  "CustName_furigana":"いちろう",
+  "Address":"新宿区北新宿12-12",
+  "Tel":"03-0000-0001/090-0000-0002",
+  "MailAddress":"",
+  "Kubun":"",
+  "LastCommingDate":"2021/02/04",
+  "NextDate":"",
+  "NextReason":"",
+  "CustValid":"True",
+  "UpdateDateTime":"2023/03/09 22:23:18"
+ },
+ "PetData":{
+  "KarteNo":"00001-01",
+  "PetNo":"01",
+  "PetName":"小太郎",
+  "PetName_furigana":"こたろう",
+  "PetKind":"犬",
+  "PetBreed":"柴犬",
+  "PetBirthday":"2019/01",
+  "PetDeathType":"0",
+  "PetDeathDate":"",
+  "PetSex":"M",
+  "PetValid":"True",
+  "VacInfo":"８種混合ワクチン   2021/08/21  2021/08/21,狂犬病   2021/04/16  ",
+  "Memo":"1\r\n2",
+  "UpdateDateTime":"2023/03/09 22:23:18"
+ }
+}

@@ -21,7 +21,7 @@
                 {{$auth['name']}}動物病院
             </h5>
 
-            <a href="{{url('/petcrew2/dashboard')}}" class=" text-white bg-yellow-400 hover:bg-yellow-500 font-medium  text-sm px-6 py-1.5 text-center">
+            <a href="{{url('/petcrew/dashboard')}}" class=" text-white bg-yellow-400 hover:bg-yellow-500 font-medium  text-sm px-6 py-1.5 text-center">
                 基本ペジロ
             </a>
         </div>
@@ -39,7 +39,7 @@
 
         <div id="myTabContent">
             <div class="hidden text-left p-4 rounded-lg bg-gray-50 " id="no" role="tabpanel" aria-labelledby="no-tab">
-                <form action="{{url('petcrew2/search')}}" method="post">
+                <form action="{{url('petcrew/search')}}" method="post">
                     @csrf
                     <input type="hidden" name="search_mode" value="number">
                     <ul class="space-y-1 text-sm text-gray-700 dark:text-gray-200" >
@@ -120,7 +120,7 @@
             </div>
             <div class="hidden text-left p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="name" role="tabpanel" aria-labelledby="name-tab">
 
-                <form action="{{url('/petcrew2/search')}}" method="post">
+                <form action="{{url('/petcrew/search')}}" method="post">
                     @csrf
                     <input type="hidden" name="search_mode" value="name">
                     <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-12">

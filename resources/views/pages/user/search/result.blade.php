@@ -22,7 +22,7 @@
                 {{$auth['name']}}動物病院
             </h5>
 
-            <a href="{{url('/petcrew2/search')}}" class=" text-white bg-yellow-400 hover:bg-yellow-500 font-medium  text-sm px-6 py-1.5 text-center">
+            <a href="{{url('/petcrew/search')}}" class=" text-white bg-yellow-400 hover:bg-yellow-500 font-medium  text-sm px-6 py-1.5 text-center">
                 基本ペジロ
             </a>
         </div>
@@ -212,7 +212,7 @@
                                                                     死亡時
                                                                     <?php
                                                                         $end = \Carbon\Carbon::parse($pet['PetBirthday']);
-                                                                        $current = \Carbon\Carbon::parse($pet->PetDeathDate);
+                                                                        $current = \Carbon\Carbon::parse($pet['PetDeathDate']);
                                                                         $length = $end->diffInDays($current);
 
                                                                         echo number_format($length/365, 0, ".", ",")."歳".number_format(($length%365)/12, 0, ".", ",")."か月" ;

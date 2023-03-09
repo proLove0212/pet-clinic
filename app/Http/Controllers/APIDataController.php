@@ -199,6 +199,10 @@ class APIDataController extends Controller
 
     public function addUpdate($cid, $cust_json){
 
+        if($cust_json['CustData']['CustNo']."-".$cust_json['PetData']['PetNo'] != $cust_json["PetData"]['KarteNo']){
+           return false;
+        }
+
         DB::beginTransaction();
 
         try {
@@ -272,7 +276,7 @@ class APIDataController extends Controller
                 $customer->save();
 
                 Pet::where("PetNo", $cust_json->PetData->PetNo)
-                    ->orWhere("KarteNo", $cust_json->PetData->KarteNo)
+                    ->where("ClinicID", $cid)
                     ->delete();
 
                 $pet = new Pet;
@@ -286,11 +290,11 @@ class APIDataController extends Controller
                 $pet->PetBreed = $cust_json->PetData->PetBreed;
                 $pet->PetBirthday = $cust_json->PetData->PetBirthday;
                 $pet->PetDeathType = $cust_json->PetData->PetDeathType;
+                $pet->PetDeathDate = $cust_json->PetData->PetDeathDate;
                 $pet->PetSex = $cust_json->PetData->PetSex;
                 $pet->VacInfo = $cust_json->PetData->VacInfo;
                 $pet->Memo = $cust_json->PetData->Memo;
                 $pet->save();
-
 
             }else{
                 $customer = new Customer;
@@ -371,6 +375,7 @@ class APIDataController extends Controller
                 $pet->PetBreed = $cust_json->PetData->PetBreed;
                 $pet->PetBirthday = $cust_json->PetData->PetBirthday;
                 $pet->PetDeathType = $cust_json->PetData->PetDeathType;
+                $pet->PetDeathDate = $cust_json->PetData->PetDeathDate;
                 $pet->PetSex = $cust_json->PetData->PetSex;
                 $pet->VacInfo = $cust_json->PetData->VacInfo;
                 $pet->Memo = $cust_json->PetData->Memo;

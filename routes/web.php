@@ -14,18 +14,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect('/petcrew2');
+    return redirect('/petcrew');
 });
 
-Route::get('/petcrew2', function () {
+Route::get('/petcrew', function () {
     return view('welcome');
 });
 
-Route::get('/petcrew2/login', function () {
+Route::get('/petcrew/login', function () {
     return view('auth.user.login');
 });
 
-Route::get('/petcrew2/admin/login', function () {
+Route::get('/petcrew/admin/login', function () {
     return view('auth.admin_login');
 });
 
@@ -37,12 +37,12 @@ Route::post('/logout', 'App\HTTP\Controllers\AuthController@logout');
 Route::post('/admin/login', 'App\HTTP\Controllers\AuthController@admin_login')->name('admin_login');
 
 Route::middleware(['maintain'])->group(function () {
-    Route::post('/petcrew2/login', 'App\HTTP\Controllers\AuthController@user_login')->name('user_login');
+    Route::post('/petcrew/login', 'App\HTTP\Controllers\AuthController@user_login')->name('user_login');
 
-    Route::get('/petcrew2/account/password/reset_1', 'App\HTTP\Controllers\UserForgotController@index_pwd');
-    Route::post('/petcrew2/account/password/reset_1', 'App\HTTP\Controllers\UserForgotController@reset_pwd');
-    Route::get('/petcrew2/account/password/reset_2', 'App\HTTP\Controllers\UserForgotController@index_all');
-    Route::post('/petcrew2/account/password/reset_2', 'App\HTTP\Controllers\UserForgotController@reset_all');
+    Route::get('/petcrew/account/password/reset_1', 'App\HTTP\Controllers\UserForgotController@index_pwd');
+    Route::post('/petcrew/account/password/reset_1', 'App\HTTP\Controllers\UserForgotController@reset_pwd');
+    Route::get('/petcrew/account/password/reset_2', 'App\HTTP\Controllers\UserForgotController@index_all');
+    Route::post('/petcrew/account/password/reset_2', 'App\HTTP\Controllers\UserForgotController@reset_all');
 
 });
 
@@ -67,14 +67,13 @@ Route::middleware(['customAuth:admin'])->group(function () {
 
 
 Route::middleware(['customAuth:user', 'maintain'])->group(function () {
-    Route::get('/petcrew2/dashboard', 'App\HTTP\Controllers\UserDashboardController@index');
+    Route::get('/petcrew/dashboard', 'App\HTTP\Controllers\UserDashboardController@index');
 
-    Route::get('/petcrew2/search', 'App\HTTP\Controllers\SearchController@index');
-    Route::post('/petcrew2/search', 'App\HTTP\Controllers\SearchController@search');
-    Route::post('/petcrew2/search/name', 'App\HTTP\Controllers\SearchNameController@search');
+    Route::get('/petcrew/search', 'App\HTTP\Controllers\SearchController@index');
+    Route::post('/petcrew/search', 'App\HTTP\Controllers\SearchController@search');
 
-    Route::get('/upload', 'App\HTTP\Controllers\UploadController@index');
-    Route::post('/upload', 'App\HTTP\Controllers\UploadController@store');
+    Route::get('/petcrew/upload', 'App\HTTP\Controllers\UploadController@index');
+    Route::post('/petcrew/upload', 'App\HTTP\Controllers\UploadController@store');
 
     Route::get('/reception/settings', 'App\HTTP\Controllers\ReceptionSettingController@index');
     Route::post('/reception/settings', 'App\HTTP\Controllers\ReceptionSettingController@update');

@@ -125,7 +125,7 @@
                                 携帯電話（iPhoneやAndroidなどのスマートホン）、タブレット、ノートPCなど、インターネットに接続できる端末から利用可能
                             </p>
                             <div class="hero_btn mt-10">
-                                <a class="main-btn" href="{{url('/petcrew2/login')}}">	ログイン</a>
+                                <a class="main-btn" href="{{url('/petcrew/login')}}">	ログイン</a>
                             </div>
                         </div> <!-- header hero content -->
                     </div>
