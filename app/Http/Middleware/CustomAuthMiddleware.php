@@ -25,7 +25,7 @@ class CustomAuthMiddleware
                 if($user){
                     if($user->CustStatus == 5){
                         return $next($request);
-                    }else if($request->path() == "user/pwd_reset"){
+                    }else if($request->path() == "petcrew/account/pwd_reset"){
                         return $next($request);
                     }else{
                         $request->session()->flush();

@@ -21,7 +21,7 @@
                 {{$auth['name']}}動物病院
             </h5>
 
-            <a href="{{url('/petcrew/dashboard')}}" class=" text-white bg-yellow-400 hover:bg-yellow-500 font-medium  text-sm px-6 py-1.5 text-center">
+            <a href="{{url('/petcrew/home')}}" class=" text-white bg-yellow-400 hover:bg-yellow-500 font-medium  text-sm px-6 py-1.5 text-center">
                 基本ペジロ
             </a>
         </div>

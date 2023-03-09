@@ -26,15 +26,15 @@ Route::get('/petcrew/login', function () {
 });
 
 Route::get('/petcrew/admin/login', function () {
-    return view('auth.admin_login');
+    return view('auth.admin.login');
 });
 
 
-Route::get('/maintain', 'App\HTTP\Controllers\AuthController@notification');
+Route::get('/petcrew/maintain', 'App\HTTP\Controllers\AuthController@notification');
 
 Route::post('/logout', 'App\HTTP\Controllers\AuthController@logout');
 
-Route::post('/admin/login', 'App\HTTP\Controllers\AuthController@admin_login')->name('admin_login');
+Route::post('/petcrew/admin/login', 'App\HTTP\Controllers\AuthController@admin_login')->name('admin_login');
 
 Route::middleware(['maintain'])->group(function () {
     Route::post('/petcrew/login', 'App\HTTP\Controllers\AuthController@user_login')->name('user_login');
@@ -67,7 +67,7 @@ Route::middleware(['customAuth:admin'])->group(function () {
 
 
 Route::middleware(['customAuth:user', 'maintain'])->group(function () {
-    Route::get('/petcrew/dashboard', 'App\HTTP\Controllers\UserDashboardController@index');
+    Route::get('/petcrew/home', 'App\HTTP\Controllers\UserDashboardController@index');
 
     Route::get('/petcrew/search', 'App\HTTP\Controllers\SearchController@index');
     Route::post('/petcrew/search', 'App\HTTP\Controllers\SearchController@search');
@@ -83,8 +83,8 @@ Route::middleware(['customAuth:user', 'maintain'])->group(function () {
     Route::post('/reception/reason/order', 'App\HTTP\Controllers\ReceptionReasonController@swap');
     Route::delete('/reception/reason/{id}', 'App\HTTP\Controllers\ReceptionReasonController@delete');
 
-    Route::get('/user/pwd_reset', 'App\HTTP\Controllers\AuthController@getPasswordResetPage');
-    Route::post('/user/pwd_reset', 'App\HTTP\Controllers\AuthController@user_pwd_reset');
+    Route::get('/petcrew/account/pwd_reset', 'App\HTTP\Controllers\AuthController@getPasswordResetPage');
+    Route::post('/petcrew/account/pwd_reset', 'App\HTTP\Controllers\AuthController@user_pwd_reset');
     Route::get('/customer/view/{c_no}', 'App\HTTP\Controllers\UserController@getCustomerInfo');
 
     Route::get('/user/account', 'App\HTTP\Controllers\AccountController@get_user_change');

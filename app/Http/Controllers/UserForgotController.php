@@ -19,7 +19,7 @@ class UserForgotController extends Controller
     public function index_pwd(Request $request){
 
 
-        return view("auth.forgot_pwd");
+        return view("auth.user.forgot_pwd");
     }
 
     public function reset_pwd(ForgotPwdRequest $request){
@@ -43,7 +43,7 @@ class UserForgotController extends Controller
             Mail::to($email)->send(new CustomMail($subject, $content));
         } catch (\Throwable $th) {
             //throw $th;
-            return redirect('/password_reset_requests/new')->withErrors([
+            return redirect('/petcrew/account/password/reset_1')->withErrors([
                 "email" => "電子メール転送失敗。 再試行してください。"
             ]);
         }
@@ -54,7 +54,7 @@ class UserForgotController extends Controller
     public function index_all(Request $request){
 
 
-        return view("auth.forgot_all");
+        return view("auth.user.forgot_all");
     }
     public function reset_all(ForgotPwdRequest $request){
 
@@ -79,7 +79,7 @@ class UserForgotController extends Controller
             Mail::to($email)->send(new CustomMail($subject, $content));
         } catch (\Throwable $th) {
             //throw $th;
-            return redirect('/password_reset_requests/all')->withErrors([
+            return redirect('/petcrew/account/password/reset_2')->withErrors([
                 "email" => "電子メール転送失敗。 再試行してください。"
             ]);
         }

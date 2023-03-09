@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserPwdResetRequest;
-use DB;
+use Str;
 use Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -59,9 +59,9 @@ class AuthController extends Controller
                     $user->LoginDateTime = Carbon::now();
                     $user->save();
 
-                    return redirect('/petcrew/dashboard');
+                    return redirect('/petcrew/home');
                 }else{
-                    return redirect("/user/pwd_reset");
+                    return redirect("/petcrew/account/pwd_reset");
                 }
             }
 
@@ -106,7 +106,7 @@ class AuthController extends Controller
                 return redirect('/petcrew/login')->withErrors($data);
             }
 
-            return view('auth.user_pwd_reset', ["ClinicID" => $user->ClinicID]);
+            return view('auth.user.pwd_reset', ["ClinicID" => $user->ClinicID, "ClinicName" =>$user->ClinicName]);
         }else{
             return redirect('/petcrew/login');
         }
@@ -124,7 +124,7 @@ class AuthController extends Controller
             $user->LoginDateTime = Carbon::now();
             $user->CustStatus = 5;
             $user->save();
-            return redirect('/petcrew/dashboard');
+            return redirect('/petcrew/home');
         }else{
             $request->session()->flush();
             return redirect('/user/login');
