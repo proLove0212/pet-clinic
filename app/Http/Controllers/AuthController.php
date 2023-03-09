@@ -42,10 +42,8 @@ class AuthController extends Controller
     public function user_login(UserLoginRequest $req){
         $id = $req->input('id');
 
-        $user = User::where("ClinicID", "=", $id)
-        ->orWhere("MailAddress", "=", $id)
-        ->orWhere("TelNo", "=", $id)
-        ->orWhere("TelNum", "=", $id)
+        $user = User::where("ClinicID", $id)
+        ->orWhere("MailAddress", $id)
         ->first();
 
         if($user){
@@ -61,7 +59,7 @@ class AuthController extends Controller
                     $user->LoginDateTime = Carbon::now();
                     $user->save();
 
-                    return redirect('/dashboard');
+                    return redirect('/petcrew2/dashboard');
                 }else{
                     return redirect("/user/pwd_reset");
                 }
@@ -70,14 +68,14 @@ class AuthController extends Controller
             $data = [
                 'password' => 'パスワードが正しくありません。'
             ];
-            return view('auth.user_login', $data)->withErrors($data);
+            return view('auth.user.login', $data)->withInput($req->input())->withErrors($data);
         }
 
         $data = [
             'id' => 'IDまたはEメールアドレスと病院の電話番号は存在しません。'
         ];
 
-        return view('auth.user_login', $data)->withErrors($data);
+        return view('auth.user.login', $data)->withInput($req->input())->withErrors($data);
     }
 
     public function getPasswordResetPage(Request $request){
@@ -105,12 +103,12 @@ class AuthController extends Controller
                 $data = [
                     'password' => 'パスワードの有効期限が切れています。新しいパスワードが生成されます。'
                 ];
-                return redirect('/user/login')->withErrors($data);
+                return redirect('/petcrew2/login')->withErrors($data);
             }
 
             return view('auth.user_pwd_reset', ["ClinicID" => $user->ClinicID]);
         }else{
-            return redirect('/user/login');
+            return redirect('/petcrew2/login');
         }
 
     }
@@ -126,7 +124,7 @@ class AuthController extends Controller
             $user->LoginDateTime = Carbon::now();
             $user->CustStatus = 5;
             $user->save();
-            return redirect('/dashboard');
+            return redirect('/petcrew2/dashboard');
         }else{
             $request->session()->flush();
             return redirect('/user/login');

@@ -14,18 +14,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return redirect('/petcrew2');
+});
+
+Route::get('/petcrew2', function () {
     return view('welcome');
 });
 
-Route::get('/user/login', function () {
-    return view('auth.user_login');
+Route::get('/petcrew2/login', function () {
+    return view('auth.user.login');
 });
 
-Route::get('/customer/login', function () {
-    return view('temp');
-});
-
-Route::get('/admin/login', function () {
+Route::get('/petcrew2/admin/login', function () {
     return view('auth.admin_login');
 });
 
@@ -37,13 +37,12 @@ Route::post('/logout', 'App\HTTP\Controllers\AuthController@logout');
 Route::post('/admin/login', 'App\HTTP\Controllers\AuthController@admin_login')->name('admin_login');
 
 Route::middleware(['maintain'])->group(function () {
-    Route::post('/user/login', 'App\HTTP\Controllers\AuthController@user_login')->name('user_login');
-    Route::post('/customer/login', 'App\HTTP\Controllers\AuthController@customer_login')->name('customer_login');
+    Route::post('/petcrew2/login', 'App\HTTP\Controllers\AuthController@user_login')->name('user_login');
 
-    Route::get('/password_reset_requests/new', 'App\HTTP\Controllers\UserForgotController@index_pwd');
-    Route::post('/password_reset_requests/new', 'App\HTTP\Controllers\UserForgotController@reset_pwd');
-    Route::get('/password_reset_requests/all', 'App\HTTP\Controllers\UserForgotController@index_all');
-    Route::post('/password_reset_requests/all', 'App\HTTP\Controllers\UserForgotController@reset_all');
+    Route::get('/petcrew2/account/password/reset_1', 'App\HTTP\Controllers\UserForgotController@index_pwd');
+    Route::post('/petcrew2/account/password/reset_1', 'App\HTTP\Controllers\UserForgotController@reset_pwd');
+    Route::get('/petcrew2/account/password/reset_2', 'App\HTTP\Controllers\UserForgotController@index_all');
+    Route::post('/petcrew2/account/password/reset_2', 'App\HTTP\Controllers\UserForgotController@reset_all');
 
 });
 
@@ -68,7 +67,7 @@ Route::middleware(['customAuth:admin'])->group(function () {
 
 
 Route::middleware(['customAuth:user', 'maintain'])->group(function () {
-    Route::get('/dashboard', 'App\HTTP\Controllers\UserDashboardController@index');
+    Route::get('/petcrew2/dashboard', 'App\HTTP\Controllers\UserDashboardController@index');
 
     Route::get('/search/name', 'App\HTTP\Controllers\SearchNameController@index');
     Route::post('/search/name', 'App\HTTP\Controllers\SearchNameController@search');

@@ -4,7 +4,10 @@
     {{$title}}
 @endsection
 
+
+
 @section('stylesheet')
+    <link rel="stylesheet" href="{{url('assets/css/app.css')}}">
     <!-- Sweet Alert-->
     <link href="{{url('assets/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
 

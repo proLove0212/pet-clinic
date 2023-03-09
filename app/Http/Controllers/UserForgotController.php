@@ -48,7 +48,7 @@ class UserForgotController extends Controller
             ]);
         }
 
-        return redirect('user/login');
+        return redirect('petcrew2/login');
     }
 
     public function index_all(Request $request){
@@ -84,6 +84,6 @@ class UserForgotController extends Controller
             ]);
         }
 
-        return redirect('user/login');
+        return redirect('petcrew2/login');
     }
 }
