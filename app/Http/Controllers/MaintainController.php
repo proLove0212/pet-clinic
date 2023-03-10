@@ -11,12 +11,13 @@ class MaintainController extends Controller
 
     public function index(Request $request){
 
-        $plans = MaintainLog::orderBy('from', 'desc')->paginate(10);
+        $plans = MaintainLog::orderBy('from', 'desc')->paginate(10)->toArray();
+
         $data = [
             'title' => 'メンテナンス',
             'auth' => $request->session()->all(),
-            'plans' => $plans,
-            'links' => json_decode(json_encode($plans))->links
+            'plans' => $plans['data'],
+            'links' => $plans['links']
         ];
 
         return view('pages.admin.maintain', $data);
@@ -32,15 +33,11 @@ class MaintainController extends Controller
         }
         $data->save();
 
-        $res = [
-            "success" => true,
-        ];
-
-        return response()->json($res);
+        return redirect('/petcrew/admin/maintain');
     }
 
     public function delete(Request $request, $id){
         MaintainLog::where("id", '=', $id)->delete();
-        return redirect('admin/maintain');
+        return redirect('/petcrew/admin/maintain');
     }
 }

@@ -1,0 +1,11 @@
+html{
+    font-family: "Helvetica Neue",Helvetica,Arial,"Noto Sans JP",sans-serif !important;
+}
+
+.my-inner{
+    width: 100%;
+    max-width: 950px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px 15px;
+}

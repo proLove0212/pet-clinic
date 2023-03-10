@@ -28,9 +28,11 @@ class AdminController extends Controller
 
         $users = User::where('pckusers.ClinicName', 'like', '%'.$key.'%')
             ->groupBy('pckusers.ClinicID')
-            ->orderBy('pckusers.PeaksUserNo', 'asc')
-            ->select()
-            ->paginate(10);
+            ->orderBy('pckusers.PeaksUserNo', 'asc');
+
+        $cnt = $users->get()->count();
+
+        $users = $users->select()->paginate(10);
 
         $user_data = array_map(function($user_item){
             $pet_cnt = Pet::where("ClinicID", $user_item['ClinicID'])
@@ -49,7 +51,8 @@ class AdminController extends Controller
             'auth' => $request->session()->all(),
             'key' => $key,
             'users' => $user_data,
-            'links' => $users->toArray()['links']
+            'links' => $users->toArray()['links'],
+            'cnt' => $cnt
         ];
 
         return view('pages.admin.index', $data)->withInput($request->input());
@@ -126,7 +129,8 @@ class AdminController extends Controller
 
 
         return redirect('/petcrew/admin/users/add')->withInput([
-            'success' => true
+            'success' => true,
+            'message' => '正常に登録されました。'
         ]);
     }
 
@@ -153,36 +157,57 @@ class AdminController extends Controller
     public function update(UpdateUserRequest $request, $id){
         $clinic_id = $this->makeClinicID($request->input('PeaksUserNo'));
 
-        $data = User::where('id', '=', $id)->first();
-        if($data->ClinicID != $clinic_id){
-            Customer::where("ClinicID", "=", $data->ClinicID)->update([
-                "ClinicID" => $clinic_id
+        DB::beginTransaction();
+
+        try {
+
+            $data = User::where('id', '=', $id)->first();
+            if($data->ClinicID != $clinic_id){
+                Customer::where("ClinicID", "=", $data->ClinicID)->update([
+                    "ClinicID" => $clinic_id
+                ]);
+                Pet::where("ClinicID", "=", $data->ClinicID)->update([
+                    "ClinicID" => $clinic_id
+                ]);
+            }
+
+            $data->PeaksUserNo = $request->input('PeaksUserNo');
+            $data->ClinicName = $request->input('ClinicName');
+            $data->ClinicID = $clinic_id;
+            $data->TelNo_2 = $data->TelNo;
+            $data->TelNum_2 = $data->TelNum;
+            $data->TelNo = $request->input('TelNo');
+            $data->TelNum = Str::replace('-', '', $request->input('TelNo'));
+            $data->MailAddress = $request->input('MailAddress');
+            if($request->input('License', 'default') != "default")
+                $data->License = Carbon::parse($request->input('License', "03/03/2023"));
+            $data->PatientRegOpt = $request->input('PatientRegOpt', 'default') == "PatientRegOpt" ? true : false ;
+            $data->ReceptionOpt = $request->input('ReceptionOpt', 'default')  == "ReceptionOpt" ? true : false ;
+            $data->ReserveOpt = $request->input('ReserveOpt', 'default')  == "ReserveOpt" ? true : false ;
+            $data->Memo = $request->input('Memo', '');
+
+            if($request->input('active', 'default') != "default")
+                $data->CustStatus = $request->input('active') == 'active' ? 5 : 0;
+
+
+            $data->save();
+
+            DB::commit();
+
+            return redirect('/petcrew/admin/users/edit/'.$id)->withInput([
+                'success' => true,
+                'message' => "ユーザー情報が更新されました。"
             ]);
-            Pet::where("ClinicID", "=", $data->ClinicID)->update([
-                "ClinicID" => $clinic_id
+
+        } catch (\Throwable $th) {
+            //throw $th;
+
+            DB::rollBack();
+            return redirect('/petcrew/admin/users/edit/'.$id)->withInput([
+                'failed' => true,
+                'message' => "資料基地操作汚油。"
             ]);
         }
-
-        $data->PeaksUserNo = $request->input('PeaksUserNo');
-        $data->ClinicName = $request->input('ClinicName');
-        $data->ClinicID = $clinic_id;
-        $data->TelNo_2 = $data->TelNo;
-        $data->TelNum_2 = $data->TelNum;
-        $data->TelNo = $request->input('TelNo');
-        $data->TelNum = Str::replace('-', '', $request->input('TelNo'));
-        $data->MailAddress = $request->input('MailAddress');
-        if($request->input('License', 'default') != "default")
-            $data->License = Carbon::parse($request->input('License', "03/03/2023"));
-        $data->PatientRegOpt = $request->input('PatientRegOpt', 'default') == "PatientRegOpt" ? true : false ;
-        $data->ReceptionOpt = $request->input('ReceptionOpt', 'default')  == "ReceptionOpt" ? true : false ;
-        $data->ReserveOpt = $request->input('ReserveOpt', 'default')  == "ReserveOpt" ? true : false ;
-        $data->Memo = $request->input('Memo', '');
-        $data->save();
-
-        return redirect('/petcrew/admin/users/edit/'.$id)->withInput([
-            'success' => true,
-            'message' => "ユーザー情報が更新されました。"
-        ]);
 
     }
 
