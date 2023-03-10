@@ -10,6 +10,7 @@ use App\HTTP\Requests\UpdateUserRequest;
 use Carbon\Carbon;
 use Hash;
 use Str;
+use DB;
 
 use App\Mail\CustomMail;
 
@@ -25,31 +26,33 @@ class AdminController extends Controller
     public function index(Request $request){
         $key = $request->query('key', '');
 
-        $users = User::leftJoin('pckcustlists', 'pckcustlists.ClinicID', '=', 'pckusers.ClinicID')
-            ->leftJoin('pckpetlists', 'pckpetlists.ClinicID', '=', 'pckusers.ClinicID')
-            ->where('pckusers.ClinicName', 'like', '%'.$key.'%')
-            ->orWhere('pckusers.PeaksUserNo', 'like', '%'.$key.'%')
-            ->orWhere('pckusers.ClinicID', 'like', '%'.$key.'%')
-            ->orWhere('pckusers.TelNo', 'like', '%'.$key.'%')
-            ->orWhere('pckusers.TelNum', 'like', '%'.$key.'%')
-            // ->orWhere('pckusers.email', 'like', '%'.$key.'%')
+        $users = User::where('pckusers.ClinicName', 'like', '%'.$key.'%')
             ->groupBy('pckusers.ClinicID')
-            ->orderBy('pckusers.created_at', 'desc')
-            ->selectRaw('pckusers.*, count(DISTINCT pckcustlists.id) as customer_cnt, count(DISTINCT pckpetlists.id) as pet_cnt')
+            ->orderBy('pckusers.PeaksUserNo', 'asc')
+            ->select()
             ->paginate(10);
 
+        $user_data = array_map(function($user_item){
+            $pet_cnt = Pet::where("ClinicID", $user_item['ClinicID'])
+                ->where("PetDeathType", 0)
+                ->count();
+            $customer_cnt = Customer::where("ClinicID", $user_item['ClinicID'])
+                ->count();
+
+            $user_item['pet_cnt'] = $pet_cnt;
+            $user_item['customer_cnt'] = $customer_cnt;
+            return $user_item;
+        }, $users->toArray()['data']);
 
         $data = [
             'title' => '全ユーザー',
             'auth' => $request->session()->all(),
             'key' => $key,
-            'users' => $users,
-            'links' => json_decode(json_encode($users))->links
+            'users' => $user_data,
+            'links' => $users->toArray()['links']
         ];
 
-        // return json_encode($users);
-
-        return view('pages.admin.index', $data);
+        return view('pages.admin.index', $data)->withInput($request->input());
     }
 
     public function create(Request $request){
@@ -98,47 +101,47 @@ class AdminController extends Controller
         $data->MailAddress = $request->input('MailAddress');
         $data->Password = $pwd;
         $data->PasswordExpiry = Carbon::now()->addDays(3);
-        $data->PatientRegOpt = $request->input('PatientRegOpt') ? $request->input('PatientRegOpt') : false ;
-        $data->ReceptionOpt = $request->input('ReceptionOpt') ? $request->input('ReceptionOpt') : false ;
-        $data->Memo = $request->input('Memo') ? $request->input('Memo') : "" ;
+        if($request->input('License', 'default') != "default")
+            $data->License = Carbon::parse($request->input('License', "03/03/2023"));
+        $data->PatientRegOpt = $request->input('PatientRegOpt', 'default') == "PatientRegOpt" ? true : false ;
+        $data->ReceptionOpt = $request->input('ReceptionOpt', 'default')  == "ReceptionOpt" ? true : false ;
+        $data->ReserveOpt = $request->input('ReserveOpt', 'default')  == "ReserveOpt" ? true : false ;
+        $data->Memo = $request->input('Memo', '');
+        $data->DBNo = $request->input('DBNo', 0);
         $data->save();
 
-        $receiver = $request->input('MailAddress');
-        $subject = "PetClinic";
-        $content = "
-            <h1>Your Password is ".$pwd."</h1>
-        ";
-
         try {
+
+            $receiver = $request->input('MailAddress');
+            $subject = "PetClinic";
+            $content = "
+                <h1>Your Password is ".$pwd."</h1>
+            ";
+
             Mail::to($receiver)->send(new CustomMail($subject, $content));
+
         } catch (\Throwable $th) {
-            //throw $th;
+
         }
 
-        $res = [
-            "success" => true,
-        ];
 
-        return response()->json($res);
-
+        return redirect('/petcrew/admin/users/add')->withInput([
+            'success' => true
+        ]);
     }
 
-    public function edit(Request $request){
-        $uid = $request->query('uid', 'default');
+    public function edit(Request $request, $uid){
 
-        $sel_user = User::where('ClinicID', '=', $uid)->first();
+        $sel_user = User::where('id', $uid)->first();
         if($sel_user){
             $cust_cnt = Customer::where('ClinicID', '=', $uid)->count();
             $pet_cnt = Pet::where('ClinicID', '=', $uid)->count();
-            $recept_cnt = Reception::where('ClinicID', '=', $uid)->count();
-
             $data = [
                 'title' => 'ユーザーの変更',
                 'auth' => $request->session()->all(),
                 'user' => $sel_user,
                 'cust_cnt' => $cust_cnt,
                 'pet_cnt' => $pet_cnt,
-                "recept_cnt" => $recept_cnt
             ];
 
             return view('pages.admin.edit_user', $data);
@@ -168,29 +171,63 @@ class AdminController extends Controller
         $data->TelNo = $request->input('TelNo');
         $data->TelNum = Str::replace('-', '', $request->input('TelNo'));
         $data->MailAddress = $request->input('MailAddress');
-
+        if($request->input('License', 'default') != "default")
+            $data->License = Carbon::parse($request->input('License', "03/03/2023"));
+        $data->PatientRegOpt = $request->input('PatientRegOpt', 'default') == "PatientRegOpt" ? true : false ;
+        $data->ReceptionOpt = $request->input('ReceptionOpt', 'default')  == "ReceptionOpt" ? true : false ;
+        $data->ReserveOpt = $request->input('ReserveOpt', 'default')  == "ReserveOpt" ? true : false ;
+        $data->Memo = $request->input('Memo', '');
         $data->save();
 
-        $res = [
-            "success" => true,
-        ];
-
-        return response()->json($res);
+        return redirect('/petcrew/admin/users/edit/'.$id)->withInput([
+            'success' => true,
+            'message' => "ユーザー情報が更新されました。"
+        ]);
 
     }
 
-    public function delete(Request $request){
-        $ClinicID = $request->query('uid', 'default');
+    public function pwd_reset(Request $request, $cid){
 
-        User::where("ClinicID", '=', $ClinicID)->delete();
-        Customer::where("ClinicID", "=", $ClinicID)->delete();
-        Pet::where("ClinicID", "=", $ClinicID)->delete();
+        $pwd = Hash::make(Str::random(8));
+        $user = User::where("ClinicID", $cid)->first();
 
-        $res = [
-            "success" => true,
-        ];
+        if($user){
+            $user->Password = $pwd;
+            $user->CustStatus = 2;
+            $user->save();
 
-        return response()->json($res);
+            try {
+
+                $receiver = $user->MailAddress;
+                $subject = "PetClinic";
+                $content = "
+                    <h1>Your Password is <b>".$pwd."</b></h1>
+                ";
+
+                Mail::to($receiver)->send(new CustomMail($subject, $content));
+
+            } catch (\Throwable $th) {
+
+            }
+
+
+            return redirect('/petcrew/admin/users/edit/'.$user->id)->withInput([
+                'success' => true,
+                'message' => "パスワードが新しく発行されました。"
+            ]);
+        }else{
+            $request->session()->flush();
+            return redirect('/petcrew/admin/login');
+        }
+    }
+
+    public function delete(Request $request, $cid){
+
+        User::where("ClinicID",  $cid)->delete();
+        Customer::where("ClinicID",  $cid)->delete();
+        Pet::where("ClinicID",  $cid)->delete();
+
+        return redirect('petcrew/admin/users');
     }
 
 

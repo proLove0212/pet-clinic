@@ -16,6 +16,7 @@
     },
     "dependencies": {
         "@tailwindcss/forms": "^0.5.3",
+        "flowbite-datepicker": "^1.2.2",
         "tw-elements": "^1.0.0-beta1"
     }
 }

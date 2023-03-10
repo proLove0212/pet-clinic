@@ -25,7 +25,8 @@ class NewUserRequest extends FormRequest
             'PeaksUserNo' => 'required|unique:pckusers,PeaksUserNo|digits:6',
             'ClinicName' => 'required|unique:pckusers,ClinicName',
             'TelNo' => 'required',
-            'MailAddress' => 'required|unique:pckusers,MailAddress|email'
+            'MailAddress' => 'required|unique:pckusers,MailAddress',
+            'DBNo' => 'required|digits_between:1,10'
         ];
     }
 

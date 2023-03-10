@@ -47,12 +47,16 @@ Route::middleware(['maintain'])->group(function () {
 });
 
 Route::middleware(['customAuth:admin'])->group(function () {
-    Route::get('/admin/users', 'App\HTTP\Controllers\AdminController@index');
-    Route::get('/admin/users/add', 'App\HTTP\Controllers\AdminController@create');
-    Route::post('/admin/users/add', 'App\HTTP\Controllers\AdminController@store');
-    Route::get('/admin/users/edit', 'App\HTTP\Controllers\AdminController@edit');
-    Route::post('/admin/users/edit/{id}', 'App\HTTP\Controllers\AdminController@update');
-    Route::delete('/admin/users/delete', 'App\HTTP\Controllers\AdminController@delete');
+    Route::get('/petcrew/admin/users', 'App\HTTP\Controllers\AdminController@index');
+
+    Route::get('/petcrew/admin/users/add', 'App\HTTP\Controllers\AdminController@create');
+    Route::post('/petcrew/admin/users/add', 'App\HTTP\Controllers\AdminController@store');
+
+    Route::get('/petcrew/admin/users/edit/{id}', 'App\HTTP\Controllers\AdminController@edit');
+    Route::post('/petcrew/admin/users/edit/{id}', 'App\HTTP\Controllers\AdminController@update');
+
+    Route::post('/petcrew/admin/users/pwd_reset/{cid}', 'App\HTTP\Controllers\AdminController@pwd_reset');
+    Route::delete('/petcrew/admin/users/delete/{cid}', 'App\HTTP\Controllers\AdminController@delete');
 
     Route::get('/admin/mail', 'App\HTTP\Controllers\AdminMailController@index');
     Route::post('/admin/mail/send', 'App\HTTP\Controllers\AdminMailController@send');

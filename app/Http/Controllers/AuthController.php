@@ -29,7 +29,7 @@ class AuthController extends Controller
             $req->session()->put('role', 'admin');
             $req->session()->put('email', $user->email);
 
-            return redirect('/admin/users');
+            return redirect('/petcrew/admin/users');
         }
 
         $data = [
@@ -43,7 +43,7 @@ class AuthController extends Controller
         $id = $req->input('id');
 
         $user = User::where("ClinicID", $id)
-        ->orWhereEncrypted("MailAddress", $id)
+        ->orWhere("MailAddress", $id)
         ->first();
 
         if($user){
@@ -127,20 +127,8 @@ class AuthController extends Controller
             return redirect('/petcrew/home');
         }else{
             $request->session()->flush();
-            return redirect('/user/login');
+            return redirect('/petcrew/login');
         }
-    }
-
-    public function user_request1_handle(Request $request){
-
-    }
-
-    public function user_request2_handle(Request $request){
-
-    }
-
-    public function customer_login(Request $req){
-
     }
 
     public function logout(Request $request){

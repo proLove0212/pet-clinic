@@ -1,7 +1,7 @@
 @extends('layout.main')
 
 @section('title')
-    {{$title}}
+ペットクルーカルテ　顧客情報検索 メール連絡
 @endsection
 
 @section('stylesheet')

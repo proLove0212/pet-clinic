@@ -1,273 +1,261 @@
 @extends('layout.main')
 
 @section('title')
-    {{$title}}
+ペットクルーカルテ　顧客情報検索 ユーザー変更
 @endsection
 
 @section('stylesheet')
-
-    <!-- Sweet Alert-->
-    <link href="{{url('assets/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
 
 @endsection
 
 
 @section('content')
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">ユーザーの変更</h4>
-                <p class="card-title-desc">
 
-                </p>
-                <div class="row my-3">
-                    <label class="col-sm-3 col-form-label">ユーザーの変更</label>
-                    <div class="col-sm-9">
-                      <input type="text range" id="PeaksUserNo_input" value="{{$user->PeaksUserNo}}" class="form-control" placeholder="Eピークス内のユーザー番号 (000000)">
-                      <div class="msg-danger" id="PeaksUserNo_error"> </div>
+<div class="block w-full py-6 px-3 md:px-10  rounded-lg bg-white text-center shadow-lg dark:bg-neutral-700">
+    <div class="flex justify-between mb-10">
+        <a href="{{url('petcrew/admin/users')}}">
+            <h3 class="font-black text-lg flex items-center cursor-pointer">
+                <span class="material-symbols-outlined mr-2">
+                    arrow_back_ios
+                </span>
+                ユーザー情報
+            </h3>
+        </a>
+    </div>
+
+    <div class="md:flex items-end">
+        <div class="w-full md:w-64 border-0 border-b-2 md:border-b-0 md:border-r-2 md:border-r-gray-50 md:pb-12 mt-3">
+            <p class="my-3 mb-3 text-left  md:text-sm">
+                <span class="w-32 font-black ">病院ID : </span>{{$user['ClinicID']}}
+            </p>
+            <p class="my-3 mb-3 text-left  md:text-sm">
+                <span class="w-32 font-black ">DB No : </span>{{$user['DBNo']}}
+            </p>
+            <p class="mb-3 text-left  md:text-sm">
+                <span class="w-32 font-black ">登録日時 : </span>
+                {{date('Y-m-d h:i:s', strtotime($user['created_at']))}}
+            </p>
+            <p class="mb-3 text-left  md:text-sm">
+                <span class="w-32 font-black ">更新日時 : </span>
+                {{date('Y-m-d h:i:s', strtotime($user['updated_at']))}}
+            </p>
+            <p class="mb-3 text-left  md:text-sm">
+                <span class="w-32 font-black ">最後の加入日時 : </span>
+                @if ($user['LoginDateTime'])
+                    {{date('Y-m-d h:i:s', strtotime($user['LoginDateTime']))}}
+                @else
+                    ----
+                @endif
+            </p>
+            <p class="mb-3 text-left  md:text-sm">
+                <span class="w-32 font-black ">顧客数 : </span>
+                {{$cust_cnt}} 人
+            </p>
+            <p class="mb-3 text-left   md:text-sm">
+                <span class="w-32 font-black ">ペット数 : </span>
+                {{$pet_cnt}} 匹
+            </p>
+            <p class="mb-3 text-left  md:text-sm">
+                <span class="w-32 font-black ">サービスの利用状況 : </span>
+                @if ($user['CustStatus'] == 0)
+                    システム利用停止
+                @elseif ($user['CustStatus'] == 1)
+                    新規
+                @elseif ($user['CustStatus'] == 2)
+                    パスワード再発行(
+                @else
+                    通常利用
+                @endif
+            </p>
+        </div>
+        <div class="flex-grow">
+            <form action="{{url('/petcrew/admin/users/edit/'.$user['id'])}}" method="post">
+                @csrf
+                <div class="md:flex items-start text-left mb-3">
+                    <p class="mt-3 mr-3 font-black  text-left md:text-right w-40">ユーザー番号</p>
+                    <div class=" md:flex-grow">
+                        <input type="text" name="PeaksUserNo" value="{{$user['PeaksUserNo']}}"
+                        required pattern="00[0-9][0-9][0-9][0-9]"
+                        class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="00xxxx" required >
+                        @error('PeaksUserNo')
+                            <span class="mt-2 text-danger">{{$message}}</span>
+                        @enderror
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">病院名</label>
-                    <div class="col-sm-9">
-                      <input type="text" id="ClinicName_input" value="{{$user->ClinicName}}" class="form-control" placeholder="病院の名前を入力してください。">
-                      <div class="msg-danger" id="ClinicName_error" > </div>
+
+                <div class="md:flex items-start text-left mb-3">
+                    <p class="mt-3 mr-3 font-black  text-left md:text-right  w-40">病院名</p>
+                    <div class=" md:flex-grow">
+                        <input type="text" name="ClinicName" value="{{$user['ClinicName']}}" class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" required >
+                        @error('ClinicName')
+                            <span class="mt-2 text-danger">{{$message}}</span>
+                        @enderror
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">電話番号</label>
-                    <div class="col-sm-9">
-                      <input type="text" id="TelNo_input" value="{{$user->TelNo}}" class="form-control"  placeholder="ハイフンあり">
-                      <div class="msg-danger" id="TelNo_error"> </div>
+
+                <div class="md:flex items-start text-left mb-3">
+                    <p class="mt-3 mr-3 font-black   text-left md:text-right  w-40">電話番号</p>
+                    <div class=" md:flex-grow">
+                        <input type="tel" id="phone" name="TelNo" value="{{$user['TelNo']}}" required
+                        required pattern="[0-9]{2,3}-[0-9]{3}-[0-9]{4}"
+                        class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="xx-xxx-xxxx, xxx-xxx-xxxx" >
+                        @error('TelNo')
+                            <span class="mt-2 text-danger">{{$message}}</span>
+                        @enderror
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">メール</label>
-                    <div class="col-sm-9">
-                        <input type="email" id="MailAddress_input" value="{{$user->MailAddress}}" class="form-control"  placeholder="メールアドレスを入力。">
-                        <div class="msg-danger"  id="MailAddress_error" > </div>
+
+
+                <div class="md:flex items-start text-left mb-3">
+                    <p class="mt-3 mr-3 font-black  text-left md:text-right  w-40">メールアドレス</p>
+                    <div class=" md:flex-grow">
+                        <input type="email" name="MailAddress" value="{{$user['MailAddress']}}" class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" required >
+                        @error('MailAddress')
+                            <span class="mt-2 text-danger">{{$message}}</span>
+                        @enderror
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">オプション</label>
-                    <div class="col-sm-9">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-check form-switch form-switch-md mb-3" dir="ltr">
-                                    @if ($user->PatientRegOpt)
-                                        <input class="form-check-input" type="checkbox" id="PatientRegOpt"  checked>
+
+
+                <div class="md:flex items-start text-left mb-3">
+                    <p class="mt-3 mr-3 font-black  text-left md:text-right  w-40">オプション</p>
+                    <div class=" md:flex-grow">
+                        <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                <div class="flex items-center pl-3">
+                                    @if ($user['PatientRegOpt'])
+                                        <input id="vue-checkbox-list" type="checkbox" value="PatientRegOpt" name="PatientRegOpt" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" checked>
                                     @else
-                                        <input class="form-check-input" type="checkbox" id="PatientRegOpt">
+                                        <input id="vue-checkbox-list" type="checkbox" value="PatientRegOpt" name="PatientRegOpt" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                                     @endif
-                                    <label class="form-check-label" for="PatientRegOpt">診察券オプション</label>
+                                    <label for="vue-checkbox-list" class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">診察券</label>
                                 </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-check form-switch form-switch-md mb-3" dir="ltr">
-                                    @if ($user->ReceptionOpt)
-                                        <input class="form-check-input" type="checkbox"  id="ReceptionOpt" checked>
+                            </li>
+                            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                <div class="flex items-center pl-3">
+                                    @if ($user['ReceptionOpt'])
+                                        <input id="react-checkbox-list" type="checkbox" value="ReceptionOpt" name="ReceptionOpt" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" checked>
                                     @else
-                                        <input class="form-check-input" type="checkbox"  id="ReceptionOpt">
+                                        <input id="react-checkbox-list" type="checkbox" value="ReceptionOpt" name="ReceptionOpt" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                                     @endif
-                                    <label class="form-check-label" for="ReceptionOpt">順番予約オプション</label>
+                                    <label for="react-checkbox-list" class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">順番</label>
                                 </div>
+                            </li>
+                            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                <div class="flex items-center pl-3">
+                                    @if ($user['ReserveOpt'])
+                                        <input id="angular-checkbox-list" type="checkbox" value="ReserveOpt" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" checked>
+                                    @else
+                                        <input id="angular-checkbox-list" type="checkbox" value="ReserveOpt" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                    @endif
+                                    <label for="angular-checkbox-list" class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">予約</label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                <div class="md:flex items-start text-left mb-3">
+                    <p class="mt-3 mr-3 font-black  text-left md:text-right  w-40">ライセンスの</p>
+                    <div class=" md:flex-grow relative max-w-sm">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+                        </div>
+                        <input datepicker type="text" name="License" value="{{date('m/d/Y', strtotime($user['License']))}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="02/29/2023">
+
+                        @error('License')
+                            <span class="mt-2 text-danger">{{$message}}</span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="md:flex items-start text-left mb-3">
+                    <p class="mt-3 mr-3 font-black  text-left md:text-right  w-40">メモ情報</p>
+                    <div class=" md:flex-grow">
+                        <input type="text" name="Memo" value="{{$user['Memo']}}" class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" required >
+                        @error('Memo')
+                            <span class="mt-2 text-danger">{{$message}}</span>
+                        @enderror
+                    </div>
+                </div>
+
+
+                <div class="flex mb-3 justify-between text-left">
+                    <button type="button"
+                    data-modal-target="delete_dlg" data-modal-toggle="delete_dlg"
+                    class="block  max-w-xs ml-2 md:ml-20 px-6 bg-danger-500 hover:bg-danger-700 focus:bg-danger-700 text-white rounded-lg px-3 py-3 font-semibold">削除         </button>
+
+                    <div class="flex">
+                        <button type="button"
+                        data-modal-target="pwd_dlg" data-modal-toggle="pwd_dlg"
+                        class="block  max-w-xs mr-2  px-6 bg-success-600 hover:bg-success-700 focus:bg-success-700 text-white rounded-lg px-3 py-3 font-semibold">仮PW発行</button>
+                        <button class="block  max-w-xs  px-6 bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">修正</button>
+                    </div>
+                </div>
+
+                @if (old('success'))
+                    <div>
+                        <div class="flex p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                            <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                            <span class="sr-only">Info</span>
+                            <div>
+                            <span class="font-medium">{{old('message')}}</span>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">メモ情報</label>
-                    <div class="col-sm-9">
-                        <textarea id="Memo" cols="30" rows="5" class="form-control">{{$user->Memo}}</textarea>
-                    </div>
-                </div>
-                <div class="d-flex flex-wrap gap-2">
-                    <button id="submit_btn" class="btn btn-primary waves-effect waves-light">
-                        変更
-                    </button>
-                    <button id="clear_btn" class="btn btn-secondary waves-effect">
-                        キャンセル
-                    </button>
-                </div>
+                @endif
+            </form>
+        </div>
+    </div>
+</div>
 
+<div id="delete_dlg" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
+    <div class="relative w-full h-full max-w-md md:h-auto">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <div class="p-6 text-center">
+                <svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <h3 class="my-5 text-lg font-normal text-gray-500 dark:text-gray-400">削除しますか？</h3>
+                <form action="{{url('/petcrew/admin/users/delete/'.$user['ClinicID'])}}" method="post">
+                    @csrf
+                    @method("DELETE")
+                    <button data-modal-hide="delete_dlg" type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                        確認
+                    </button>
+                    <button data-modal-hide="delete_dlg" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">キャンセル</button>
+
+                </form>
             </div>
         </div>
     </div>
 </div>
 
-
-<div class="row mt-3">
-    <div class="col-md-4">
-        <div class="card mini-stats-wid">
-            <div class="card-body">
-                <div class="d-flex">
-                    <div class="flex-grow-1">
-                        <p class="text-muted fw-medium">顧客</p>
-                        <h4 class="mb-0">{{number_format($cust_cnt, 0, ".", ",")}}</h4>
-                    </div>
-
-                    <div class="flex-shrink-0 align-self-center">
-                        <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
-                            <span class="avatar-title">
-                                <i class="bx bx-group font-size-24"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card mini-stats-wid">
-            <div class="card-body">
-                <div class="d-flex">
-                    <div class="flex-grow-1">
-                        <p class="text-muted fw-medium">ペット</p>
-                        <h4 class="mb-0">{{number_format($pet_cnt, 0, ".", ",")}}</h4>
-                    </div>
-
-                    <div class="flex-shrink-0 align-self-center ">
-                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                            <span class="avatar-title rounded-circle bg-primary">
-                                <i class="mdi mdi-dog-side font-size-24"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card mini-stats-wid">
-            <div class="card-body">
-                <div class="d-flex">
-                    <div class="flex-grow-1">
-                        <p class="text-muted fw-medium">順番受付</p>
-                        <h4 class="mb-0">{{number_format($recept_cnt, 0, ".", ",")}}</h4>
-                    </div>
-
-                    <div class="flex-shrink-0 align-self-center">
-                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                            <span class="avatar-title rounded-circle bg-primary">
-                                <i class="mdi mdi-cash-register font-size-24"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+<div id="pwd_dlg" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
+    <div class="relative w-full h-full max-w-md md:h-auto">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <div class="p-6 text-center">
+                <svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <h3 class="my-5 text-lg font-normal text-gray-500 dark:text-gray-400">パスワードを再発行します。</h3>
+                <form action="{{url('/petcrew/admin/users/pwd_reset/'.$user['ClinicID'])}}" method="post">
+                    @csrf
+                    <button data-modal-hide="pwd_dlg" type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                        確認
+                    </button>
+                    <button data-modal-hide="pwd_dlg" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">キャンセル</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
-<!-- end row -->
+
 
 @endsection
 
 
 @section('javascript')
-    <!-- Sweet Alerts js -->
-    <script src="{{url('assets/libs/sweetalert2/sweetalert2.min.js')}}"></script>
-
-    <!-- Sweet alert init js-->
-    <script src="{{url('assets/js/pages/sweet-alerts.init.js')}}"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/datepicker.min.js"></script>
     <script type="text/javascript">
         $( document ).ready(function() {
-            $("#submit_btn").click(function(){
-                Swal.fire({
-                    title: 'PetClinic',
-                    text: '新規登録',
-                    icon: 'info',
-                    confirmButtonText: 'はい'
-                }).then((result) => {
-                    if (result.value) {
-
-                        $.ajax({
-                            type: "POST",
-                            url: "{{url('/admin/users/edit/'.$user->id)}}",
-                            data: {
-                                _token: "{{ csrf_token() }}",
-                                PeaksUserNo: $("#PeaksUserNo_input").val(),
-                                ClinicName: $("#ClinicName_input").val(),
-                                TelNo: $("#TelNo_input").val(),
-                                MailAddress: $("#MailAddress_input").val(),
-                                PatientRegOpt:  $('#PatientRegOpt').is(":checked"),
-                                ReceptionOpt:  $('#ReceptionOpt').is(":checked"),
-                                Memo: $("Memo_input").val(),
-                            },
-                            dataType: 'json',
-                            success: function (data) {
-                                if(data.success){
-                                    Swal.fire({
-                                        title: 'PetClinic',
-                                        text: '変更されました。',
-                                        icon: 'success',
-                                    }).then((result) => {
-                                        if (result.value) {
-                                            $("#clear_btn").click();
-                                        }
-                                    })
-                                }
-                            },
-                            error: function (data) {
-                                if(data.responseJSON && data.responseJSON.errors){
-                                    var errors = data.responseJSON.errors;
-
-                                    if(errors.PeaksUserNo && typeof errors.PeaksUserNo[0] == "string"){
-                                        $("#PeaksUserNo_error").html(errors.PeaksUserNo[0])
-                                    }else if(errors.PeaksUserNo && typeof errors.PeaksUserNo[0] == "object"){
-                                        var keys = Object.keys(errors.PeaksUserNo[0]);
-
-                                        const element = errors.PeaksUserNo[0][keys[0]];
-                                        $("#PeaksUserNo_error").html(element)
-                                    }else{
-                                        $("#PeaksUserNo_error").html("")
-                                    }
-
-                                    if(errors.ClinicName && typeof errors.ClinicName[0] == "string"){
-                                        $("#ClinicName_error").html(errors.ClinicName[0])
-                                    }else if(errors.ClinicName && typeof errors.ClinicName[0] == "object"){
-                                        var keys = Object.keys(errors.ClinicName[0]);
-
-                                        const element = errors.ClinicName[0][keys[0]];
-                                        $("#ClinicName_error").html(element)
-                                    }else{
-                                        $("#ClinicName_error").html("")
-                                    }
-
-                                    if(errors.TelNo && typeof errors.TelNo[0] == "string"){
-                                        $("#TelNo_error").html(errors.TelNo[0])
-                                    }else if(errors.TelNo && typeof errors.TelNo[0] == "object"){
-                                        var keys = Object.keys(errors.TelNo[0]);
-
-                                        const element = errors.TelNo[0][keys[0]];
-                                        $("#TelNo_error").html(element)
-                                    }else{
-                                        $("#TelNo_error").html("")
-                                    }
-
-                                    if(errors.MailAddress && typeof errors.MailAddress[0] == "string"){
-                                        $("#MailAddress_error").html(errors.MailAddress[0])
-                                    }else if(errors.MailAddress && typeof errors.MailAddress[0] == "object"){
-                                        var keys = Object.keys(errors.MailAddress[0]);
-
-                                        const element = errors.MailAddress[0][keys[0]];
-                                        $("#MailAddress_error").html(element)
-                                    }else{
-                                        $("#MailAddress_error").html("")
-                                    }
-                                }
-                            }
-                        });
-                    }
-                })
-            })
-
-
-            $("#clear_btn").click(function(){
-                window.location.href = "{{url('admin/users')}}"
-            })
-
 
         });
 

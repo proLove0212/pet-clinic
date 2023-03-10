@@ -66,10 +66,10 @@
     <!--====== HEADER PART START ======-->
     <section class="header_area">
         <div class="navbar-area bg-white">
-            <div class="container relative">
+            <div class="p-3 mx-auto md:container relative">
                 <div class="row items-center">
                     <div class="w-full">
-                        <nav class="flex items-center justify-between py-4 navbar navbar-expand-lg">
+                        <nav class="flex items-center justify-between navbar navbar-expand-lg">
                             <a class="navbar-brand mr-5 flex items-center " href="{{url('/')}}" >
                                 <img src="{{url('assets/images/logo.png')}}" style="width: 50px; height: 50px" alt="Logo">
                                 <p class="font-black sm:text-mdium md:text-mdium lg:text-2xl text-black">Web顧客情報検索</p>
@@ -120,7 +120,7 @@
     <!--====== ABOUT PART START ======-->
 
     <section style="min-height: calc(100vh - 82px); padding-top:100px" class="bg-gray-100">
-        <div class="container">
+        <div class="p-3 mx-auto md:container">
             @yield('content')
         </div>
     </section>

@@ -68,7 +68,6 @@ class User extends Authenticatable
 
 
     protected $encryptable = [
-        'TelNo','TelNum','TelNo_2', 'TelNum_2',
-        'MailAddress',
+
     ];
 }

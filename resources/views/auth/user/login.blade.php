@@ -1,7 +1,7 @@
 @extends('layout.auth')
 
 @section('title')
-ペットクルーカルテ　顧客情報検索ユーザーログイン
+ペットクルーカルテ　顧客情報検索 ユーザーログイン
 @endsection
 
 @section('stylesheet')

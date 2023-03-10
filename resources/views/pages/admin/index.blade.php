@@ -1,7 +1,7 @@
 @extends('layout.main')
 
 @section('title')
-    {{$title}}
+ペットクルーカルテ　顧客情報検索 管理者トップページ
 @endsection
 
 @section('stylesheet')
@@ -10,210 +10,114 @@
 
 @section('content')
 
-{{--
-<div class="row">
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-body">
+<div class="block w-full py-6 rounded-lg bg-white text-center shadow-lg dark:bg-neutral-700">
 
-                <div class="me-2">
-                    <h5 class="card-title mb-4">ユーザーリスト</h5>
-                </div>
-                <div class="row ms-auto">
-                    <!-- App Search-->
-                    <form class="app-search d-lg-block">
-                        <div class="position-relative">
-                            <input type="text" id="search" class="form-control" placeholder="Search..." value = "{{$key}}">
-                            <span class="bx bx-search-alt"></span>
-                        </div>
-                    </form>
-                </div>
+    <form class="flex items-center  px-3" action="{{url('/petcrew/admin/users')}}" method="GET" >
+        @csrf
 
-                <div class="table-responsive">
-                    <table class="table align-middle table-nowrap table-hover">
-                        <thead class="table-light">
-                            <tr>
-                                <th scope="col" style="width: 70px;"></th>
-                                <th scope="col">病院名</th>
-                                <th scope="col" style="min-width: 100px">メールアドレス</th>
-                                <th scope="col">電話番号</th>
-                                <th scope="col">顧客</th>
-                                <th scope="col">ペット</th>
-                                <th scope="col"> </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            @if (count($users) != 0)
-                                @foreach ($users as $key => $user_item)
-                                    <tr>
-                                        <td>
-                                            <img src="{{url('/assets/images/avatar_m.png')}}" alt="" class="rounded-circle header-profile-user">
-                                        </td>
-                                        <td>
-                                            <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{$user_item->ClinicName}}</a></h5>
-                                            <p class="text-muted mb-0">{{$user_item->ClinicID}}</p>
-                                        </td>
-                                        <td>{{$user_item->MailAddress}}</td>
-                                        <td>
-                                            {{$user_item->TelNo}}
-                                        </td>
-                                        <td>
-                                            {{$user_item->customer_cnt}}
-                                        </td>
-                                        <td>
-                                            {{$user_item->pet_cnt}}
-                                        </td>
-                                        <td>
-                                            <ul class="list-inline font-size-20 contact-links mb-0">
-                                                <li class="list-inline-item px-2">
-                                                    <a href="{{url('admin/users/edit?uid='.$user_item->ClinicID)}}" title="Message"><i class="bx bx-edit-alt text-primary"></i></a>
-                                                </li>
-                                                <li class="list-inline-item px-2">
-                                                    <a onclick="deleteUser('{{$user_item->ClinicID}}')" ><i class="bx bx-trash-alt text-danger"></i></a>
-                                                </li>
-
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @else
-                                <tr>
-                                    <td colspan="7">
-                                        <div class="text-center mt-3" style="font-size: 24px"> <span class="bx bx-data"></span> データなし</div>
-                                    </td>
-                                </tr>
-                            @endif
-                        </tbody>
-                    </table>
-                </div>
-
-                @if (count($users) != 0)
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <ul class="pagination pagination-rounded justify-content-center mt-4">
-                                @foreach ($links as $key => $item)
-                                    @if (array_search($key, array_keys($links)) == 0)
-                                        <li class="page-item {{$item->active ? '' : ''}}">
-                                            <a href="{{$item->url}}" class="page-link"><i class="bx bx-chevron-left"></i></a>
-                                        </li>
-                                    @elseif (array_search($key, array_keys($links)) == count($links) - 1)
-                                        <li class="page-item {{$item->active ? '' : ''}}">
-                                            <a href="{{$item->url}}" class="page-link"><i class="bx bx-chevron-right"></i></a>
-                                        </li>
-                                    @else
-                                        <li class="page-item {{$item->active ? 'active' : ''}}">
-                                            <a href="{{$item->url}}" class="page-link">{{$item->label}}</a>
-                                        </li>
-                                    @endif
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                @endif
-            </div>
+        <label for="key" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+        <div class="relative flex-grow">
+            <input type="search" id="key" name="key" value="{{$key}}" class="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="">
+            <button type="submit"class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <svg aria-hidden="true" class="w-5 h-5 text-white-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </button>
         </div>
-    </div>
-</div> --}}
+
+        <a href="{{url('/petcrew/admin/users/add')}}" class="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <span class="material-symbols-outlined w-5 h-5 mr-2 -ml-1">
+                person_add
+            </span>
+            新規追加
+        </a>
+    </form>
+
+    <hr class="my-6 h-0.5 border-t-0 bg-neutral-200 opacity-100 dark:opacity-30" />
+
+    @if (count($users) != 0)
+        @foreach ($users as $key => $user_item)
+            <a href="{{url('/petcrew/admin/users/edit/'.$user_item['id'])}}" class="w-full relative block bg-white hover:bg-gray-100 px-6 pt-6 pb-2 text-left border-2 border-gray-100 hover:border-l-red-400">
+                <h5 class="text-blue-800 sm:text-base md:text-2xl font-black mb-2" style="font-family: 'Helvetica Neue',Helvetica,Arial,'Noto Sans JP',sans-serif" >{{$user_item['ClinicName']}}</h5>
+                <p class="text-black text-sm mb-4"><span class="font-black">病院ID  </span> {{$user_item['ClinicID']}}</p>
+
+                <div class="flex mb-3">
+                    <span class="text-black font-black mr-5"> <span class="">顧客数</span> <span class="text-blue-800">{{$user_item['customer_cnt']}}</span> 人</span>
+                    <span class="text-black font-black"> <span class="">ペット数</span> <span class="text-blue-800">{{$user_item['pet_cnt']}}</span> 匹</span>
+                </div>
+
+                <div class="md:flex justify-end">
+                    <span class="text-black font-black mr-5 flex items-center mb-3">
+                        <span class="material-symbols-outlined mr-2 text-blue-800">
+                            mail
+                        </span>
+                        <span class="text-sm text-blue-400 underline">{{$user_item['MailAddress']}}</span>
+                    </span>
+
+                    <span class="text-black font-black mr-5 flex items-center">
+                        <span class="material-symbols-outlined mr-2 text-blue-800">
+                            call
+                        </span>
+                        <span class="text-sm">{{$user_item['TelNo']}}</span>
+                    </span>
+
+                </div>
+
+                <div class="absolute top-5 right-2 sm:top-10 sm:right-10  text-white font-black text-xs md:text-base">
+                    @if ($user_item['CustStatus'] == 0)
+                        <span class="bg-danger-600 hover:bg-danger-500 px-3 py-2 rounded-full drop-shadow-2xl">システム利用停止</span>
+                    @elseif ($user_item['CustStatus'] == 1)
+                        <span class="bg-indigo-600 hover:bg-indigo-500 px-3 py-2 rounded-full drop-shadow-2xl">新規</span>
+                    @elseif ($user_item['CustStatus'] == 2)
+                        <span class="bg-warning-600 hover:bg-warning-500 px-3 py-2 rounded-full drop-shadow-2xl">パスワード再発行</span>
+                    @else
+                        <span class="bg-success-600 hover:bg-success-500 px-3 py-2 rounded-full drop-shadow-2xl">通常利用</span>
+                    @endif
+                </div>
+
+            </a>
+        @endforeach
+
+        <nav aria-label="Page navigation example" class="mt-5">
+            <ul class="inline-flex items-center -space-x-px">
+                @foreach ($links as $key => $item)
+                    @if (array_search($key, array_keys($links)) == 0)
+                        <li>
+                            <a href="{{$item['url']}}" class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                <span class="sr-only">Previous</span>
+                                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                            </a>
+                        </li>
+                    @elseif (array_search($key, array_keys($links)) == count($links) - 1)
+                        <li>
+                            <a href="{{$item['url']}}" class="block px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                <span class="sr-only">Next</span>
+                                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                            </a>
+                        </li>
+                    @else
+                        <li>
+                            <a href="{{$item['url']}}" class="px-3 py-2 leading-tight {{$item['active'] ? 'text-primary bg-gray-300' : 'text-gray-500'}} bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{$item['label']}}</a>
+                        </li>
+                    @endif
+                @endforeach
+            </ul>
+        </nav>
+
+    @else
+        <div href="" class="w-full block bg-white  px-3 py-6 pt=10 text-center">
+            <span class="material-symbols-outlined block mb-4">
+                person_off
+            </span>
+            <p class="mb-2 text-medium"><span class="u-sp-break">条件を満たすユーザーが</span>見つかりませんでした</p>
+            <p class="mb-2 text-medium">条件を見直して再検索してください。</p>
+        </div>
+    @endif
+</div>
 
 @endsection
 
 
 @section('javascript')
      <script type="text/javascript">
-
-        // function deleteUser(id) {
-        //     Swal.fire({
-        //         title: 'PetClinic',
-        //         text: '続行しますか？',
-        //         icon: 'info',
-        //         confirmButtonText: 'はい'
-        //     }).then((result) => {
-        //         if (result.value) {
-
-        //             $.ajax({
-        //                 type: "DELETE",
-        //                 url: "{{url('/admin/users/delete?uid=')}}"+id,
-        //                 data: {
-        //                     _token: "{{ csrf_token() }}",
-        //                 },
-        //                 dataType: 'json',
-        //                 success: function (data) {
-        //                     if(data.success){
-        //                         Swal.fire({
-        //                             title: 'PetClinic',
-        //                             text: 'ユーザーが削除されました。',
-        //                             icon: 'success',
-        //                         }).then((result)=>{
-        //                             if(result.value){
-        //                                 window.location.href = "{{url('/admin/users')}}"
-        //                             }
-        //                         })
-        //                     }
-        //                 },
-        //                 error: function (data) {
-        //                     if(data.responseJSON && data.responseJSON.errors){
-        //                         var errors = data.responseJSON.errors;
-
-        //                         if(typeof errors.PeaksUserNo[0] == "string"){
-        //                             $("#PeaksUserNo_error").html(errors.PeaksUserNo[0])
-        //                         }else if(typeof errors.PeaksUserNo[0] == "object"){
-        //                             var keys = Object.keys(errors.PeaksUserNo[0]);
-
-        //                             const element = errors.PeaksUserNo[0][keys[0]];
-        //                             $("#PeaksUserNo_error").html(element)
-        //                         }else{
-        //                             $("#PeaksUserNo_error").html("")
-        //                         }
-
-        //                         if(typeof errors.ClinicName[0] == "string"){
-        //                             $("#ClinicName_error").html(errors.ClinicName[0])
-        //                         }else if(typeof errors.ClinicName[0] == "object"){
-        //                             var keys = Object.keys(errors.ClinicName[0]);
-
-        //                             const element = errors.ClinicName[0][keys[0]];
-        //                             $("#ClinicName_error").html(element)
-        //                         }else{
-        //                             $("#ClinicName_error").html("")
-        //                         }
-
-        //                         if(typeof errors.TelNo[0] == "string"){
-        //                             $("#TelNo_error").html(errors.TelNo[0])
-        //                         }else if(typeof errors.TelNo[0] == "object"){
-        //                             var keys = Object.keys(errors.TelNo[0]);
-
-        //                             const element = errors.TelNo[0][keys[0]];
-        //                             $("#TelNo_error").html(element)
-        //                         }else{
-        //                             $("#TelNo_error").html("")
-        //                         }
-
-        //                         if(typeof errors.MailAddress[0] == "string"){
-        //                             $("#MailAddress_error").html(errors.MailAddress[0])
-        //                         }else if(typeof errors.MailAddress[0] == "object"){
-        //                             var keys = Object.keys(errors.MailAddress[0]);
-
-        //                             const element = errors.MailAddress[0][keys[0]];
-        //                             $("#MailAddress_error").html(element)
-        //                         }else{
-        //                             $("#MailAddress_error").html("")
-        //                         }
-        //                     }
-        //                 }
-        //             });
-        //         }
-        //     })
-        // }
-
-        // $( document ).ready(function() {
-        //     var input = document.getElementById("search");
-        //     input.addEventListener("keypress", function(event) {
-        //         if (event.key === "Enter") {
-        //             event.preventDefault();
-        //             window.location.href = "{{url('/admin/users?key=')}}"+document.getElementById("search").value
-        //         }
-        //     });
-        // });
 
     </script>
 @endsection
