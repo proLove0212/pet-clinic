@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('layout.auth')
 
 @section('title')
 ペットクルーカルテ　顧客情報検索 パスワード再設定

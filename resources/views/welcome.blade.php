@@ -188,10 +188,10 @@
 
     <footer id="footer" class="footer_area bg-black relative z-10">
         <div class="shape absolute left-0 top-0 opacity-5 h-full overflow-hidden w-1/3">
-            <img src="assets/images/footer-shape-left.png" alt="">
+            <img src="{{url('assets/images/footer-shape-left.png')}}" alt="">
         </div>
         <div class="shape absolute right-0 top-0 opacity-5 h-full overflow-hidden w-1/3">
-            <img src="assets/images/footer-shape-right.png" alt="">
+            <img src="{{url('assets/images/footer-shape-right.png')}}" alt="">
         </div>
         <div class="container">
             <div class="footer_copyright pt-3 pb-6 border-t-2 border-solid border-white border-opacity-10 sm:flex justify-between">

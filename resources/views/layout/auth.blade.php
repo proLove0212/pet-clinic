@@ -1,93 +1,51 @@
+
 <!doctype html>
-<html lang="en">
+<html class="no-js" lang="en">
 
-    <head>
+<head>
+    <meta charset="utf-8">
 
-        <meta charset="utf-8" />
-        <title>Web顧客情報検索サービス</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-        <meta content="Themesbrand" name="author" />
-        <!-- App favicon -->
-        <link rel="shortcut icon" href="{{url('assets/images/favicon.ico')}}">
+    <!--====== Title ======-->
+    <title>Web顧客情報検索 - ペットクルーカルテ</title>
 
-        <!-- Bootstrap Css -->
-        <link href="{{url('assets/css/bootstrap.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
-        <!-- Icons Css -->
-        <link href="{{url('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
-        <!-- App Css-->
-        <link href="{{url('assets/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
-        <link href="{{url('assets/css/custom.css')}}" id="custom-style" rel="stylesheet" type="text/css" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    </head>
+    <!--====== Favicon Icon ======-->
+    <link rel="shortcut icon" href="{{url('assets/images/favicon.png')}}" type="image/png">
 
-    <body>
-        <div class="home-btn d-none d-sm-block">
-            <a href="{{url('/')}}" class="text-dark"><i class="fas fa-home h2"></i></a>
-        </div>
+    <!--====== Animate CSS ======-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
-        <div class="account-pages my-5 pt-sm-5">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-8 col-lg-6 col-xl-5">
-                        <div class="card overflow-hidden">
-                            <div class="bg-primary bg-soft">
-                                <div class="row">
-                                    <div class="col-7">
-                                        <div class="text-primary p-4">
-                                            <h3>ペットクルーカルテ</h3>
-                                        </div>
-                                    </div>
-                                    <div class="col-5 align-self-end">
-                                        <img src="{{url('assets/images/profile-img.png')}}" alt="" class="img-fluid">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body pt-0">
-                                <div class="auth-logo">
-                                    <a href="" class="auth-logo-light">
-                                        <div class="avatar-md profile-user-wid mb-4">
-                                            <span class="avatar-title rounded-circle bg-light">
-                                                <img src="{{url('assets/images/logo-light.svg')}}" alt="" class="rounded-circle" height="34">
-                                            </span>
-                                        </div>
-                                    </a>
+    <!--====== Slick CSS ======-->
+    <link rel="stylesheet" href="{{url('assets/css/tiny-slider.css')}}">
 
-                                    <a href="" class="auth-logo-dark">
-                                        <div class="avatar-md profile-user-wid mb-4">
-                                            <span class="avatar-title rounded-circle bg-light">
-                                                <img src="{{url('assets/images/logo.png')}}" alt="" class="rounded-circle" height="50">
-                                            </span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="p-2">
-                                    @yield('content')
-                                </div>
+    <!--====== Line Icons CSS ======-->
+    <link rel="stylesheet" href="{{url('assets/fonts/lineicons/font-css/LineIcons.css')}}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!--====== Tailwind CSS ======-->
 
-                            </div>
-                        </div>
-                        <div class="mt-5 text-center">
+    <!--====== Line Icons CSS ======-->
+    <link rel="stylesheet" href="{{url('assets/css/tailwindcss.css')}}">
+    <!--====== Tailwind CSS ======-->
 
-                            <div>
-                                <p>©2023 PetClinic.</p>
-                            </div>
-                        </div>
+    @vite(['resources/css/app.css','resources/js/app.js'])
 
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- end account-pages -->
+    @yield('stylesheet')
 
-        <!-- JAVASCRIPT -->
-        <script src="{{url('assets/libs/jquery/jquery.min.js')}}"></script>
-        <script src="{{url('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-        <script src="{{url('assets/libs/metismenu/metisMenu.min.js')}}"></script>
-        <script src="{{url('assets/libs/simplebar/simplebar.min.js')}}"></script>
-        <script src="{{url('assets/libs/node-waves/waves.min.js')}}"></script>
+    {{-- @vite(['resources/css/app.css']) --}}
+</head>
 
-        <!-- App js -->
-        <script src="{{url('assets/js/app.js')}}"></script>
-    </body>
+<body>
+
+    @yield('content')
+
+    <!--====== Wow js ======-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    @yield('javascript')
+</body>
+
 </html>
+

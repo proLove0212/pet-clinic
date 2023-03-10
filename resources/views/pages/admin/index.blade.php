@@ -6,14 +6,11 @@
 
 @section('stylesheet')
 
-    <!-- Sweet Alert-->
-    <link href="{{url('assets/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
-
 @endsection
 
 @section('content')
 
-
+{{--
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -117,110 +114,106 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
+
 @endsection
 
 
 @section('javascript')
-    <!-- Sweet Alerts js -->
-    <script src="{{url('assets/libs/sweetalert2/sweetalert2.min.js')}}"></script>
+     <script type="text/javascript">
 
-    <!-- Sweet alert init js-->
-    <script src="{{url('assets/js/pages/sweet-alerts.init.js')}}"></script>
+        // function deleteUser(id) {
+        //     Swal.fire({
+        //         title: 'PetClinic',
+        //         text: '続行しますか？',
+        //         icon: 'info',
+        //         confirmButtonText: 'はい'
+        //     }).then((result) => {
+        //         if (result.value) {
 
-    <script type="text/javascript">
-        function deleteUser(id) {
-            Swal.fire({
-                title: 'PetClinic',
-                text: '続行しますか？',
-                icon: 'info',
-                confirmButtonText: 'はい'
-            }).then((result) => {
-                if (result.value) {
+        //             $.ajax({
+        //                 type: "DELETE",
+        //                 url: "{{url('/admin/users/delete?uid=')}}"+id,
+        //                 data: {
+        //                     _token: "{{ csrf_token() }}",
+        //                 },
+        //                 dataType: 'json',
+        //                 success: function (data) {
+        //                     if(data.success){
+        //                         Swal.fire({
+        //                             title: 'PetClinic',
+        //                             text: 'ユーザーが削除されました。',
+        //                             icon: 'success',
+        //                         }).then((result)=>{
+        //                             if(result.value){
+        //                                 window.location.href = "{{url('/admin/users')}}"
+        //                             }
+        //                         })
+        //                     }
+        //                 },
+        //                 error: function (data) {
+        //                     if(data.responseJSON && data.responseJSON.errors){
+        //                         var errors = data.responseJSON.errors;
 
-                    $.ajax({
-                        type: "DELETE",
-                        url: "{{url('/admin/users/delete?uid=')}}"+id,
-                        data: {
-                            _token: "{{ csrf_token() }}",
-                        },
-                        dataType: 'json',
-                        success: function (data) {
-                            if(data.success){
-                                Swal.fire({
-                                    title: 'PetClinic',
-                                    text: 'ユーザーが削除されました。',
-                                    icon: 'success',
-                                }).then((result)=>{
-                                    if(result.value){
-                                        window.location.href = "{{url('/admin/users')}}"
-                                    }
-                                })
-                            }
-                        },
-                        error: function (data) {
-                            if(data.responseJSON && data.responseJSON.errors){
-                                var errors = data.responseJSON.errors;
+        //                         if(typeof errors.PeaksUserNo[0] == "string"){
+        //                             $("#PeaksUserNo_error").html(errors.PeaksUserNo[0])
+        //                         }else if(typeof errors.PeaksUserNo[0] == "object"){
+        //                             var keys = Object.keys(errors.PeaksUserNo[0]);
 
-                                if(typeof errors.PeaksUserNo[0] == "string"){
-                                    $("#PeaksUserNo_error").html(errors.PeaksUserNo[0])
-                                }else if(typeof errors.PeaksUserNo[0] == "object"){
-                                    var keys = Object.keys(errors.PeaksUserNo[0]);
+        //                             const element = errors.PeaksUserNo[0][keys[0]];
+        //                             $("#PeaksUserNo_error").html(element)
+        //                         }else{
+        //                             $("#PeaksUserNo_error").html("")
+        //                         }
 
-                                    const element = errors.PeaksUserNo[0][keys[0]];
-                                    $("#PeaksUserNo_error").html(element)
-                                }else{
-                                    $("#PeaksUserNo_error").html("")
-                                }
+        //                         if(typeof errors.ClinicName[0] == "string"){
+        //                             $("#ClinicName_error").html(errors.ClinicName[0])
+        //                         }else if(typeof errors.ClinicName[0] == "object"){
+        //                             var keys = Object.keys(errors.ClinicName[0]);
 
-                                if(typeof errors.ClinicName[0] == "string"){
-                                    $("#ClinicName_error").html(errors.ClinicName[0])
-                                }else if(typeof errors.ClinicName[0] == "object"){
-                                    var keys = Object.keys(errors.ClinicName[0]);
+        //                             const element = errors.ClinicName[0][keys[0]];
+        //                             $("#ClinicName_error").html(element)
+        //                         }else{
+        //                             $("#ClinicName_error").html("")
+        //                         }
 
-                                    const element = errors.ClinicName[0][keys[0]];
-                                    $("#ClinicName_error").html(element)
-                                }else{
-                                    $("#ClinicName_error").html("")
-                                }
+        //                         if(typeof errors.TelNo[0] == "string"){
+        //                             $("#TelNo_error").html(errors.TelNo[0])
+        //                         }else if(typeof errors.TelNo[0] == "object"){
+        //                             var keys = Object.keys(errors.TelNo[0]);
 
-                                if(typeof errors.TelNo[0] == "string"){
-                                    $("#TelNo_error").html(errors.TelNo[0])
-                                }else if(typeof errors.TelNo[0] == "object"){
-                                    var keys = Object.keys(errors.TelNo[0]);
+        //                             const element = errors.TelNo[0][keys[0]];
+        //                             $("#TelNo_error").html(element)
+        //                         }else{
+        //                             $("#TelNo_error").html("")
+        //                         }
 
-                                    const element = errors.TelNo[0][keys[0]];
-                                    $("#TelNo_error").html(element)
-                                }else{
-                                    $("#TelNo_error").html("")
-                                }
+        //                         if(typeof errors.MailAddress[0] == "string"){
+        //                             $("#MailAddress_error").html(errors.MailAddress[0])
+        //                         }else if(typeof errors.MailAddress[0] == "object"){
+        //                             var keys = Object.keys(errors.MailAddress[0]);
 
-                                if(typeof errors.MailAddress[0] == "string"){
-                                    $("#MailAddress_error").html(errors.MailAddress[0])
-                                }else if(typeof errors.MailAddress[0] == "object"){
-                                    var keys = Object.keys(errors.MailAddress[0]);
+        //                             const element = errors.MailAddress[0][keys[0]];
+        //                             $("#MailAddress_error").html(element)
+        //                         }else{
+        //                             $("#MailAddress_error").html("")
+        //                         }
+        //                     }
+        //                 }
+        //             });
+        //         }
+        //     })
+        // }
 
-                                    const element = errors.MailAddress[0][keys[0]];
-                                    $("#MailAddress_error").html(element)
-                                }else{
-                                    $("#MailAddress_error").html("")
-                                }
-                            }
-                        }
-                    });
-                }
-            })
-        }
-
-        $( document ).ready(function() {
-            var input = document.getElementById("search");
-            input.addEventListener("keypress", function(event) {
-                if (event.key === "Enter") {
-                    event.preventDefault();
-                    window.location.href = "{{url('/admin/users?key=')}}"+document.getElementById("search").value
-                }
-            });
-        });
+        // $( document ).ready(function() {
+        //     var input = document.getElementById("search");
+        //     input.addEventListener("keypress", function(event) {
+        //         if (event.key === "Enter") {
+        //             event.preventDefault();
+        //             window.location.href = "{{url('/admin/users?key=')}}"+document.getElementById("search").value
+        //         }
+        //     });
+        // });
 
     </script>
 @endsection
