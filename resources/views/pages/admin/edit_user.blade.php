@@ -13,7 +13,7 @@
 
 <div class="block w-full py-6 px-3 md:px-10  rounded-lg bg-white text-center shadow-lg dark:bg-neutral-700">
     <div class="flex justify-between mb-10">
-        <a href="{{url('petcrew/admin/users')}}">
+        <a href="{{url('petcrew/admin')}}">
             <h3 class="font-black text-lg flex items-center cursor-pointer">
                 <span class="material-symbols-outlined mr-2">
                     arrow_back_ios

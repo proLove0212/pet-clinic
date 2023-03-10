@@ -29,7 +29,7 @@ class AuthController extends Controller
             $req->session()->put('role', 'admin');
             $req->session()->put('email', $user->email);
 
-            return redirect('/petcrew/admin/users');
+            return redirect('/petcrew/admin');
         }
 
         $data = [

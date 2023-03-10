@@ -47,7 +47,7 @@ Route::middleware(['maintain'])->group(function () {
 });
 
 Route::middleware(['customAuth:admin'])->group(function () {
-    Route::get('/petcrew/admin/users', 'App\HTTP\Controllers\AdminController@index');
+    Route::get('/petcrew/admin', 'App\HTTP\Controllers\AdminController@index');
 
     Route::get('/petcrew/admin/users/add', 'App\HTTP\Controllers\AdminController@create');
     Route::post('/petcrew/admin/users/add', 'App\HTTP\Controllers\AdminController@store');
@@ -58,8 +58,8 @@ Route::middleware(['customAuth:admin'])->group(function () {
     Route::post('/petcrew/admin/users/pwd_reset/{cid}', 'App\HTTP\Controllers\AdminController@pwd_reset');
     Route::delete('/petcrew/admin/users/delete/{cid}', 'App\HTTP\Controllers\AdminController@delete');
 
-    Route::get('/admin/mail', 'App\HTTP\Controllers\AdminMailController@index');
-    Route::post('/admin/mail/send', 'App\HTTP\Controllers\AdminMailController@send');
+    Route::get('/petcrew/admin/contact', 'App\HTTP\Controllers\AdminMailController@index');
+    Route::post('/petcrew/admin/contact/send', 'App\HTTP\Controllers\AdminMailController@send');
 
     Route::get('/admin/maintain', 'App\HTTP\Controllers\MaintainController@index');
     Route::post('/admin/maintain', 'App\HTTP\Controllers\MaintainController@store');

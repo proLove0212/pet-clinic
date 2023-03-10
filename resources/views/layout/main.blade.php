@@ -86,7 +86,7 @@
                                             <a class="page-scroll active" href="{{url('petcrew/admin')}}">ユーザー管理</a>
                                         </li>
                                         <li class="nav-item ml-5 lg:ml-11">
-                                            <a class="page-scroll" href="#about">メール連絡</a>
+                                            <a class="page-scroll" href="{{url('petcrew/admin/contact')}}">メール連絡</a>
                                         </li>
                                         <li class="nav-item ml-5 lg:ml-11">
                                             <a class="page-scroll" href="#services">メンテナンス</a>

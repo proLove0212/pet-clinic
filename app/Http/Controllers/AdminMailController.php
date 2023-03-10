@@ -27,23 +27,25 @@ class AdminMailController extends Controller
     public function send(SendEmailRequest $request){
 
         $subject = $request->input('subject', 'PetClinic');
-        $content = $request->input('content', '...');
+        $content = $request->input('content', 'Hello!');
         $receivers = $request->input('receivers', []);
 
-        foreach ($receivers as $key => $receiver) {
-
-            try {
+        try {
+            foreach ($receivers as $key => $receiver) {
                 Mail::to($receiver)->send(new CustomMail($subject, $content));
-            } catch (\Throwable $th) {
-                //throw $th;
             }
+        } catch (\Throwable $th) {
+            //throw $th;
+            return redirect('/petcrew/admin/contact')->withInput([
+                'failed' => true,
+                'message' => 'メール送信失敗'
+            ]);
         }
 
-        $res = [
-            "success" => true,
-        ];
-
-        return response()->json($res);
+        return redirect('/petcrew/admin/contact')->withInput([
+            'success' => true,
+            'message' => '正常に送信されました'
+        ]);
 
     }
 }
