@@ -52,7 +52,7 @@
             <div class="relative">
                 <div class="row items-center">
                     <div class="w-full">
-                       <nav class="flex items-center justify-between static  shadow">
+                       <nav class="flex items-center justify-between  shadow px-3">
                             <a class="navbar-brand mr-5 flex items-center " href="{{url('/')}}" >
                                 <img src="{{url('assets/images/logo.png')}}" style="width: 50px; height: 50px" alt="Logo">
                                 <p class="font-black sm:text-mdium md:text-mdium lg:text-2xl text-black">Web顧客情報検索</p>

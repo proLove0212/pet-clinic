@@ -142,7 +142,7 @@
 
     <!--====== ABOUT PART START ======-->
 
-    <section id="why" class="about_area pt-120 relative">
+    <section id="why" class="about_area pt-120 pb-32 relative">
         <div class="about_image flex items-end justify-end">
             <div class="image lg:pr-13">
                 <img src="{{url('assets/images/about.svg')}}" alt="about">

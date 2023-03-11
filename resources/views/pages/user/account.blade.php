@@ -10,13 +10,15 @@
 
 @section('content')
 
+<a href="{{url('petcrew/home')}}"
+    class="z-30 fixed bottom-0 right-0 w-full px-3 py-2 text-sm font-medium text-center text-white bg-blue-700  hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+    戻る
+</a>
+
 <div class="flex justify-between mb-10">
     <h3 class="font-black text-xl md:text-2xl flex items-center cursor-pointer">
         ユーザー情報
     </h3>
-    <a href="{{url('petcrew/home')}}" class="text-purple-700 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900">
-        戻る
-    </a>
 </div>
 
 @if (old('failed'))
