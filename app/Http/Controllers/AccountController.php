@@ -103,7 +103,7 @@ class AccountController extends Controller
         return view('pages.user.account', $data);
     }
 
-    public function user_change(PasswordChangeRequest $request){
+    public function user_pwd_change(PasswordChangeRequest $request){
 
 
         if($request->session()->get('role', 'default') != "user"){
@@ -115,7 +115,7 @@ class AccountController extends Controller
             $cid = $request->session()->get('ClinicID', 'default');
             $user = User::where("ClinicID", $cid)->first();
             if(!Hash::check($request->input('password'), $user->Password)){
-                return redirect('/user/account')->withInput($request->input())->withErrors([
+                return redirect('/petcrew/account')->withInput($request->input())->withErrors([
                     'old_password' => "以前のパスワードが間違っています。"
                 ]);
             }
@@ -123,12 +123,52 @@ class AccountController extends Controller
             $user->Password = Hash::make($request->input('password', 'default'));
             $user->save();
 
-            return redirect("/user/account");
+            return redirect("/petcrew/account")->withInput([
+                'success' => true,
+                'message' => 'パスワードが変更されました。'
+            ]);
         } catch (\Throwable $th) {
             //throw $th;
 
-            return redirect('/user/account')->withInput($request->input())->withErrors([
-                'old_password' => "以前のパスワードが間違っています。"
+            return redirect("/petcrew/admin/account")->withInput([
+                'failed' => true,
+                'message' => 'パスワードが変更に失敗しました。'
+            ]);
+        }
+
+    }
+
+    public function user_email_change(PasswordChangeRequest $request){
+
+
+        if($request->session()->get('role', 'default') != "user"){
+            $request->session()->flush();
+            return redirect('/');
+        }
+
+        try {
+            $cid = $request->session()->get('ClinicID', 'default');
+            $user = User::where("ClinicID", $cid)->first();
+            if(!Hash::check($request->input('password_email'), $user->Password)){
+                return redirect('/petcrew/account')->withInput($request->input())->withErrors([
+                    'password_email' => "パスワードが間違っています。"
+                ]);
+            }
+
+            if($request->input('email', 'default') != 'default')
+                $user->MailAddress = $request->input('email');
+            $user->save();
+
+            return redirect("/petcrew/account")->withInput([
+                'success' => true,
+                'message' => 'メールアドレスが変更されました。'
+            ]);
+        } catch (\Throwable $th) {
+            //throw $th;
+
+            return redirect("/petcrew/account")->withInput([
+                'failed' => true,
+                'message' => 'メールアドレスの変更に失敗しました。'
             ]);
         }
 

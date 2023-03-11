@@ -52,7 +52,7 @@
                     <span class="text-black font-black"> <span class="">ペット数</span> <span class="text-blue-800">{{$user_item['pet_cnt']}}</span> 匹</span>
                 </div>
 
-                <div class="md:flex justify-end">
+                <div class="md:absolute bottom-0 right-0 md:flex items-center">
                     <span class="text-black font-black mr-5 flex items-center mb-3">
                         <span class="material-symbols-outlined mr-2 text-blue-800">
                             mail

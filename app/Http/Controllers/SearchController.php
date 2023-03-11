@@ -263,4 +263,30 @@ class SearchController extends Controller
             ];
         }
     }
+
+    public function getCustomerInfo(Request $request, $c_no){
+        $cid = $request->session()->get('ClinicID', 'default');
+        $customer = Customer::where("CustNo", $c_no)
+            ->where("ClinicID", $cid)
+            ->first();
+
+        if($customer){
+            $pets = Pet::where("CustNo", $c_no)
+            ->where("ClinicID", $cid)
+            ->get();
+
+            $data = [
+                'title' => '顧客情報',
+                'auth' => $request->session()->all(),
+                "customer" => $customer,
+                "pets" => $pets
+            ];
+
+            return view("pages.customer.info", $data);
+        }else{
+            $request->session()->flush();
+            return redirect('/petcrew/search');
+        }
+
+    }
 }

@@ -16,16 +16,6 @@
     Sticky
     ======================================= */
     window.onscroll = function () {
-        var header_navbar = document.querySelector(".navbar-area");
-        var sticky = header_navbar.offsetTop;
-
-        if (window.pageYOffset > sticky) {
-            header_navbar.classList.add("sticky");
-        } else {
-            header_navbar.classList.remove("sticky");
-        }
-
-
 
         // show or hide the back-top-top button
         var backToTo = document.querySelector(".scroll-top");
@@ -36,14 +26,5 @@
         }
     };
 
-
-    // section menu active
-    function onScroll(event) {
-        var sections = document.querySelectorAll('.page-scroll');
-        var scrollPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-
-    };
-
-    window.document.addEventListener('scroll', onScroll);
 
 })();

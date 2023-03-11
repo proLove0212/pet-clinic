@@ -80,23 +80,19 @@ Route::middleware(['customAuth:user', 'maintain'])->group(function () {
     Route::get('/petcrew/upload', 'App\HTTP\Controllers\UploadController@index');
     Route::post('/petcrew/upload', 'App\HTTP\Controllers\UploadController@store');
 
-    Route::get('/reception/settings', 'App\HTTP\Controllers\ReceptionSettingController@index');
-    Route::post('/reception/settings', 'App\HTTP\Controllers\ReceptionSettingController@update');
+    // Route::get('/reception/settings', 'App\HTTP\Controllers\ReceptionSettingController@index');
+    // Route::post('/reception/settings', 'App\HTTP\Controllers\ReceptionSettingController@update');
 
-    Route::get('/reception/reason', 'App\HTTP\Controllers\ReceptionReasonController@index');
-    Route::post('/reception/reason', 'App\HTTP\Controllers\ReceptionReasonController@store');
-    Route::post('/reception/reason/order', 'App\HTTP\Controllers\ReceptionReasonController@swap');
-    Route::delete('/reception/reason/{id}', 'App\HTTP\Controllers\ReceptionReasonController@delete');
+    // Route::get('/reception/reason', 'App\HTTP\Controllers\ReceptionReasonController@index');
+    // Route::post('/reception/reason', 'App\HTTP\Controllers\ReceptionReasonController@store');
+    // Route::post('/reception/reason/order', 'App\HTTP\Controllers\ReceptionReasonController@swap');
+    // Route::delete('/reception/reason/{id}', 'App\HTTP\Controllers\ReceptionReasonController@delete');
 
     Route::get('/petcrew/account/pwd_reset', 'App\HTTP\Controllers\AuthController@getPasswordResetPage');
     Route::post('/petcrew/account/pwd_reset', 'App\HTTP\Controllers\AuthController@user_pwd_reset');
-    Route::get('/customer/view/{c_no}', 'App\HTTP\Controllers\UserController@getCustomerInfo');
+    Route::get('/petcrew/customer/info/{id}', 'App\HTTP\Controllers\SearchController@getCustomerInfo');
 
-    Route::get('/user/account', 'App\HTTP\Controllers\AccountController@get_user_change');
-    Route::post('/user/account', 'App\HTTP\Controllers\AccountController@user_change');
+    Route::get('/petcrew/account', 'App\HTTP\Controllers\AccountController@get_user_change');
+    Route::post('/petcrew/account/pwd', 'App\HTTP\Controllers\AccountController@user_pwd_change');
+    Route::post('/petcrew/account/email', 'App\HTTP\Controllers\AccountController@user_email_change');
 });
-
-Route::post('/petcrew/data_update_single.php', 'App\HTTP\Controllers\APIDataController@index');
-Route::get('/petcrew/get_receptionlist.php', 'App\HTTP\Controllers\APIReceptionController@index');
-Route::post('/petcrew/reception_enable.php', 'App\HTTP\Controllers\APIReceptionController@enable');
-Route::post('/petcrew/reception_entry.php', 'App\HTTP\Controllers\APIReceptionController@entry');

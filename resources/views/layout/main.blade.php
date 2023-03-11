@@ -65,7 +65,7 @@
                             </button>
 
                             <div class="z-20 hidden md:block flex-grow px-5 py-3 duration-300 bg-none" id="navbarOne">
-                                <ul id="nav" class="items-center content-start mr-auto justify-end navbar-nav flex">
+                                <ul id="nav" class="font-black items-center content-start mr-auto justify-end navbar-nav flex">
                                     @if ($auth['role'] == 'admin')
                                         <li class="nav-item ml-5 lg:ml-11">
                                             <a class="page-scroll {{(Request::is('petcrew/admin') || Request::is('petcrew/admin/users/*')) ? 'active font-black' : ''}}" href="{{url('petcrew/admin')}}">ユーザー管理</a>
@@ -85,16 +85,17 @@
                                         </li>
                                     @else
                                         <li class="nav-item ml-5 lg:ml-11">
-                                            <a class="page-scroll" href="#work">Projects</a>
+                                            <a class="page-scroll {{ Request::is('petcrew/search') ? 'active font-black' : ''}}" href="{{url('petcrew/search')}}">顧客検索</a>
                                         </li>
                                         <li class="nav-item ml-5 lg:ml-11">
-                                            <a class="page-scroll" href="#pricing">Pricing</a>
+                                            <a class="page-scroll {{Request::is('petcrew/upload') ? 'active font-black' : ''}}" href="{{url('petcrew/upload')}}">アップロード</a>
                                         </li>
                                         <li class="nav-item ml-5 lg:ml-11">
-                                            <a class="page-scroll" href="#blog">Blog</a>
-                                        </li>
-                                        <li class="nav-item ml-5 lg:ml-11">
-                                            <a class="page-scroll" href="#contact">Contact</a>
+                                            <a class="page-scroll {{Request::is('petcrew/account') ? 'active font-black' : ''}} cursor-pointer"  data-dropdown-toggle="dropdownInformation" >
+                                                <span class="material-symbols-outlined">
+                                                    account_circle
+                                                </span>
+                                            </a>
                                         </li>
                                     @endif
                                 </ul>
@@ -113,6 +114,8 @@
                 <div>{{$auth['name']}}</div>
                 <div class="font-medium truncate">{{$auth['email']}}</div>
             @else
+                <div>{{$auth['name']}}</div>
+                <div class="font-medium truncate">{{$auth['email']}}</div>
 
             @endif
         </div>
@@ -123,7 +126,7 @@
                 </li>
             @else
                 <li>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">アカウント管理</a>
+                    <a href="{{url('/petcrew/account')}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">アカウント管理</a>
                 </li>
             @endif
         </ul>
@@ -162,7 +165,7 @@
     </div>
     <!--====== BACK TOP TOP PART START ======-->
 
-    <a href="#" class="scroll-top"><i class="lni lni-chevron-up"></i></a>
+    <a href="#" class="hidden scroll-top"><i class="lni lni-chevron-up"></i></a>
 
 
     <div class="preloader">

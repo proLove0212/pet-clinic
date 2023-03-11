@@ -42,7 +42,7 @@ class UploadController extends Controller
         if($cust_json['ClinicID'] != $cid)
             return response()->json([
                 "success" => false,
-                "msg" => "アクセスできません。"
+                "msg" => "病院IDを確認してください。"
 
             ], 400);
 

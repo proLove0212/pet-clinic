@@ -9,287 +9,82 @@
 @endsection
 
 @section('content')
-<div class="flex justify-center mt-5">
-    <div style="width:100%; max-width: 768px"
-      class="block rounded-lg bg-white text-center shadow-lg dark:bg-neutral-700">
 
-        <div  class="border-b-2 bg-success   border-neutral-100 py-3 px-6 text-xl font-black text-white">
-            顧客情報検索結果（{{count($data)}}件）
-        </div>
-        <div class="flex justify-between items-end px-4 pt-4 border-b-4 border-black">
-            <h5
-            class="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
-                {{$auth['name']}}動物病院
-            </h5>
+<a href="{{url('petcrew/search')}}" class="absolute top-16 right-0 text-purple-700 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900">
+    戻る
+</a>
 
-            <a href="{{url('/petcrew/search')}}" class=" text-white bg-yellow-400 hover:bg-yellow-500 font-medium  text-sm px-6 py-1.5 text-center">
-                基本ペジロ
-            </a>
-        </div>
-    </div>
+<div class="font-black mb-5 mt-4 relative">
+    <h3 class="text-2xl mb-4">
+        ペットクルーカルテ 顧客情報検索
+    </h3>
+    <p class="text-md font-black">
+        {{number_format(count($data), 0, ".", ",")}}人の顧客が検索されました。
+    </p>
 </div>
 
-<div class="flex justify-center" >
+<div class="block w-full rounded-xs bg-white text-center ">
 
-    <div class="mt-5" style="width:100%; max-width: 768px">
-
+    @if (count($data) != 0)
         @foreach ($data as $customer)
+            <a href="{{url('/petcrew/customer/info/'.$customer['CustNo'])}}" class="w-full relative block bg-white hover:bg-gray-100 px-6 pt-6 pb-2 text-left border-2 border-gray-100 hover:border-l-red-400">
+                <h5 class="text-blue-800 sm:text-base md:text-2xl font-black mb-2" >
+                    {{$customer['CustFamilyName']}}{{$customer['CustName']}}（{{$customer['CustFamilyName_furigana']}} {{$customer['CustName_furigana']}}）
+                </h5>
 
-            <div class="block w-full mb-3 rounded-lg bg-white shadow-lg dark:bg-neutral-700">
+                <p class="text-sm mb-4"><span class="font-bold">顧客番号 : </span> {{$customer['CustNo']}}</p>
 
-                <div class="p-6">
-                    <h5 class="mb-2 text-xl  font-black font-lg leading-tight text-neutral-800 dark:text-neutral-50">
-                        {{$customer['CustFamilyName']}}{{$customer['CustName']}}（{{$customer['CustFamilyName_furigana']}} {{$customer['CustName_furigana']}}）
-                    </h5>
+                <div class="flex mb-3 text-sm font-medium">
+                    <span >
+                        <span class="font-bold">住所 : </span>
+                        <span class="">{{$customer['Address']}}</span>
+                    </span>
+                </div>
 
-                    <div class="flex flex-col overflow-x-auto mb-3">
-                        <div class="sm:-mx-6 lg:-mx-8">
-                          <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-                            <div class="overflow-x-auto">
-                              <table class="min-w-full text-left text-sm font-light">
-                                <tbody>
-                                  <tr class="border-b dark:border-neutral-500">
-                                    <td class="whitespace-nowrap px-6 py-4 font-medium" style="width: 100px">顧客番号</td>
-                                    <td class="whitespace-nowrap px-6 py-4">{{$customer['id']}}</td>
-                                  </tr>
-                                  <tr class="border-b dark:border-neutral-500">
-                                    <td class="whitespace-nowrap px-6 py-4 font-medium ">顧客名</td>
-                                    <td class="whitespace-nowrap px-6 py-4">{{$customer['CustFamilyName']}}{{$customer['CustName']}}（{{$customer['CustFamilyName_furigana']}} {{$customer['CustName_furigana']}}）</td>
-                                  </tr>
-                                  <tr class="border-b ">
-                                    <td class="whitespace-nowrap px-6 py-4 font-medium ">住所</td>
-                                    <td class="whitespace-nowrap px-6 py-4">{{$customer['Address']}}</td>
-                                  </tr>
-                                  <tr class="border-b ">
-                                    <td class="whitespace-nowrap px-6 py-4 font-medium ">電話番号</td>
-                                    <td class="whitespace-nowrap px-6 py-4">
-                                        <div class="flex items-center">
-                                            @if ($customer['Tel1'] != "")
-                                                <div class="mb-2 mr-2 flex items-center ">
-                                                    <span class="material-symbols-outlined">
-                                                    phone_enabled
-                                                    </span>&nbsp;&nbsp;
-                                                    {{$customer['Tel1']}}
-                                                </div>
-                                            @endif
-                                            @if ($customer['Tel2'] != "")
-                                                <div class="mb-2 mr-2  flex items-center ">
-                                                    <span class="material-symbols-outlined">
-                                                    phone_enabled
-                                                    </span>&nbsp;&nbsp;
-                                                    {{$customer['Tel2']}}
-                                                </div>
-                                            @endif
-                                            @if ($customer['Tel3'] != "")
-                                                <div class="mb-2 mr-2  flex items-center ">
-                                                    <span class="material-symbols-outlined">
-                                                    phone_enabled
-                                                    </span>&nbsp;&nbsp;
-                                                    {{$customer['Tel3']}}
-                                                </div>
-                                            @endif
-                                            @if ($customer['Tel4'] != "")
-                                                <div class="mb-2 mr-2  flex items-center ">
-                                                    <span class="material-symbols-outlined">
-                                                    phone_enabled
-                                                    </span>&nbsp;&nbsp;
-                                                    {{$customer['Tel4']}}
-                                                </div>
-                                            @endif
-                                            @if ($customer['Tel5'] != "")
-                                                <div class="mb-2 mr-2  flex items-center ">
-                                                    <span class="material-symbols-outlined">
-                                                    phone_enabled
-                                                    </span>&nbsp;&nbsp;
+                <div class="md:absolute bottom-0 right-0 md:flex items-center">
 
-                                                    {{$customer['Tel5'] != ""}}
-                                                </div>
-                                            @endif
-                                            @if ($customer['Tel6'] != "")
-                                                <div class="mb-2 mr-2  flex items-center ">
-                                                    <span class="material-symbols-outlined">
-                                                    phone_enabled
-                                                    </span>&nbsp;&nbsp;
-
-                                                    {{$customer['Tel6']}}
-                                                </div>
-                                            @endif
-                                            @if ($customer['Tel7'] != "")
-                                                <div class="mb-2 mr-2  flex items-center ">
-                                                    <span class="material-symbols-outlined">
-                                                    phone_enabled
-                                                    </span>&nbsp;&nbsp;
-
-                                                    {{$customer['Tel7']}}
-                                                </div>
-                                            @endif
-                                            @if ($customer['Tel8'] != "")
-                                                <div class="mb-2 mr-2  flex items-center ">
-                                                    <span class="material-symbols-outlined">
-                                                    phone_enabled
-                                                    </span>&nbsp;&nbsp;
-
-                                                    {{$customer['Tel8']}}
-                                                </div>
-                                            @endif
-                                        </div>
-                                    </td>
-                                  </tr>
-                                  <tr class="border-b ">
-                                    <td class="whitespace-nowrap px-6 py-4 font-medium ">メールアドレス</td>
-                                    <td class="whitespace-nowrap px-6 py-4">{{$customer['MailAddress']}}</td>
-                                  </tr>
-                                  <tr class="border-b ">
-                                    <td class="whitespace-nowrap px-6 py-4 font-medium ">最終来院</td>
-                                    <td class="whitespace-nowrap px-6 py-4">{{date('Y年 m月 d日', strtotime($customer['LastCommingDate']))}}</td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                        </div>
-                    </div>
-
-
-                    <div class="mb-3 font-black font-lg px-3 flex items-end">
-                        <span class="material-symbols-outlined mr-2">
+                    <span class="text-black font-black mr-5 flex items-center  mb-3">
+                        <span class="material-symbols-outlined mr-2 text-blue-800">
                             pets
                         </span>
-                        ペットのリスト({{count($customer['pets'])}}匹)
-                    </div>
+                        <span class="text-blue-800">{{count($customer['pets'])}} 匹</span>
+                    </span>
 
-                    <div id="accordion-flush-{{$customer['id']}}" data-accordion="collapse" class="px-4" data-active-classes="bg-white dark:bg-gray-900 text-gray-900 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
-                        @foreach ($customer['pets'] as $pet)
-                            <h2 id="accordion-flush-heading-{{$pet['id']}}">
-                                <button type="button" class="flex items-center justify-between w-full py-5 font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400" data-accordion-target="#accordion-flush-body-{{$pet['id']}}" aria-expanded="true" aria-controls="accordion-flush-body-{{$pet['id']}}">
-                                    @if ($pet['PetDeathType'] == 0)
-                                        <span>{{$pet['KarteNo']}}   {{$pet['PetName']}}({{$pet['PetKind']}})</span>
-                                    @elseif ($pet['PetDeathType'] == 1)
-                                        <span>{{$pet['KarteNo']}}(死亡)   {{$pet['PetName']}}({{$pet['PetKind']}})</span>
-                                    @elseif ($pet['PetDeathType'] == 2)
-                                        <span>{{$pet['KarteNo']}}(失踪)   {{$pet['PetName']}}({{$pet['PetKind']}})</span>
-                                    @else
-                                        <span>{{$pet['KarteNo']}}(譲渡)   {{$pet['PetName']}}({{$pet['PetKind']}})</span>
-                                    @endif
-                                    <svg data-accordion-icon class="w-6 h-6 rotate-180 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                                </button>
-                            </h2>
-                            <div id="accordion-flush-body-{{$pet['id']}}" class="hidden" aria-labelledby="accordion-flush-heading-{{$pet['id']}}">
-                                <div class="py-5 font-light border-b border-gray-200 dark:border-gray-700">
-                                    <div class="py-1 bg-success text-center text-white font-medium">
-                                        ペット情報　カルテ番号：{{$pet['KarteNo']}}
-                                    </div>
+                    <span class="text-black font-black mr-5 flex items-center mb-3">
+                        <span class="material-symbols-outlined mr-2 text-blue-800">
+                            mail
+                        </span>
+                        <span class="text-sm text-blue-400 underline">{{$customer['MailAddress']}}</span>
+                    </span>
 
-                                    <div class="flex flex-col overflow-x-auto mb-3">
-                                        <div class="sm:-mx-6 lg:-mx-8">
-                                          <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-                                            <div class="overflow-x-auto">
-                                              <table class="min-w-full text-left text-sm font-light">
-                                                <tbody>
-                                                  <tr class="border-b dark:border-neutral-500">
-                                                    <td class="whitespace-nowrap px-6 py-4 font-medium" style="width: 100px">ペット名</td>
-                                                    <td class="whitespace-nowrap px-6 py-4">{{$pet['PetName']}} ({{$pet['PetName_furigana']}})</td>
-                                                  </tr>
-                                                  <tr class="border-b dark:border-neutral-500">
-                                                    <td class="whitespace-nowrap px-6 py-4 font-medium ">種類</td>
-                                                    <td class="whitespace-nowrap px-6 py-4">{{$pet['PetKind']}} ({{$pet['PetSex']}}) {{$pet['PetBreed']}}</td>
-                                                  </tr>
-                                                  <tr class="border-b dark:border-neutral-500">
-                                                    <td class="whitespace-nowrap px-6 py-4 font-medium ">生年月日</td>
-                                                    <td class="whitespace-nowrap px-6 py-4">
-                                                        @if ($pet['PetBirthday'])
-                                                            {{date('Y年 m月 d日', strtotime($pet['PetBirthday']))}}(
-                                                            @if ($pet['PetDeathType'] == 0)
-                                                                <?php
-                                                                    $end = \Carbon\Carbon::parse($pet['PetBirthday']);
-                                                                    $current = \Carbon\Carbon::now();
-                                                                    $length = $end->diffInDays($current);
-
-                                                                    echo number_format($length/365, 0, ".", ",")."歳".number_format(($length%365)/12, 0, ".", ",")."か月" ;
-                                                                ?>
-                                                            @elseif ($pet['PetDeathType'] == 1)
-                                                                @if ($pet['PetDeathType'])
-                                                                    死亡時
-                                                                    <?php
-                                                                        $end = \Carbon\Carbon::parse($pet['PetBirthday']);
-                                                                        $current = \Carbon\Carbon::parse($pet['PetDeathDate']);
-                                                                        $length = $end->diffInDays($current);
-
-                                                                        echo number_format($length/365, 0, ".", ",")."歳".number_format(($length%365)/12, 0, ".", ",")."か月" ;
-                                                                    ?>
-                                                                @else
-                                                                    死亡
-                                                                @endif
-                                                            @elseif ($pet['PetDeathType'] == 2)
-                                                                失踪
-                                                            @elseif ($pet['PetDeathType'] == 3)
-                                                                譲渡
-                                                            @else
-
-                                                            @endif
-                                                            )
-                                                        @else
-                                                            @if ($pet['PetDeathType'] == 1)
-                                                                死亡
-                                                            @elseif ($pet['PetDeathType'] == 2)
-                                                                失踪
-                                                            @elseif ($pet['PetDeathType'] == 3)
-                                                                譲渡
-                                                            @else
-
-                                                            @endif
-                                                        @endif
-                                                    </td>
-                                                  </tr>
-                                                  <tr class="border-b dark:border-neutral-500">
-                                                    <td class="whitespace-nowrap px-6 py-4 font-medium ">メモ</td>
-                                                    <td class="whitespace-nowrap px-6 py-4">{{$pet['Memo']}}</td>
-                                                  </tr>
-                                                </tbody>
-                                              </table>
-                                            </div>
-                                          </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="flex flex-col overflow-x-auto mb-3">
-                                        <div class="sm:-mx-6 lg:-mx-8">
-                                          <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-                                            <div class="overflow-x-auto">
-                                              <table class="min-w-full text-left text-sm font-light">
-                                                <thead>
-                                                    <tr class="bg-success-200">
-                                                        <th class="whitespace-nowrap px-6 py-4 font-medium"> 予防接種名 </th>
-                                                        <th class="whitespace-nowrap px-6 py-4 font-medium"> 接種日・投薬日</th>
-                                                        <th class="whitespace-nowrap px-6 py-4 font-medium"> 次回予定日</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach (explode(",", $pet['VacInfo']) as $vacInfo)
-                                                        <tr class="border-b dark:border-neutral-500">
-                                                            @foreach (explode("\t", $vacInfo) as $item)
-                                                                <td class="whitespace-nowrap px-6 py-4">{{$item}}</td>
-                                                            @endforeach
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                              </table>
-                                            </div>
-                                          </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
                 </div>
-            </div>
+{{--
+                <div class="absolute top-5 right-2 sm:top-10 sm:right-10  text-white font-black text-xs md:text-base">
+                    @if ($user_item['CustStatus'] == 0)
+                        <span class="bg-danger-600 hover:bg-danger-500 px-3 py-2 rounded-full drop-shadow-2xl">システム利用停止</span>
+                    @elseif ($user_item['CustStatus'] == 1)
+                        <span class="bg-indigo-600 hover:bg-indigo-500 px-3 py-2 rounded-full drop-shadow-2xl">新規</span>
+                    @elseif ($user_item['CustStatus'] == 2)
+                        <span class="bg-warning-600 hover:bg-warning-500 px-3 py-2 rounded-full drop-shadow-2xl">パスワード再発行</span>
+                    @else
+                        <span class="bg-success-600 hover:bg-success-500 px-3 py-2 rounded-full drop-shadow-2xl">通常利用</span>
+                    @endif
+                </div> --}}
+
+            </a>
         @endforeach
 
-    </div>
+    @else
+        <div href="" class="w-full block bg-white  px-3 py-6 pt=10 text-center">
+            <span class="material-symbols-outlined block mb-4">
+                person_off
+            </span>
+            <p class="mb-2 text-medium"><span class="u-sp-break">条件を満たすユーザーが</span>見つかりませんでした</p>
+            <p class="mb-2 text-medium">条件を見直して再検索してください。</p>
+        </div>
+    @endif
 </div>
+
 @endsection
 
 
