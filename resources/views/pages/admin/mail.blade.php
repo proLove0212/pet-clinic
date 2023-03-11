@@ -72,29 +72,29 @@
                 @endforeach
             </select>
             @error('receivers')
-                <span class="mt-2 text-danger">{{$message}}</span>
+                <span class="mt-2 text-danger text-sm font-black">{{$message}}</span>
             @enderror
         </div>
     </div>
 
     <div class="md:flex items-start text-left mb-3">
-        <p class="mt-3 mr-3 font-black  text-left md:text-right  w-40">主題</p>
+        <p class="my-3 mr-3 font-black  text-left md:text-right  w-40">主題</p>
         <div class=" md:flex-grow">
             <input type="text" id="subject" name="subject" value="{{old('subject')}}" class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" required >
             @error('subject')
-                <span class="mt-2 text-danger">{{$message}}</span>
+                <span class="mt-2 text-danger text-sm font-black">{{$message}}</span>
             @enderror
         </div>
     </div>
 
     <div class="md:flex items-start text-left mb-3">
-        <p class="mt-3 mr-3 font-black   text-left md:text-right  w-40">コンテンツ</p>
+        <p class="my-3 mr-3 font-black   text-left md:text-right  w-40">コンテンツ</p>
         <div class=" md:flex-grow">
             <textarea id="content" name="content" rows="4" class="block p-2.5 form-control w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..." required>
 
             </textarea>
             @error('content')
-                <span class="mt-2 text-danger">{{$message}}</span>
+                <span class="mt-2 text-danger text-sm font-black">{{$message}}</span>
             @enderror
         </div>
     </div>
@@ -102,7 +102,7 @@
 
 
     <div class="md:flex items-start text-left mb-3">
-        <p class="mt-3 mr-3 font-black   text-left md:text-right  w-40"></p>
+        <p class="my-3 mr-3 font-black   text-left md:text-right  w-40"></p>
         <div class=" md:flex-grow">
             <div class="w-full px-3 mb-5 flex justify-center">
                 <button id="send_pre"

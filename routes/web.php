@@ -65,8 +65,9 @@ Route::middleware(['customAuth:admin'])->group(function () {
     Route::post('/petcrew/admin/maintain', 'App\HTTP\Controllers\MaintainController@store');
     Route::delete('/petcrew/admin/maintain/delete/{id}', 'App\HTTP\Controllers\MaintainController@delete');
 
-    Route::get('/admin/account', 'App\HTTP\Controllers\AccountController@get_admin_change');
-    Route::post('/admin/account', 'App\HTTP\Controllers\AccountController@admin_change');
+    Route::get('/petcrew/admin/account', 'App\HTTP\Controllers\AccountController@get_admin_change');
+    Route::post('/petcrew/admin/account/pwd', 'App\HTTP\Controllers\AccountController@admin_pwd_change');
+    Route::post('/petcrew/admin/account/email', 'App\HTTP\Controllers\AccountController@admin_email_change');
 });
 
 

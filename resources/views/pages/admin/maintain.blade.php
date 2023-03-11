@@ -20,7 +20,7 @@
         <form action="{{url('/petcrew/admin/maintain')}}" method="post">
             @csrf
             <div class="items-start text-left mb-3">
-                <p class="mt-3 mr-3 font-black  text-left">開始日時</p>
+                <p class="my-3 mr-3 font-black  text-left">開始日時</p>
                 <div class="w-full">
                     <input datepicker type="datetime-local" name="start_time" value="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="02/29/2023">
 
@@ -31,7 +31,7 @@
             </div>
 
             <div class="text-left mb-3">
-                <p class="mt-3 mr-3 font-black  text-left">終了日時</p>
+                <p class="my-3 mr-3 font-black  text-left">終了日時</p>
                 <div class="w-full">
                     <input datepicker type="datetime-local" name="end_time" value="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="02/29/2023">
 
@@ -42,7 +42,7 @@
             </div>
 
             <div class="text-left mb-3">
-                <p class="mt-3 mr-3 font-black  text-left">メモ</p>
+                <p class="my-3 mr-3 font-black  text-left">メモ</p>
                 <textarea id="memo" name="memo" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""></textarea>
             </div>
 

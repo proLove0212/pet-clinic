@@ -110,53 +110,53 @@
         <form action="{{url('/petcrew/admin/users/edit/'.$user['id'])}}" method="post">
             @csrf
             <div class="md:flex items-start text-left mb-3">
-                <p class="mt-3 mr-3 font-black  text-left md:text-right w-40">ユーザー番号</p>
+                <p class="my-3 mr-3 font-black  text-left md:text-right w-40">ユーザー番号</p>
                 <div class=" md:flex-grow">
                     <input type="text" name="PeaksUserNo" value="{{$user['PeaksUserNo']}}"
                     required pattern="00[0-9][0-9][0-9][0-9]"
                     class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="00xxxx" required >
                     @error('PeaksUserNo')
-                        <span class="mt-2 text-danger">{{$message}}</span>
+                        <span class="mt-2 text-danger text-sm font-black">{{$message}}</span>
                     @enderror
                 </div>
             </div>
 
             <div class="md:flex items-start text-left mb-3">
-                <p class="mt-3 mr-3 font-black  text-left md:text-right  w-40">病院名</p>
+                <p class="my-3 mr-3 font-black  text-left md:text-right  w-40">病院名</p>
                 <div class=" md:flex-grow">
                     <input type="text" name="ClinicName" value="{{$user['ClinicName']}}" class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" required >
                     @error('ClinicName')
-                        <span class="mt-2 text-danger">{{$message}}</span>
+                        <span class="mt-2 text-danger text-sm font-black">{{$message}}</span>
                     @enderror
                 </div>
             </div>
 
             <div class="md:flex items-start text-left mb-3">
-                <p class="mt-3 mr-3 font-black   text-left md:text-right  w-40">電話番号</p>
+                <p class="my-3 mr-3 font-black   text-left md:text-right  w-40">電話番号</p>
                 <div class=" md:flex-grow">
                     <input type="tel" id="phone" name="TelNo" value="{{$user['TelNo']}}" required
                     required pattern="[0-9]{2,3}-[0-9]{3}-[0-9]{4}"
                     class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="xx-xxx-xxxx, xxx-xxx-xxxx" >
                     @error('TelNo')
-                        <span class="mt-2 text-danger">{{$message}}</span>
+                        <span class="mt-2 text-danger text-sm font-black">{{$message}}</span>
                     @enderror
                 </div>
             </div>
 
 
             <div class="md:flex items-start text-left mb-3">
-                <p class="mt-3 mr-3 font-black  text-left md:text-right  w-40">メールアドレス</p>
+                <p class="my-3 mr-3 font-black  text-left md:text-right  w-40">メールアドレス</p>
                 <div class=" md:flex-grow">
                     <input type="email" name="MailAddress" value="{{$user['MailAddress']}}" class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" required >
                     @error('MailAddress')
-                        <span class="mt-2 text-danger">{{$message}}</span>
+                        <span class="mt-2 text-danger text-sm font-black">{{$message}}</span>
                     @enderror
                 </div>
             </div>
 
 
             <div class="md:flex items-start text-left mb-3">
-                <p class="mt-3 mr-3 font-black  text-left md:text-right  w-40">オプション</p>
+                <p class="my-3 mr-3 font-black  text-left md:text-right  w-40">オプション</p>
                 <div class=" md:flex-grow">
                     <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                         <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
@@ -195,7 +195,7 @@
 
 
             <div class="md:flex items-start text-left mb-3">
-                <p class="mt-3 mr-3 font-black  text-left md:text-right  w-40">ライセンスの</p>
+                <p class="my-3 mr-3 font-black  text-left md:text-right  w-40">ライセンスの</p>
                 <div class=" md:flex-grow relative max-w-sm">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                     <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
@@ -203,24 +203,24 @@
                     <input datepicker type="text" name="License" value="{{date('m/d/Y', strtotime($user['License']))}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="02/29/2023">
 
                     @error('License')
-                        <span class="mt-2 text-danger">{{$message}}</span>
+                        <span class="mt-2 text-danger text-sm font-black">{{$message}}</span>
                     @enderror
                 </div>
             </div>
 
             <div class="md:flex items-start text-left mb-3">
-                <p class="mt-3 mr-3 font-black  text-left md:text-right  w-40">メモ情報</p>
+                <p class="my-3 mr-3 font-black  text-left md:text-right  w-40">メモ情報</p>
                 <div class=" md:flex-grow">
                     <input type="text" name="Memo" value="{{$user['Memo']}}" class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" required >
                     @error('Memo')
-                        <span class="mt-2 text-danger">{{$message}}</span>
+                        <span class="mt-2 text-danger text-sm font-black">{{$message}}</span>
                     @enderror
                 </div>
             </div>
 
             @if ($user['CustStatus'] == 5 || $user['CustStatus'] == 0)
                 <div class="md:flex items-center text-left mb-5">
-                    <p class="mt-3 mr-3 font-black  text-left md:text-right  w-40">メモ情報</p>
+                    <p class="my-3 mr-3 font-black  text-left md:text-right  w-40">メモ情報</p>
                     <div class="flex md:flex-grow">
                         <div class="flex items-center mr-4">
                             @if ($user['CustStatus'] == 5)

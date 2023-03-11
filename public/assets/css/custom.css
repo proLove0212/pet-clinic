@@ -9,3 +9,29 @@ html{
     margin-right: auto;
     padding: 0px 15px;
 }
+
+.preloader{
+    position: absolute;
+    top: 50px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: white;
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.preloader svg path,
+.preloader svg rect{
+  fill: #FF6700;
+}
+
+
+.header_area{
+    position: sticky !important;
+    top: 0;
+    left: 0;
+    z-index: 40;
+}

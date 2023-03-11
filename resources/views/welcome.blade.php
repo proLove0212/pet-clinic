@@ -17,9 +17,6 @@
     <!--====== Animate CSS ======-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
-    <!--====== Slick CSS ======-->
-    <link rel="stylesheet" href="{{url('assets/css/tiny-slider.css')}}">
-
     <!--====== Line Icons CSS ======-->
     <link rel="stylesheet" href="{{url('assets/fonts/lineicons/font-css/LineIcons.css')}}">
     <!--====== Tailwind CSS ======-->
