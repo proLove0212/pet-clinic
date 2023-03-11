@@ -25,6 +25,13 @@
     <link rel="stylesheet" href="{{url('assets/css/tailwindcss.css')}}">
     <!--====== Tailwind CSS ======-->
 
+    <style>
+
+        .scroll-top{
+            background-color: transparent !important;
+        }
+
+    </style>
 
     {{-- @vite(['resources/css/app.css']) --}}
 </head>
@@ -132,7 +139,7 @@
 
             <div class="header_image flex items-center">
                 <div class="image 2xl:pl-25">
-                    <img src="{{url('assets/images/header-image.svg')}}" alt="Header Image">
+                    <img src="{{url('assets/images/qq.png')}}" alt="Header Image">
                 </div>
             </div> <!-- header image -->
         </div> <!-- header hero -->
@@ -208,7 +215,10 @@
 
     <!--====== BACK TOP TOP PART START ======-->
 
-    <a href="#" class="scroll-top"><i class="lni lni-chevron-up"></i></a>
+    <a href="#" class="hidden scroll-top">
+        <img class="object-cover object-center w-full h-full rounded-full" src="https://img.icons8.com/3d-fluency/1x/up.png"/>
+
+    </a>
 
 
     <!--====== PART ENDS ======-->

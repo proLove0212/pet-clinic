@@ -72,7 +72,7 @@ Route::middleware(['customAuth:admin'])->group(function () {
 
 
 Route::middleware(['customAuth:user', 'maintain'])->group(function () {
-    Route::get('/petcrew/home', 'App\HTTP\Controllers\UserDashboardController@index');
+    Route::get('/petcrew/search', 'App\HTTP\Controllers\UserDashboardController@index');
 
     Route::get('/petcrew/search', 'App\HTTP\Controllers\SearchController@index');
     Route::post('/petcrew/search', 'App\HTTP\Controllers\SearchController@search');

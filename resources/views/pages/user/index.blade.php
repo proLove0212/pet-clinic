@@ -9,7 +9,29 @@
 @endsection
 
 @section('content')
-<div class="flex justify-center mt-5">
+
+<div class="user-home-container ">
+    <img id="dog_img" src="{{url('assets/images/qq.png')}}" class="" alt="">
+
+    <h2 class="text-2xl sm:3xl md:text-4xl lg:text-5xl text-white font-black ml-5 mt-32 sm:mt-40">
+        {{$auth['name']}} 動物病院
+    </h2>
+
+
+    <div class="mb-3 px-3 mt-20">
+
+        <button class="learn-more flex items-center">
+            <span class="circle " aria-hidden="true">
+            <span class="icon arrow"></span>
+            </span>
+            <span class="button-text font-black text-2xl">顧客検索</span>
+        </button>
+
+    </div>
+
+</div>
+
+{{-- <div class="flex justify-center mt-5">
     <div style="width:100%; max-width: 768px"
       class="block max-w-xl rounded-lg bg-white text-center shadow-lg dark:bg-neutral-700">
         <div  class="border-b-2 bg-success   border-neutral-100 py-3 px-6 text-xl font-black text-white">
@@ -83,7 +105,7 @@
 
 
     </div>
-</div>
+</div> --}}
 @endsection
 
 

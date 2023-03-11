@@ -28,7 +28,7 @@ class MaintainMiddleware
         if($maintain){
             $request->session()->flush();
 
-            return redirect('/maintain')->with('start_time', $maintain->from)->with("end_time", $maintain->to);
+            return redirect('/petcrew/maintain')->with('start_time', $maintain->from)->with("end_time", $maintain->to);
         }else{
             return $next($request);
         }

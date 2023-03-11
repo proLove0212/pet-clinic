@@ -152,20 +152,72 @@
 
     <!-- drawer component -->
     <div id="drawer-right-example" class="fixed top-0 right-0 z-50 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-white w-80 dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-right-label">
-        <a class="navbar-brand mr-5 flex items-center "  >
+        <a class="navbar-brand mr-5 flex items-center mb-10"  >
             <img src="{{url('assets/images/logo.png')}}" style="width: 50px; height: 50px" alt="Logo">
-            <p class="font-black sm:text-mdium md:text-mdium lg:text-2xl text-black">Web顧客情報検索</p>
+            <p class="font-black text-xl text-black">Web顧客情報検索</p>
         </a>
         <button type="button" data-drawer-hide="drawer-right-example" aria-controls="drawer-right-example" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" >
             <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
             <span class="sr-only">Close menu</span>
         </button>
 
+        <p class="mb-3 px-3 font-black text-xl">
+            {{$auth['name']}}
+        </p>
+
+        <p class="mb-3 px-3 font-black text-xl">
+            {{$auth['email']}}
+        </p>
+
+        <hr class="my-6 h-0.5 border-t-0 bg-neutral-200 opacity-100 dark:opacity-30" />
+
+        @if ($auth['role'] == 'admin')
+            <p class="mb-3 px-3 font-black text-xl">
+                <a class="page-scroll {{(Request::is('petcrew/admin') || Request::is('petcrew/admin/users/*')) ? 'active font-black' : ''}}" href="{{url('petcrew/admin')}}">ユーザー管理</a>
+            </p>
+
+            <p class="mb-3 px-3 font-black text-xl">
+                <a class="page-scroll {{Request::is('petcrew/admin/contact') ? 'active font-black' : ''}}" href="{{url('petcrew/admin/contact')}}">メール連絡</a>
+            </p>
+
+            <p class="mb-3 px-3 font-black text-xl">
+                <a class="page-scroll {{Request::is('petcrew/admin/maintain') ? 'active font-black' : ''}}" href="{{url('petcrew/admin/maintain')}}">メンテナンス</a>
+            </p>
+
+        @else
+            <p class="mb-3 px-3 font-black text-xl">
+                <a class="page-scroll {{ Request::is('petcrew/search') ? 'active font-black' : ''}}" href="{{url('petcrew/search')}}">顧客検索</a>
+            </p>
+
+            <p class="mb-3 px-3 font-black text-xl">
+                <a class="page-scroll {{Request::is('petcrew/upload') ? 'active font-black' : ''}}" href="{{url('petcrew/upload')}}">アップロード</a>
+            </p>
+
+        @endif
+
+
+        <p class="mb-3 px-3 font-black text-xl">
+            @if ($auth['role'] == 'admin')
+                <a class="page-scroll {{Request::is('petcrew/admin/account') ? 'active font-black' : ''}}" href="{{url('petcrew/admin/account')}}">アカウント管理</a>
+            @else
+                <a class="page-scroll {{Request::is('petcrew/account') ? 'active font-black' : ''}}" href="{{url('petcrew/account')}}">アカウント管理</a>
+            @endif
+        </p>
+
+        <hr class="my-6 h-0.5 border-t-0 bg-neutral-200 opacity-100 dark:opacity-30" />
+
+        <form action="{{url('/logout')}}" method="post" class="mb-3 px-3 font-black text-xl">
+            @csrf
+            <button type="submit" class="font-black  text-xl">ログアウト</button>
+        </form>
 
     </div>
     <!--====== BACK TOP TOP PART START ======-->
 
-    <a href="#" class="hidden scroll-top"><i class="lni lni-chevron-up"></i></a>
+    <a href="#" class="hidden scroll-top">
+        <img class="object-cover object-center w-full h-full rounded-full" src="https://img.icons8.com/3d-fluency/1x/up.png"/>
+
+    </a>
 
 
     <div class="preloader">

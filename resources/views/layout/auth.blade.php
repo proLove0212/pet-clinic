@@ -38,6 +38,17 @@
 
     @yield('content')
 
+
+    <!-- BUY ME A BEER AND HELP SUPPORT OPEN-SOURCE RESOURCES -->
+    <div class="flex items-end justify-end fixed bottom-0 right-0 mb-4 mr-4 z-10">
+        <div>
+            <a title="PetClinic" href="{{url('/')}}"  class="block w-16 h-16 rounded-full transition-all shadow hover:shadow-lg transform hover:scale-110 hover:rotate-12">
+                <img class="object-cover object-center w-full h-full rounded-full" src="https://img.icons8.com/3d-fluency/1x/home.png"/>
+            </a>
+        </div>
+    </div>
+
+
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     @yield('javascript')

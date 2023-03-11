@@ -145,7 +145,7 @@
 
 
     <p class="text-lg font-black border-b-2  border-b-gray-300 mb-5">
-        ペット動物の詳細情報
+        ペット動物情報
     </p>
 
     <div id="accordion-flush-{{$customer['id']}}" data-accordion="collapse"  data-active-classes="bg-white dark:bg-gray-900 text-gray-900 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">

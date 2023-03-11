@@ -59,7 +59,7 @@ class AuthController extends Controller
                     $user->LoginDateTime = Carbon::now();
                     $user->save();
 
-                    return redirect('/petcrew/home');
+                    return redirect('/petcrew/search');
                 }else{
                     return redirect("/petcrew/account/pwd_reset");
                 }
@@ -124,7 +124,7 @@ class AuthController extends Controller
             $user->LoginDateTime = Carbon::now();
             $user->CustStatus = 5;
             $user->save();
-            return redirect('/petcrew/home');
+            return redirect('/petcrew/search');
         }else{
             $request->session()->flush();
             return redirect('/petcrew/login');
