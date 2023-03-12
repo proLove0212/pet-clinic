@@ -1,7 +1,7 @@
 @extends('layout.main')
 
 @section('title')
-    {{$title}}
+顧客情報データファイル・アップロード
 @endsection
 
 @section('stylesheet')
@@ -38,11 +38,11 @@
 </div>
 
 <div class="my-3 text-left px-5 font-black text-lg">
-    ID : {{$auth['ClinicID']}}
+    ID : {{Auth::user()->ClinicID}}
 </div>
 
 <div class="mb-3 text-left px-5 font-black text-lg">
-    病院名 : {{Auth::user()&&Auth::user()->name}}
+    病院名 : {{Auth::user()->ClinicName}}
 </div>
 
 <div class="mb-3 text-left text-warning px-5 flex items-start font-black">

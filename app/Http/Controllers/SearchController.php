@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Auth;
 use Str;
-use DB;
-use App\Models\User;
 use App\Models\Customer;
 use App\Models\Pet;
-use App\Models\Reception;
 
 class SearchController extends Controller
 {
@@ -22,14 +20,7 @@ class SearchController extends Controller
      * *************************************************/
     public function index(Request $request){
 
-        $data = [
-            'title' => '顧客情報検索',
-            'auth' => $request->session()->all(),
-            // 'plans' => $plans,
-            // 'links' => json_decode(json_encode($plans))->links
-        ];
-
-        return view('pages.user.search.index', $data);
+        return view('pages.user.search.index');
     }
 
      /***************************************************
@@ -41,7 +32,7 @@ class SearchController extends Controller
     public function search(Request $request){
         $mode = $request->input('search_mode', "default");
 
-        $cid = $request->session()->get('ClinicID', 'default');
+        $cid = Auth::user()->ClinicID;
 
         $pet_mode = $request->input('pet_mode', ['only-live'])[0];
 
@@ -73,8 +64,6 @@ class SearchController extends Controller
         }, $rslt['data']);
 
         $data = [
-            'title' => '顧客情報検索',
-            'auth' => $request->session()->all(),
             'data' => $custs,
         ];
         return view('pages.user.search.result', $data);
@@ -265,7 +254,7 @@ class SearchController extends Controller
     }
 
     public function getCustomerInfo(Request $request, $c_no){
-        $cid = $request->session()->get('ClinicID', 'default');
+        $cid = Auth::user()->ClinicID;
         $customer = Customer::where("CustNo", $c_no)
             ->where("ClinicID", $cid)
             ->first();
@@ -276,16 +265,14 @@ class SearchController extends Controller
             ->get();
 
             $data = [
-                'title' => '顧客情報',
-                'auth' => $request->session()->all(),
                 "customer" => $customer,
                 "pets" => $pets
             ];
 
             return view("pages.customer.info", $data);
         }else{
-            $request->session()->flush();
-            return redirect(route('user.search'));
+
+            return view('errors.404');
         }
 
     }

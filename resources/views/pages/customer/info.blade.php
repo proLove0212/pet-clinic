@@ -1,7 +1,7 @@
 @extends('layout.main')
 
 @section('title')
-    {{$title}}
+ペット クルカルテ お客様情報検索 お客様情報
 @endsection
 
 @section('stylesheet')

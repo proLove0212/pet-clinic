@@ -26,7 +26,7 @@ class RedirectIfAuthenticated
             }
 
             if (Auth::guard($guard)->check()) {
-                return redirect('petcrew/search');
+                return redirect(route('user.search'));
             }
         }
 

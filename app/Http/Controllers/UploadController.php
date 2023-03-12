@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Str;
 use DB;
+use Auth;
 use App\Models\Customer;
 use App\Models\Pet;
 
@@ -18,18 +19,13 @@ class UploadController extends Controller
      * *************************************************/
     public function index(Request $request){
 
-        $data = [
-            'title' => '顧客情報データファイル・アップロード',
-            'auth' => $request->session()->all(),
-        ];
-
-        return view('pages.user.upload.index', $data);
+        return view('pages.user.upload.index');
     }
 
     public function store(Request $request){
         $cust_json = $request->input('cust_data', null);
 
-        $cid = $request->session()->get('ClinicID', 'default');
+        $cid = Auth::user()->ClinicID;
 
         if($cust_json['Version'] != "Ver2.0")
             return response()->json([
@@ -119,7 +115,7 @@ class UploadController extends Controller
 
                 }
 
-                $customer->email = $cust_json['CustData']['email'];
+                $customer->email = $cust_json['CustData']['MailAddress'];
                 $customer->Kubun = $cust_json['CustData']['Kubun'];
                 $customer->LastCommingDate = $cust_json['CustData']['LastCommingDate'];
                 $customer->NextDate = $cust_json['CustData']['NextDate'];
@@ -205,7 +201,7 @@ class UploadController extends Controller
 
                 }
 
-                $customer->email = $cust_json['CustData']['email'];
+                $customer->email = $cust_json['CustData']['MailAddress'];
                 $customer->Kubun = $cust_json['CustData']['Kubun'];
                 $customer->LastCommingDate = $cust_json['CustData']['LastCommingDate'];
                 $customer->NextDate = $cust_json['CustData']['NextDate'];
