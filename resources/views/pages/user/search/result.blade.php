@@ -56,7 +56,7 @@
                         <span class="material-symbols-outlined mr-2 text-blue-800">
                             mail
                         </span>
-                        <span class="text-sm text-blue-400 underline">{{$customer['MailAddress']}}</span>
+                        <span class="text-sm text-blue-400 underline">{{$customer['email']}}</span>
                     </span>
 
                 </div>

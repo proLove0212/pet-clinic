@@ -57,7 +57,7 @@
                         <span class="material-symbols-outlined mr-2 text-blue-800">
                             mail
                         </span>
-                        <span class="text-sm text-blue-400 underline">{{$user_item['MailAddress']}}</span>
+                        <span class="text-sm text-blue-400 underline">{{$user_item['email']}}</span>
                     </span>
 
                     <span class="text-black font-black mr-5 flex items-center">

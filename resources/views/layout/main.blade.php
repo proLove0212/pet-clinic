@@ -66,7 +66,22 @@
 
                             <div class="z-20 hidden md:block flex-grow px-5 py-3 duration-300 bg-none" id="navbarOne">
                                 <ul id="nav" class="font-black items-center content-start mr-auto justify-end navbar-nav flex">
-                                    @if ($auth['role'] == 'admin')
+                                    @if (Auth::user()&&Auth::user()->ClinicName)
+                                        <li class="nav-item ml-5 lg:ml-11">
+                                            <a class="page-scroll {{ Request::is('petcrew/search') ? 'active font-black' : ''}}" href="{{url('petcrew/search')}}">顧客検索</a>
+                                        </li>
+                                        <li class="nav-item ml-5 lg:ml-11">
+                                            <a class="page-scroll {{Request::is('petcrew/upload') ? 'active font-black' : ''}}" href="{{url('petcrew/upload')}}">アップロード</a>
+                                        </li>
+                                        <li class="nav-item ml-5 lg:ml-11">
+                                            <a class="page-scroll {{Request::is('petcrew/account') ? 'active font-black' : ''}} cursor-pointer"  data-dropdown-toggle="dropdownInformation" >
+                                                <span class="material-symbols-outlined">
+                                                    account_circle
+                                                </span>
+                                            </a>
+                                        </li>
+
+                                    @else
                                         <li class="nav-item ml-5 lg:ml-11">
                                             <a class="page-scroll {{(Request::is('petcrew/admin') || Request::is('petcrew/admin/users/*')) ? 'active font-black' : ''}}" href="{{url('petcrew/admin')}}">ユーザー管理</a>
                                         </li>
@@ -78,20 +93,6 @@
                                         </li>
                                         <li class="nav-item ml-5 lg:ml-11">
                                             <a class="page-scroll {{Request::is('petcrew/admin/account') ? 'active font-black' : ''}} cursor-pointer"  data-dropdown-toggle="dropdownInformation" >
-                                                <span class="material-symbols-outlined">
-                                                    account_circle
-                                                </span>
-                                            </a>
-                                        </li>
-                                    @else
-                                        <li class="nav-item ml-5 lg:ml-11">
-                                            <a class="page-scroll {{ Request::is('petcrew/search') ? 'active font-black' : ''}}" href="{{url('petcrew/search')}}">顧客検索</a>
-                                        </li>
-                                        <li class="nav-item ml-5 lg:ml-11">
-                                            <a class="page-scroll {{Request::is('petcrew/upload') ? 'active font-black' : ''}}" href="{{url('petcrew/upload')}}">アップロード</a>
-                                        </li>
-                                        <li class="nav-item ml-5 lg:ml-11">
-                                            <a class="page-scroll {{Request::is('petcrew/account') ? 'active font-black' : ''}} cursor-pointer"  data-dropdown-toggle="dropdownInformation" >
                                                 <span class="material-symbols-outlined">
                                                     account_circle
                                                 </span>
@@ -110,23 +111,23 @@
 
     <div id="dropdownInformation" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
         <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-            @if ($auth['role'] == 'admin')
-                <div>{{$auth['name']}}</div>
-                <div class="font-medium truncate">{{$auth['email']}}</div>
+            @if (Auth::user()&&Auth::user()->ClinicName)
+                <div>{{Auth::user()&&Auth::user()->ClinicName}}</div>
+                <div class="font-medium truncate">{{Auth::user()&&Auth::user()->email}}</div>
             @else
-                <div>{{$auth['name']}}</div>
-                <div class="font-medium truncate">{{$auth['email']}}</div>
+                <div>{{Auth::user()&&Auth::user()->name}}</div>
+                <div class="font-medium truncate">{{Auth::user()&&Auth::user()->email}}</div>
 
             @endif
         </div>
         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformationButton">
-            @if ($auth['role'] == 'admin')
+            @if (Auth::user()&&Auth::user()->ClinicName)
                 <li>
-                    <a href="{{url('/petcrew/admin/account')}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">アカウント管理</a>
+                    <a href="{{url('/petcrew/account')}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">アカウント管理</a>
                 </li>
             @else
                 <li>
-                    <a href="{{url('/petcrew/account')}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">アカウント管理</a>
+                    <a href="{{url('/petcrew/admin/account')}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">アカウント管理</a>
                 </li>
             @endif
         </ul>
@@ -162,16 +163,28 @@
         </button>
 
         <p class="mb-3 px-3 font-black text-xl">
-            {{$auth['name']}}
+            @if (Auth::user()&&Auth::user()->ClinicName)
+                <div>{{Auth::user()&&Auth::user()->ClinicName}}</div>
+            @else
+                <div>{{Auth::user()&&Auth::user()->name}}</div>
+            @endif
         </p>
 
         <p class="mb-3 px-3 font-black text-xl">
-            {{$auth['email']}}
+            {{Auth::user()&&Auth::user()->email}}
         </p>
 
         <hr class="my-6 h-0.5 border-t-0 bg-neutral-200 opacity-100 dark:opacity-30" />
 
-        @if ($auth['role'] == 'admin')
+        @if (Auth::user()&&Auth::user()->ClinicName)
+            <p class="mb-3 px-3 font-black text-xl">
+                <a class="page-scroll {{ Request::is('petcrew/search') ? 'active font-black' : ''}}" href="{{url('petcrew/search')}}">顧客検索</a>
+            </p>
+
+            <p class="mb-3 px-3 font-black text-xl">
+                <a class="page-scroll {{Request::is('petcrew/upload') ? 'active font-black' : ''}}" href="{{url('petcrew/upload')}}">アップロード</a>
+            </p>
+        @else
             <p class="mb-3 px-3 font-black text-xl">
                 <a class="page-scroll {{(Request::is('petcrew/admin') || Request::is('petcrew/admin/users/*')) ? 'active font-black' : ''}}" href="{{url('petcrew/admin')}}">ユーザー管理</a>
             </p>
@@ -183,24 +196,14 @@
             <p class="mb-3 px-3 font-black text-xl">
                 <a class="page-scroll {{Request::is('petcrew/admin/maintain') ? 'active font-black' : ''}}" href="{{url('petcrew/admin/maintain')}}">メンテナンス</a>
             </p>
-
-        @else
-            <p class="mb-3 px-3 font-black text-xl">
-                <a class="page-scroll {{ Request::is('petcrew/search') ? 'active font-black' : ''}}" href="{{url('petcrew/search')}}">顧客検索</a>
-            </p>
-
-            <p class="mb-3 px-3 font-black text-xl">
-                <a class="page-scroll {{Request::is('petcrew/upload') ? 'active font-black' : ''}}" href="{{url('petcrew/upload')}}">アップロード</a>
-            </p>
-
         @endif
 
 
         <p class="mb-3 px-3 font-black text-xl">
-            @if ($auth['role'] == 'admin')
-                <a class="page-scroll {{Request::is('petcrew/admin/account') ? 'active font-black' : ''}}" href="{{url('petcrew/admin/account')}}">アカウント管理</a>
-            @else
+            @if (Auth::user()&&Auth::user()->ClinicName)
                 <a class="page-scroll {{Request::is('petcrew/account') ? 'active font-black' : ''}}" href="{{url('petcrew/account')}}">アカウント管理</a>
+            @else
+                <a class="page-scroll {{Request::is('petcrew/admin/account') ? 'active font-black' : ''}}" href="{{url('petcrew/admin/account')}}">アカウント管理</a>
             @endif
         </p>
 

@@ -156,7 +156,7 @@ class AccountController extends Controller
             }
 
             if($request->input('email', 'default') != 'default')
-                $user->MailAddress = $request->input('email');
+                $user->email = $request->input('email');
             $user->save();
 
             return redirect("/petcrew/account")->withInput([

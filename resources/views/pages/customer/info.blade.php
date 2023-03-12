@@ -131,7 +131,7 @@
     <div class="font-medium sm:flex items-center text-left mb-3 px-3">
         <span class=" mr-3  font-black w-32">メールアドレス</span>
         <span class="ml-5 sm:ml-0">
-            {{$customer['MailAddress']}}
+            {{$customer['email']}}
         </span>
     </div>
 

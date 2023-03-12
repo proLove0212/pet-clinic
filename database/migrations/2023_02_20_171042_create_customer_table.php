@@ -45,7 +45,7 @@ return new class extends Migration
             $table->string('Tel6Last4')->nullable()->default('');           //電話番号の末尾4桁を暗号化した番号6（検索用）
             $table->string('Tel7Last4')->nullable()->default('');           //電話番号の末尾4桁を暗号化した番号7（検索用）
             $table->string('Tel8Last4')->nullable()->default('');           //電話番号の末尾4桁を暗号化した番号8（検索用）
-            $table->string('MailAddress')->unique();                        //メールアドレス
+            $table->string('email')->unique();                        //メールアドレス
             $table->string('Kubun', 10)->nullable()->default('null');       //区分
             $table->date('LastCommingDate')->nullable();                    //最終来院日
             $table->date('NextDate')->nullable();                           //次回来院予定日

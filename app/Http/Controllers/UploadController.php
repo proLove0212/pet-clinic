@@ -119,7 +119,7 @@ class UploadController extends Controller
 
                 }
 
-                $customer->MailAddress = $cust_json['CustData']['MailAddress'];
+                $customer->email = $cust_json['CustData']['email'];
                 $customer->Kubun = $cust_json['CustData']['Kubun'];
                 $customer->LastCommingDate = $cust_json['CustData']['LastCommingDate'];
                 $customer->NextDate = $cust_json['CustData']['NextDate'];
@@ -205,7 +205,7 @@ class UploadController extends Controller
 
                 }
 
-                $customer->MailAddress = $cust_json['CustData']['MailAddress'];
+                $customer->email = $cust_json['CustData']['email'];
                 $customer->Kubun = $cust_json['CustData']['Kubun'];
                 $customer->LastCommingDate = $cust_json['CustData']['LastCommingDate'];
                 $customer->NextDate = $cust_json['CustData']['NextDate'];

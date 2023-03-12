@@ -25,7 +25,7 @@ class CustomerSeeder extends Seeder
                 "CustFamilyName_furigana" => "しんじゅく",
                 "CustName_furigana" => "いちろう",
                 "Address" => "新宿区北新宿12-12",
-                "MailAddress" => "customer1@gmail.com",
+                "email" => "customer1@gmail.com",
                 "Tel" => "03-000-0001/09-000-0002",
                 "Kubun" => "",
                 "LastCommingDate" => "2021/02/04",
@@ -40,7 +40,7 @@ class CustomerSeeder extends Seeder
                 "CustFamilyName_furigana" => "しんじゅく",
                 "CustName_furigana" => "いちろう",
                 "Address" => "新宿区北新宿12-12",
-                "MailAddress" => "customer2@gmail.com",
+                "email" => "customer2@gmail.com",
                 "Tel" => "03-000-0003/09-000-0004",
                 "Kubun" => "",
                 "LastCommingDate" => "2021/02/04",
@@ -55,7 +55,7 @@ class CustomerSeeder extends Seeder
                 "CustFamilyName_furigana" => "しんじゅく",
                 "CustName_furigana" => "いちろう",
                 "Address" => "新宿区北新宿12-12",
-                "MailAddress" => "customer3@gmail.com",
+                "email" => "customer3@gmail.com",
                 "Tel" => "03-000-0005/09-000-0006",
                 "Kubun" => "",
                 "LastCommingDate" => "2021/02/04",
@@ -70,7 +70,7 @@ class CustomerSeeder extends Seeder
                 "CustFamilyName_furigana" => "しんじゅく",
                 "CustName_furigana" => "いちろう",
                 "Address" => "新宿区北新宿12-12",
-                "MailAddress" => "customer4@gmail.com",
+                "email" => "customer4@gmail.com",
                 "Tel" => "03-000-0007/09-000-0008",
                 "Kubun" => "",
                 "LastCommingDate" => "2021/02/04",
@@ -85,7 +85,7 @@ class CustomerSeeder extends Seeder
                 "CustFamilyName_furigana" => "しんじゅく",
                 "CustName_furigana" => "いちろう",
                 "Address" => "新宿区北新宿12-12",
-                "MailAddress" => "customer5@gmail.com",
+                "email" => "customer5@gmail.com",
                 "Tel" => "03-000-0009/09-000-0010",
                 "Kubun" => "",
                 "LastCommingDate" => "2021/02/04",
@@ -100,7 +100,7 @@ class CustomerSeeder extends Seeder
                 "CustFamilyName_furigana" => "しんじゅく",
                 "CustName_furigana" => "いちろう",
                 "Address" => "新宿区北新宿12-12",
-                "MailAddress" => "customer6@gmail.com",
+                "email" => "customer6@gmail.com",
                 "Tel" => "03-000-0011/09-000-0012",
                 "Kubun" => "",
                 "LastCommingDate" => "2021/02/04",
@@ -168,7 +168,7 @@ class CustomerSeeder extends Seeder
 
             }
 
-            $customer->MailAddress = $item['MailAddress'];
+            $customer->email = $item['email'];
             $customer->Kubun = $item['Kubun'];
             $customer->LastCommingDate = $item['LastCommingDate'];
             $customer->NextDate = $item['NextDate'];

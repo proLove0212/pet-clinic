@@ -46,7 +46,7 @@ class Customer extends Model
         'Tel6Last4',
         'Tel7Last4',
         'Tel8Last4',
-        'MailAddress',
+        'email',
         'Kubun',
         'LastCommingDate',
         'NextDate',
@@ -95,6 +95,6 @@ class Customer extends Model
         'Tel6Last4',
         'Tel7Last4',
         'Tel8Last4',
-        'MailAddress',
+        'email',
     ];
 }

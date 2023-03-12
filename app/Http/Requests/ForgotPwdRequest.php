@@ -13,7 +13,7 @@ class ForgotPwdRequest extends FormRequest
      public function rules(): array
      {
          return [
-            'email' => 'required|exists:pckusers,MailAddress'
+            'email' => 'required|exists:pckusers,email'
          ];
      }
 

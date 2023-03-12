@@ -25,7 +25,7 @@ class UpdateUserRequest extends FormRequest
             'PeaksUserNo' => 'required|digits:6|unique:pckusers,PeaksUserNo,'.$this->id,
             'ClinicName' => 'required|unique:pckusers,ClinicName,'.$this->id,
             'TelNo' => 'required',
-            'MailAddress' => 'required|unique:pckusers,MailAddress,'.$this->id."|email"
+            'email' => 'required|unique:pckusers,email,'.$this->id."|email"
         ];
     }
 
@@ -44,7 +44,7 @@ class UpdateUserRequest extends FormRequest
             "TelNo" => [
                 "required" => "電話番号を入力する必要があります。",
             ],
-            "MailAddress" => [
+            "email" => [
                 "required" => "メールを入力する必要があります。",
                 "unique" => "すでに存在します。",
                 "email" => "メールが間違っています。"

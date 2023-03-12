@@ -68,7 +68,7 @@
             <select class="select2  select2-multiple block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500"
                 multiple="multiple" id="receivers" name="receivers[]">
                 @foreach ($users as $user)
-                    <option value="{{$user->MailAddress}}">{{$user->ClinicName}}</option>
+                    <option value="{{$user->email}}">{{$user->ClinicName}}</option>
                 @endforeach
             </select>
             @error('receivers')

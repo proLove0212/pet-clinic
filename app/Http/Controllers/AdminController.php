@@ -101,7 +101,7 @@ class AdminController extends Controller
         $data->ClinicID = $clinic_id;
         $data->TelNo = $request->input('TelNo');
         $data->TelNum = Str::replace('-', '', $request->input('TelNo'));
-        $data->MailAddress = $request->input('MailAddress');
+        $data->email = $request->input('email');
         $data->Password = $pwd;
         $data->PasswordExpiry = Carbon::now()->addDays(3);
         if($request->input('License', 'default') != "default")
@@ -115,7 +115,7 @@ class AdminController extends Controller
 
         try {
 
-            $receiver = $request->input('MailAddress');
+            $receiver = $request->input('email');
             $subject = "PetClinic";
             $content = "
                 <h1>Your Password is ".$pwd."</h1>
@@ -178,7 +178,7 @@ class AdminController extends Controller
             $data->TelNum_2 = $data->TelNum;
             $data->TelNo = $request->input('TelNo');
             $data->TelNum = Str::replace('-', '', $request->input('TelNo'));
-            $data->MailAddress = $request->input('MailAddress');
+            $data->email = $request->input('email');
             if($request->input('License', 'default') != "default")
                 $data->License = Carbon::parse($request->input('License', "03/03/2023"));
             $data->PatientRegOpt = $request->input('PatientRegOpt', 'default') == "PatientRegOpt" ? true : false ;
@@ -223,7 +223,7 @@ class AdminController extends Controller
 
             try {
 
-                $receiver = $user->MailAddress;
+                $receiver = $user->email;
                 $subject = "PetClinic";
                 $content = "
                     <h1>Your Password is <b>".$pwd."</b></h1>

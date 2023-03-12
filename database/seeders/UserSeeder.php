@@ -20,13 +20,24 @@ class UserSeeder extends Seeder
     {
         $user_data = [
             [
+                "PeaksUserNo" => "000000",
+                "ClinicID" => "00000",
+                "ClinicName" => "Admin",
+                "TelNo" => "03-821-9031",
+                "TelNum" => "038219031",
+                "email" => "proLove0212@gmail.com",
+                "password" => Hash::make("password"),
+                "PasswordExpiry" => Carbon::now()->addDays(10000),
+                "Memo" => ""
+            ],
+            [
                 "PeaksUserNo" => "002408",
                 "ClinicID" => "24083",
                 "ClinicName" => "Clinic 1",
                 "TelNo" => "03-821-9031",
                 "TelNum" => "038219031",
-                "MailAddress" => "kaneda804@gmail.com",
-                "Password" => Hash::make("password"),
+                "email" => "kaneda804@gmail.com",
+                "password" => Hash::make("password"),
                 "PasswordExpiry" => Carbon::now()->addDays(3),
                 "Memo" => ""
             ],
@@ -36,8 +47,8 @@ class UserSeeder extends Seeder
                 "ClinicName" => "Clinic 2",
                 "TelNo" => "03-534-9031",
                 "TelNum" => "035349031",
-                "MailAddress" => "ohno521@gmail.com",
-                "Password" => Hash::make("password"),
+                "email" => "ohno521@gmail.com",
+                "password" => Hash::make("password"),
                 "PasswordExpiry" => Carbon::now()->addDays(3),
                 "Memo" => ""
             ],
@@ -47,8 +58,8 @@ class UserSeeder extends Seeder
                 "ClinicName" => "Clinic 3",
                 "TelNo" => "03-754-9031",
                 "TelNum" => "037549031",
-                "MailAddress" => "blight1115.dev@gmail.com",
-                "Password" => Hash::make("password"),
+                "email" => "blight1115.dev@gmail.com",
+                "password" => Hash::make("password"),
                 "PasswordExpiry" => Carbon::now()->addDays(3),
                 "Memo" => ""
             ]
@@ -65,8 +76,8 @@ class UserSeeder extends Seeder
             $user->ClinicName = $item["ClinicName"];
             $user->TelNo = $item["TelNo"];
             $user->TelNum = $item["TelNum"];
-            $user->MailAddress = $item["MailAddress"];
-            $user->Password = $item["Password"];
+            $user->email = $item["email"];
+            $user->password = $item["password"];
             $user->PasswordExpiry = $item["PasswordExpiry"];
             $user->Memo = $item["Memo"];
             $user->save();

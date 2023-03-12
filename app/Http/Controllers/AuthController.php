@@ -43,7 +43,7 @@ class AuthController extends Controller
         $id = $req->input('id');
 
         $user = User::where("ClinicID", $id)
-        ->orWhere("MailAddress", $id)
+        ->orWhere("email", $id)
         ->first();
 
         if($user){
@@ -52,7 +52,7 @@ class AuthController extends Controller
 
                 $req->session()->put('name', $user->ClinicName);
                 $req->session()->put('role', 'user');
-                $req->session()->put('email', $user->MailAddress);
+                $req->session()->put('email', $user->email);
                 $req->session()->put('ClinicID', $user->ClinicID);
 
                 if($user->CustStatus == 5){
@@ -93,7 +93,7 @@ class AuthController extends Controller
                 $user->PasswordExpiry = Carbon::now()->addDays(3);
                 $user->save();
 
-                $receiver = $request->input('MailAddress');
+                $receiver = $request->input('email');
                 $subject = "PetClinic";
                 $content = "
                     <h1>Your Password is ".$pwd."</h1>

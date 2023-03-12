@@ -23,18 +23,18 @@ Route::get('/petcrew', function () {
 
 Route::get('/petcrew/login', function () {
     return view('auth.user.login');
-});
+})->name('login');
 
 Route::get('/petcrew/admin/login', function () {
     return view('auth.admin.login');
-});
+})->name('admin.login');
 
 
 Route::get('/petcrew/maintain', 'App\HTTP\Controllers\AuthController@notification');
 
 Route::post('/logout', 'App\HTTP\Controllers\AuthController@logout');
 
-Route::post('/petcrew/admin/login', 'App\HTTP\Controllers\AuthController@admin_login')->name('admin_login');
+Route::post('/petcrew/admin/login', 'App\HTTP\Controllers\Auth\LoginController@adminLogin')->name('admin.login');
 
 Route::middleware(['maintain'])->group(function () {
     Route::post('/petcrew/login', 'App\HTTP\Controllers\AuthController@user_login')->name('user_login');
@@ -46,7 +46,7 @@ Route::middleware(['maintain'])->group(function () {
 
 });
 
-Route::middleware(['customAuth:admin'])->group(function () {
+Route::middleware(['auth:admin'])->group(function () {
     Route::get('/petcrew/admin', 'App\HTTP\Controllers\AdminController@index');
 
     Route::get('/petcrew/admin/users/add', 'App\HTTP\Controllers\AdminController@create');

@@ -118,9 +118,9 @@
             <span class="bg-danger-100 text-danger text-xs font-medium ml-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-danger-400 border border-danger-400">必須</span>
         </p>
         <div class=" md:flex-grow">
-            <input type="email" name="MailAddress" value="{{old('MailAddress')}}"
+            <input type="email" name="email" value="{{old('email')}}"
             class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" requidanger >
-            @error('MailAddress')
+            @error('email')
                 <span class="mt-2 text-danger text-sm font-black">{{$message}}</span>
             @enderror
         </div>

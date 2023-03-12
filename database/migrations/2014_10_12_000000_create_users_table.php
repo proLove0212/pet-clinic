@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('TelNum');                                   //現在の電話番号（ハイフン無し）　検索用
             $table->string('TelNo_2')->nullable()->default(null);       //転居する前の電話番号（ハイフンあり）　画面表示用
             $table->string('TelNum_2')->nullable()->default(null);      //転居する前の電話番号（ハイフン無し）　検索用
-            $table->string('MailAddress')->unique();                        //メールアドレス
-            $table->string('Password');                                     //不可逆暗号化
+            $table->string('email')->unique();                        //メールアドレス
+            $table->string('password');                                     //不可逆暗号化
             $table->date('PasswordExpiry');                                 //仮パスワードの有効期限　yyyy-mm-dd　通常有効期限は発行後3日間
             $table->dateTime('LoginDateTime')->nullable();                  //Userがログインした日時　yyyy-mm-dd hh:mm:ss
             $table->date('License')->nullable();                            //ライセンスの期限日　yyyy-mm-dd
@@ -34,6 +34,7 @@ return new class extends Migration
             $table->boolean('MaintenanceLock')->nullable()->default(false); //メンテナンス中は顧客リストペットリストへのデータ書き込みをロックする
             $table->string('Memo')->nullable();                             //メモ情報
             $table->tinyInteger('CustStatus')->nullable()->default(1);      //サービスの利用状況　0：システム利用停止　1：新規(仮パスワード発行状態)　 2：パスワード再発行(仮パスワード発行状態)　 5：通常利用
+            $table->string("role")->default("user");
             $table->timestamps();
         });
     }

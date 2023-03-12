@@ -26,7 +26,7 @@ class UserForgotController extends Controller
         $pwd = Hash::make(Str::random(8));
         $email = $request->input('email', 'default');
 
-        $data = User::where("MailAddress", $email)->first();
+        $data = User::where("email", $email)->first();
         $data->Password = $pwd;
         $data->PasswordExpiry = Carbon::now()->addDays(3);
         $data->CustStatus = 1;
@@ -61,7 +61,7 @@ class UserForgotController extends Controller
         $pwd = Hash::make(Str::random(8));
         $email = $request->input('email', 'default');
 
-        $data = User::where("MailAddress", $email)->first();
+        $data = User::where("email", $email)->first();
         $data->Password = $pwd;
         $data->PasswordExpiry = Carbon::now()->addDays(3);
         $data->CustStatus = 2;

@@ -88,8 +88,8 @@
     <div class="md:flex items-start text-left mb-3">
         <p class="my-3 mr-3 font-black  text-left md:text-right  w-40">メールアドレス</p>
         <div class=" md:flex-grow">
-            <input type="email" name="MailAddress" value="{{old('MailAddress')}}" class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" required >
-            @error('MailAddress')
+            <input type="email" name="email" value="{{old('email')}}" class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" required >
+            @error('email')
                 <span class="mt-2 text-danger text-sm font-black">{{$message}}</span>
             @enderror
         </div>

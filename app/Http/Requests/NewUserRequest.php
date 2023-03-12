@@ -25,7 +25,7 @@ class NewUserRequest extends FormRequest
             'PeaksUserNo' => 'required|unique:pckusers,PeaksUserNo|digits:6',
             'ClinicName' => 'required|unique:pckusers,ClinicName',
             'TelNo' => 'required',
-            'MailAddress' => 'required|unique:pckusers,MailAddress',
+            'email' => 'required|unique:pckusers,email',
             'DBNo' => 'required|digits_between:1,10'
         ];
     }
@@ -45,7 +45,7 @@ class NewUserRequest extends FormRequest
             "TelNo" => [
                 "required" => "電話番号を入力する必要があります。",
             ],
-            "MailAddress" => [
+            "email" => [
                 "required" => "メールを入力する必要があります。",
                 "unique" => "すでに存在します。",
                 "email" => "メールが間違っています。"
