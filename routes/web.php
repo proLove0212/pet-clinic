@@ -30,9 +30,9 @@ Route::get('/petcrew/admin/login', function () {
 })->name('admin.login');
 
 
-Route::get('/petcrew/maintain', 'App\HTTP\Controllers\AuthController@notification');
+Route::get('/petcrew/maintain', 'App\HTTP\Controllers\AuthController@notification')->name('notification');
 
-Route::post('/logout', 'App\HTTP\Controllers\AuthController@logout');
+Route::post('/logout', 'App\HTTP\Controllers\AuthController@logout')->name('logout');
 
 Route::post('/petcrew/admin/login', 'App\HTTP\Controllers\Auth\LoginController@adminLogin')->name('admin.login');
 
@@ -45,23 +45,23 @@ Route::post('/petcrew/account/password/reset_2', 'App\HTTP\Controllers\Auth\Forg
 
 
 Route::middleware(['auth:admin'])->group(function () {
-    Route::get('/petcrew/admin', 'App\HTTP\Controllers\AdminController@index');
+    Route::get('/petcrew/admin', 'App\HTTP\Controllers\AdminController@index')->name('admin.users');
 
-    Route::get('/petcrew/admin/users/add', 'App\HTTP\Controllers\AdminController@create');
-    Route::post('/petcrew/admin/users/add', 'App\HTTP\Controllers\AdminController@store');
+    Route::get('/petcrew/admin/users/add', 'App\HTTP\Controllers\AdminController@create')->name('admin.user.create');
+    Route::post('/petcrew/admin/users/add', 'App\HTTP\Controllers\AdminController@store')->name('admin.user.create');
 
-    Route::get('/petcrew/admin/users/edit/{id}', 'App\HTTP\Controllers\AdminController@edit');
-    Route::post('/petcrew/admin/users/edit/{id}', 'App\HTTP\Controllers\AdminController@update');
+    Route::get('/petcrew/admin/users/edit/{id}', 'App\HTTP\Controllers\AdminController@edit')->name('admin.user.edit');
+    Route::post('/petcrew/admin/users/edit/{id}', 'App\HTTP\Controllers\AdminController@update')->name('admin.user.edit');
 
-    Route::post('/petcrew/admin/users/pwd_reset/{cid}', 'App\HTTP\Controllers\AdminController@pwd_reset');
-    Route::delete('/petcrew/admin/users/delete/{cid}', 'App\HTTP\Controllers\AdminController@delete');
+    Route::post('/petcrew/admin/users/pwd_reset/{cid}', 'App\HTTP\Controllers\AdminController@pwd_reset')->name('admin.user.password');
+    Route::delete('/petcrew/admin/users/delete/{cid}', 'App\HTTP\Controllers\AdminController@delete')->name('admin.user.delete');
 
-    Route::get('/petcrew/admin/contact', 'App\HTTP\Controllers\AdminMailController@index');
-    Route::post('/petcrew/admin/contact/send', 'App\HTTP\Controllers\AdminMailController@send');
+    Route::get('/petcrew/admin/contact', 'App\HTTP\Controllers\AdminMailController@index')->name('admin.contact');
+    Route::post('/petcrew/admin/contact/send', 'App\HTTP\Controllers\AdminMailController@send')->name('admin.mail');
 
-    Route::get('/petcrew/admin/maintain', 'App\HTTP\Controllers\MaintainController@index');
-    Route::post('/petcrew/admin/maintain', 'App\HTTP\Controllers\MaintainController@store');
-    Route::delete('/petcrew/admin/maintain/delete/{id}', 'App\HTTP\Controllers\MaintainController@delete');
+    Route::get('/petcrew/admin/maintain', 'App\HTTP\Controllers\MaintainController@index')->name('admin.maintain');
+    Route::post('/petcrew/admin/maintain', 'App\HTTP\Controllers\MaintainController@store')->name('admin.maintain.create');
+    Route::delete('/petcrew/admin/maintain/delete/{id}', 'App\HTTP\Controllers\MaintainController@delete')->name('admin.maintain.delete');
 
     Route::get('/petcrew/admin/account', 'App\HTTP\Controllers\Auth\AccountController@get_admin_change')->name('admin.account');
     Route::post('/petcrew/admin/account/pwd', 'App\HTTP\Controllers\Auth\AccountController@admin_pwd_change')->name('admin.account.password');
@@ -70,13 +70,12 @@ Route::middleware(['auth:admin'])->group(function () {
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/petcrew/search', 'App\HTTP\Controllers\UserDashboardController@index');
 
-    Route::get('/petcrew/search', 'App\HTTP\Controllers\SearchController@index');
-    Route::post('/petcrew/search', 'App\HTTP\Controllers\SearchController@search');
+    Route::get('/petcrew/search', 'App\HTTP\Controllers\SearchController@index')->name('user.search');
+    Route::post('/petcrew/search', 'App\HTTP\Controllers\SearchController@search')->name('user.search');
 
-    Route::get('/petcrew/upload', 'App\HTTP\Controllers\UploadController@index');
-    Route::post('/petcrew/upload', 'App\HTTP\Controllers\UploadController@store');
+    Route::get('/petcrew/upload', 'App\HTTP\Controllers\UploadController@index')->name('user.upload');
+    Route::post('/petcrew/upload', 'App\HTTP\Controllers\UploadController@store')->name('user.upload');
 
     // Route::get('/reception/settings', 'App\HTTP\Controllers\ReceptionSettingController@index');
     // Route::post('/reception/settings', 'App\HTTP\Controllers\ReceptionSettingController@update');

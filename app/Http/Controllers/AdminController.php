@@ -17,7 +17,6 @@ use App\Mail\CustomMail;
 use App\Models\User;
 use App\Models\Customer;
 use App\Models\Pet;
-use App\Models\Reception;
 
 class AdminController extends Controller
 {
@@ -47,8 +46,6 @@ class AdminController extends Controller
         }, $users->toArray()['data']);
 
         $data = [
-            'title' => '全ユーザー',
-            'auth' => $request->session()->all(),
             'key' => $key,
             'users' => $user_data,
             'links' => $users->toArray()['links'],
@@ -61,8 +58,6 @@ class AdminController extends Controller
     public function create(Request $request){
 
         $data = [
-            'title' => 'ユーザー新規追加',
-            'auth' => $request->session()->all(),
             'user_no' => $request->query('user_no', ''),
             'name' => $request->query('name', ''),
             'phone' => $request->query('phone', ''),
@@ -91,6 +86,7 @@ class AdminController extends Controller
     }
 
     public function store(NewUserRequest $request){
+
         $clinic_id = $this->makeClinicID($request->input('PeaksUserNo'));
 
         $pwd = Hash::make(Str::random(8));
@@ -102,7 +98,7 @@ class AdminController extends Controller
         $data->TelNo = $request->input('TelNo');
         $data->TelNum = Str::replace('-', '', $request->input('TelNo'));
         $data->email = $request->input('email');
-        $data->Password = $pwd;
+        $data->password = $pwd;
         $data->PasswordExpiry = Carbon::now()->addDays(3);
         if($request->input('License', 'default') != "default")
             $data->License = Carbon::parse($request->input('License', "03/03/2023"));
@@ -128,7 +124,7 @@ class AdminController extends Controller
         }
 
 
-        return redirect('/petcrew/admin/users/add')->withInput([
+        return redirect(route('admin.user.create'))->withInput([
             'success' => true,
             'message' => '正常に登録されました。'
         ]);
@@ -138,11 +134,9 @@ class AdminController extends Controller
 
         $sel_user = User::where('id', $uid)->first();
         if($sel_user){
-            $cust_cnt = Customer::where('ClinicID', '=', $uid)->count();
-            $pet_cnt = Pet::where('ClinicID', '=', $uid)->count();
+            $cust_cnt = Customer::where('ClinicID', $uid)->count();
+            $pet_cnt = Pet::where('ClinicID', $uid)->count();
             $data = [
-                'title' => 'ユーザーの変更',
-                'auth' => $request->session()->all(),
                 'user' => $sel_user,
                 'cust_cnt' => $cust_cnt,
                 'pet_cnt' => $pet_cnt,
@@ -150,7 +144,7 @@ class AdminController extends Controller
 
             return view('pages.admin.edit_user', $data);
         }else
-            return redirect('admin/users');
+            return redirect(route('admin/users'));
 
     }
 
@@ -194,7 +188,7 @@ class AdminController extends Controller
 
             DB::commit();
 
-            return redirect('/petcrew/admin/users/edit/'.$id)->withInput([
+            return redirect(route('admin.user.edit', $id))->withInput([
                 'success' => true,
                 'message' => "ユーザー情報が更新されました。"
             ]);
@@ -203,7 +197,7 @@ class AdminController extends Controller
             //throw $th;
 
             DB::rollBack();
-            return redirect('/petcrew/admin/users/edit/'.$id)->withInput([
+            return redirect(route('admin.user.edit', $id))->withInput([
                 'failed' => true,
                 'message' => "資料基地操作汚油。"
             ]);
@@ -236,7 +230,7 @@ class AdminController extends Controller
             }
 
 
-            return redirect('/petcrew/admin/users/edit/'.$user->id)->withInput([
+            return redirect(route('admin.user.edit', $user->id))->withInput([
                 'success' => true,
                 'message' => "パスワードが新しく発行されました。"
             ]);
@@ -252,7 +246,7 @@ class AdminController extends Controller
         Customer::where("ClinicID",  $cid)->delete();
         Pet::where("ClinicID",  $cid)->delete();
 
-        return redirect('petcrew/admin/users');
+        return redirect(route('admin.users'));
     }
 
 

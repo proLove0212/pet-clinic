@@ -31,7 +31,7 @@
             </button>
         </div>
 
-        <a href="{{url('/petcrew/admin/users/add')}}" class="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        <a href="{{route('admin.user.create')}}" class="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             <span class="material-symbols-outlined w-5 h-5 mr-2 -ml-1">
                 person_add
             </span>
@@ -43,7 +43,7 @@
 
     @if (count($users) != 0)
         @foreach ($users as $key => $user_item)
-            <a href="{{url('/petcrew/admin/users/edit/'.$user_item['id'])}}" class="w-full relative block bg-white hover:bg-gray-100 px-6 pt-6 pb-2 text-left border-2 border-gray-100 hover:border-l-red-400">
+            <a href="{{route('admin.user.edit', $user_item['id'])}}" class="w-full relative block bg-white hover:bg-gray-100 px-6 pt-6 pb-2 text-left border-2 border-gray-100 hover:border-l-red-400">
                 <h5 class="text-blue-800 sm:text-base md:text-2xl font-black mb-2" style="font-family: 'Helvetica Neue',Helvetica,Arial,'Noto Sans JP',sans-serif" >{{$user_item['ClinicName']}}</h5>
                 <p class="text-black text-sm mb-4"><span class="font-black">病院ID  </span> {{$user_item['ClinicID']}}</p>
 

@@ -45,7 +45,7 @@ class PasswordResetController extends Controller
 
         }
         elseif(Auth::user()->CustStatus == 5){
-            return redirect('/petcrew/search');
+            return redirect(route('user.search'));
         }
         else{
             return redirect('/petcrew');
@@ -61,7 +61,7 @@ class PasswordResetController extends Controller
         Auth::user()->LoginDateTime = Carbon::now();
         Auth::user()->CustStatus = 5;
         Auth::user()->save();
-        return redirect('/petcrew/search');
+        return redirect(route('user.search'));
     }
 
 }

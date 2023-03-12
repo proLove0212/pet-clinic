@@ -59,7 +59,7 @@
     </div>
 @endif
 
-<form action="{{url('/petcrew/admin/contact/send')}}" method="post">
+<form action="{{route('admin.mail')}}" method="post">
 @csrf
 
     <div class="md:flex items-start text-left mb-3">

@@ -10,7 +10,7 @@
 
 @section('content')
 
-<a href="{{url('petcrew/admin')}}"
+<a href="{{route('admin.users')}}"
     class="z-30 fixed bottom-0 right-0 w-full px-3 py-2 text-sm font-medium text-center text-white bg-blue-700  hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
     戻る
 </a>
@@ -57,7 +57,7 @@
             <span class="bg-danger-100 text-danger text-xs font-medium ml-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-danger-400 border border-danger-400">必須</span>
         </p>
         <div class=" md:flex-grow">
-            <input type="password" name="old_password" value="{{}}"
+            <input type="password" name="old_password" value=""
             required minlength="8"
             class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" autocomplete="new-password" required minlength="8" >
             @error('old_password')
@@ -72,7 +72,7 @@
             <span class="bg-danger-100 text-danger text-xs font-medium ml-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-danger-400 border border-danger-400">必須</span>
         </p>
         <div class=" md:flex-grow">
-            <input type="password" name="password" value="{{}}"
+            <input type="password" name="password" value=""
             required minlength="8"
             class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" autocomplete="new-password" required minlength="8" >
             @error('password')
@@ -87,7 +87,7 @@
             <span class="bg-danger-100 text-danger text-xs font-medium ml-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-danger-400 border border-danger-400">必須</span>
         </p>
         <div class=" md:flex-grow">
-            <input type="password" name="password_confirmdation" value="{{}}"
+            <input type="password" name="password_confirmdation" value=""
             required minlength="8"
             class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" autocomplete="new-password" required minlength="8" >
             @error('password_confirmdation')

@@ -10,7 +10,7 @@
 
 @section('content')
 
-<a href="{{url('petcrew/admin')}}"
+<a href="{{route('admin.users')}}"
     class="z-30 fixed bottom-0 right-0 w-full px-3 py-2 text-sm font-medium text-center text-white bg-blue-700  hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
     戻る
 </a>
@@ -44,7 +44,7 @@
         </div>
     </div>
 @endif
-<form action="{{url('/petcrew/admin/users/add')}}" method="post">
+<form action="{{route('admin.user.create')}}" method="post">
     @csrf
 
     <div class="md:flex items-start text-left mb-3">
@@ -166,7 +166,7 @@
     <div class="md:flex items-start text-left mb-3">
         <p class="my-3 mr-3 font-black  text-left md:text-right  w-40">メモ情報</p>
         <div class=" md:flex-grow">
-            <input type="text" name="Memo" value="{{old('Memo')}}" class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" required >
+            <input type="text" name="Memo" value="{{old('Memo')}}" class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" >
             @error('Memo')
                 <span class="mt-2 text-danger text-sm font-black">{{$message}}</span>
             @enderror

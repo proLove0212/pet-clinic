@@ -36,13 +36,13 @@ class AdminMailController extends Controller
             }
         } catch (\Throwable $th) {
             //throw $th;
-            return redirect('/petcrew/admin/contact')->withInput([
+            return redirect(route('admin.contact'))->withInput([
                 'failed' => true,
                 'message' => 'メール送信失敗'
             ]);
         }
 
-        return redirect('/petcrew/admin/contact')->withInput([
+        return redirect(route('admin.contact'))->withInput([
             'success' => true,
             'message' => '正常に送信されました'
         ]);

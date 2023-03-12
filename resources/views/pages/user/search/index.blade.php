@@ -107,7 +107,7 @@
     </div>
     <div class="hidden text-left p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="name" role="tabpanel" aria-labelledby="name-tab">
 
-        <form action="{{url('/petcrew/search')}}" method="post">
+        <form action="{{route('user.search')}}" method="post">
             @csrf
             <input type="hidden" name="search_mode" value="name">
             <div class="grid gap-4 gap-y-2  grid-cols-1 md:grid-cols-12">

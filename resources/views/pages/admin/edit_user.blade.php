@@ -11,7 +11,7 @@
 
 @section('content')
 
-<a href="{{url('petcrew/admin')}}"
+<a href="{{route('admin.users')}}"
     class="z-30 fixed bottom-0 right-0 w-full px-3 py-2 text-sm font-medium text-center text-white bg-blue-700  hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
     戻る
 </a>
@@ -109,7 +109,7 @@
     <hr class="md:hidden my-6 h-0.5 border-t-0 bg-neutral-200 opacity-100 dark:opacity-30" />
 
     <div class="flex-grow">
-        <form action="{{url('/petcrew/admin/users/edit/'.$user['id'])}}" method="post">
+        <form action="{{route('admin.user.edit', $user['id'])}}" method="post">
             @csrf
             <div class="md:flex items-start text-left mb-3">
                 <p class="my-3 mr-3 font-black  text-left md:text-right w-40">ユーザー番号</p>
@@ -213,7 +213,7 @@
             <div class="md:flex items-start text-left mb-3">
                 <p class="my-3 mr-3 font-black  text-left md:text-right  w-40">メモ情報</p>
                 <div class=" md:flex-grow">
-                    <input type="text" name="Memo" value="{{$user['Memo']}}" class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" required >
+                    <input type="text" name="Memo" value="{{$user['Memo']}}" class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" >
                     @error('Memo')
                         <span class="mt-2 text-danger text-sm font-black">{{$message}}</span>
                     @enderror
@@ -266,7 +266,7 @@
             <div class="p-6 text-center">
                 <svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 <h3 class="my-5 text-lg font-normal text-gray-500 dark:text-gray-400">削除しますか？</h3>
-                <form action="{{url('/petcrew/admin/users/delete/'.$user['ClinicID'])}}" method="post">
+                <form action="{{route('admin.user.delete', $user['ClinicID'])}}" method="post">
                     @csrf
                     @method("DELETE")
                     <button data-modal-hide="delete_dlg" type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
@@ -286,7 +286,7 @@
             <div class="p-6 text-center">
                 <svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 <h3 class="my-5 text-lg font-normal text-gray-500 dark:text-gray-400">パスワードを再発行します。</h3>
-                <form action="{{url('/petcrew/admin/users/pwd_reset/'.$user['ClinicID'])}}" method="post">
+                <form action="{{route('admin.user.password', $user['ClinicID'])}}" method="post">
                     @csrf
                     <button data-modal-hide="pwd_dlg" type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                         確認

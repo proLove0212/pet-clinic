@@ -83,7 +83,7 @@
 
                                     @else
                                         <li class="nav-item ml-5 lg:ml-11">
-                                            <a class="page-scroll {{(Request::is('petcrew/admin') || Request::is('petcrew/admin/users/*')) ? 'active font-black' : ''}}" href="{{url('petcrew/admin')}}">ユーザー管理</a>
+                                            <a class="page-scroll {{(Request::is('petcrew/admin') || Request::is('petcrew/admin/users/*')) ? 'active font-black' : ''}}" href="{{route('admin.users')}}">ユーザー管理</a>
                                         </li>
                                         <li class="nav-item ml-5 lg:ml-11">
                                             <a class="page-scroll {{Request::is('petcrew/admin/contact') ? 'active font-black' : ''}}" href="{{url('petcrew/admin/contact')}}">メール連絡</a>
@@ -186,7 +186,7 @@
             </p>
         @else
             <p class="mb-3 px-3 font-black text-xl">
-                <a class="page-scroll {{(Request::is('petcrew/admin') || Request::is('petcrew/admin/users/*')) ? 'active font-black' : ''}}" href="{{url('petcrew/admin')}}">ユーザー管理</a>
+                <a class="page-scroll {{(Request::is('petcrew/admin') || Request::is('petcrew/admin/users/*')) ? 'active font-black' : ''}}" href="{{route('admin.users')}}">ユーザー管理</a>
             </p>
 
             <p class="mb-3 px-3 font-black text-xl">

@@ -285,7 +285,7 @@ class SearchController extends Controller
             return view("pages.customer.info", $data);
         }else{
             $request->session()->flush();
-            return redirect('/petcrew/search');
+            return redirect(route('user.search'));
         }
 
     }

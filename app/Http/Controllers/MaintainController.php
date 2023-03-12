@@ -33,11 +33,11 @@ class MaintainController extends Controller
         }
         $data->save();
 
-        return redirect('/petcrew/admin/maintain');
+        return redirect(route('admin.maintain'));
     }
 
     public function delete(Request $request, $id){
         MaintainLog::where("id", '=', $id)->delete();
-        return redirect('/petcrew/admin/maintain');
+        return redirect(route('admin.maintain'));
     }
 }

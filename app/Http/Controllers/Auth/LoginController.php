@@ -85,7 +85,7 @@ class LoginController extends Controller
                     $user->LoginDateTime = Carbon::now();
                     $user->save();
 
-                    return redirect()->intended('/petcrew/search');
+                    return redirect()->intended(route('user.search'));
                 }else if($user->CustStatus == 0){
                     return redirect()->intended('/petcrew');
                 }
