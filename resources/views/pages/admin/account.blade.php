@@ -57,9 +57,9 @@
             <span class="bg-danger-100 text-danger text-xs font-medium ml-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-danger-400 border border-danger-400">必須</span>
         </p>
         <div class=" md:flex-grow">
-            <input type="password" name="old_password" value="{{old('old_password')}}"
+            <input type="password" name="old_password" value="{{}}"
             required minlength="8"
-            class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" requidanger >
+            class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" autocomplete="new-password" required minlength="8" >
             @error('old_password')
                 <span class="mt-2 text-danger text-sm font-black">{{$message}}</span>
             @enderror
@@ -72,9 +72,9 @@
             <span class="bg-danger-100 text-danger text-xs font-medium ml-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-danger-400 border border-danger-400">必須</span>
         </p>
         <div class=" md:flex-grow">
-            <input type="password" name="password" value="{{old('password')}}"
+            <input type="password" name="password" value="{{}}"
             required minlength="8"
-            class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" requidanger >
+            class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" autocomplete="new-password" required minlength="8" >
             @error('password')
                 <span class="mt-2 text-danger text-sm font-black">{{$message}}</span>
             @enderror
@@ -87,9 +87,9 @@
             <span class="bg-danger-100 text-danger text-xs font-medium ml-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-danger-400 border border-danger-400">必須</span>
         </p>
         <div class=" md:flex-grow">
-            <input type="password" name="password_confirmdation" value="{{old('password_confirmdation')}}"
+            <input type="password" name="password_confirmdation" value="{{}}"
             required minlength="8"
-            class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" requidanger >
+            class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" autocomplete="new-password" required minlength="8" >
             @error('password_confirmdation')
                 <span class="mt-2 text-danger text-sm font-black">{{$message}}</span>
             @enderror
@@ -118,8 +118,8 @@
             <span class="bg-danger-100 text-danger text-xs font-medium ml-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-danger-400 border border-danger-400">必須</span>
         </p>
         <div class=" md:flex-grow">
-            <input type="email" name="email" value="{{old('email')}}"
-            class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" requidanger >
+            <input type="email" name="email" value=""
+            class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" autocomplete="nope" required  >
             @error('email')
                 <span class="mt-2 text-danger text-sm font-black">{{$message}}</span>
             @enderror
@@ -132,8 +132,8 @@
             <span class="bg-danger-100 text-danger text-xs font-medium ml-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-danger-400 border border-danger-400">必須</span>
         </p>
         <div class=" md:flex-grow">
-            <input type="password" name="password_email" value="{{old('password_email')}}"
-            class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" requidanger >
+            <input type="password" name="password_email" value=""
+            class="block w-full px-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="" autocomplete="new-password" required minlength="8" >
             @error('password_email')
                 <span class="mt-2 text-danger text-sm font-black">{{$message}}</span>
             @enderror

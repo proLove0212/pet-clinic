@@ -112,11 +112,11 @@
     <div id="dropdownInformation" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
         <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
             @if (Auth::user()&&Auth::user()->ClinicName)
-                <div>{{Auth::user()&&Auth::user()->ClinicName}}</div>
-                <div class="font-medium truncate">{{Auth::user()&&Auth::user()->email}}</div>
+                <div class="font-black text-sm mb-2">{{Auth::user()->ClinicName}}</div>
+                <div class="font-medium text-sm truncate">{{Auth::user()->email}}</div>
             @else
-                <div>{{Auth::user()&&Auth::user()->name}}</div>
-                <div class="font-medium truncate">{{Auth::user()&&Auth::user()->email}}</div>
+                <div>{{Auth::user()->name}}</div>
+                <div class="font-medium truncate">{{Auth::user()->email}}</div>
 
             @endif
         </div>
@@ -164,14 +164,14 @@
 
         <p class="mb-3 px-3 font-black text-xl">
             @if (Auth::user()&&Auth::user()->ClinicName)
-                <div>{{Auth::user()&&Auth::user()->ClinicName}}</div>
+                <div>{{Auth::user()->ClinicName}}</div>
             @else
-                <div>{{Auth::user()&&Auth::user()->name}}</div>
+                <div>{{Auth::user()->name}}</div>
             @endif
         </p>
 
         <p class="mb-3 px-3 font-black text-xl">
-            {{Auth::user()&&Auth::user()->email}}
+            {{Auth::user()->email}}
         </p>
 
         <hr class="my-6 h-0.5 border-t-0 bg-neutral-200 opacity-100 dark:opacity-30" />
