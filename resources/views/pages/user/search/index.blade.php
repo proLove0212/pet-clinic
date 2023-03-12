@@ -17,7 +17,7 @@
 </div>
 
 <h5 class="mb-5 bg-gray-300 py-3 px-6 text-xl font-black leading-tight text-neutral-800 dark:text-neutral-50">
-    {{$auth['name']}}動物病院 様
+    {{Auth::user()&&Auth::user()->name}}動物病院 様
 </h5>
 
 <div class="mb-4 border-b border-gray-200">

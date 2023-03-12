@@ -20,17 +20,6 @@ class UserSeeder extends Seeder
     {
         $user_data = [
             [
-                "PeaksUserNo" => "000000",
-                "ClinicID" => "00000",
-                "ClinicName" => "Admin",
-                "TelNo" => "03-821-9031",
-                "TelNum" => "038219031",
-                "email" => "proLove0212@gmail.com",
-                "password" => Hash::make("password"),
-                "PasswordExpiry" => Carbon::now()->addDays(10000),
-                "Memo" => ""
-            ],
-            [
                 "PeaksUserNo" => "002408",
                 "ClinicID" => "24083",
                 "ClinicName" => "Clinic 1",

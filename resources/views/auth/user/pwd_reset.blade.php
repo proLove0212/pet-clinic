@@ -22,19 +22,19 @@
                     <p >ペットクルーカルテ 顧客情報検索</p>
                 </div>
                 <div>
-                    <form class="form-horizontal" action="{{url('/petcrew/account/pwd_reset')}}" method="POST">
+                    <form class="form-horizontal" action="{{route('user.password.reset')}}" method="POST">
                         @csrf
 
                         <div class="flex -mx-3">
                             <div class="w-full px-3 mb-5">
-                                <span class="font-black">{{$ClinicName}} 動物病院　様</span>
+                                <span class="font-black">{{Auth::user()->ClinicName}} 動物病院　様</span>
                             </div>
                         </div>
 
 
                         <div class="flex -mx-3">
                             <div class="w-full px-3 mb-5">
-                                <span class="font-black">病院ID : </span> {{$ClinicID}}
+                                <span class="font-black">病院ID : </span> {{Auth::user()->ClinicID}}
                             </div>
                         </div>
 

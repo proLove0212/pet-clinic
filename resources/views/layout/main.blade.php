@@ -123,11 +123,11 @@
         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformationButton">
             @if (Auth::user()&&Auth::user()->ClinicName)
                 <li>
-                    <a href="{{url('/petcrew/account')}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">アカウント管理</a>
+                    <a href="{{route('user.account')}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">アカウント管理</a>
                 </li>
             @else
                 <li>
-                    <a href="{{url('/petcrew/admin/account')}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">アカウント管理</a>
+                    <a href="{{route('admin.account')}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">アカウント管理</a>
                 </li>
             @endif
         </ul>
@@ -201,9 +201,9 @@
 
         <p class="mb-3 px-3 font-black text-xl">
             @if (Auth::user()&&Auth::user()->ClinicName)
-                <a class="page-scroll {{Request::is('petcrew/account') ? 'active font-black' : ''}}" href="{{url('petcrew/account')}}">アカウント管理</a>
+                <a class="page-scroll {{Request::is('petcrew/account') ? 'active font-black' : ''}}" href="{{route('user.account')}}">アカウント管理</a>
             @else
-                <a class="page-scroll {{Request::is('petcrew/admin/account') ? 'active font-black' : ''}}" href="{{url('petcrew/admin/account')}}">アカウント管理</a>
+                <a class="page-scroll {{Request::is('petcrew/admin/account') ? 'active font-black' : ''}}" href="{{route('admin.account')}}">アカウント管理</a>
             @endif
         </p>
 

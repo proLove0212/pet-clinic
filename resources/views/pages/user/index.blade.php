@@ -1,7 +1,7 @@
 @extends('layout.main')
 
 @section('title')
-    {{$title}}
+ペットクルーカルテ　顧客情報検索
 @endsection
 
 @section('stylesheet')
@@ -14,7 +14,7 @@
     <img id="dog_img" src="{{url('assets/images/qq.png')}}" class="" alt="">
 
     <h2 class="text-2xl sm:3xl md:text-4xl lg:text-5xl text-white font-black ml-5 mt-32 sm:mt-40">
-        {{$auth['name']}} 動物病院
+        {{Auth::user()&&Auth::user()->name}} 動物病院
     </h2>
 
 
@@ -40,7 +40,7 @@
         <div class="flex justify-between items-end px-4 pt-4 border-b-4 border-black">
             <h5
             class="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
-                {{$auth['name']}}動物病院
+                {{Auth::user()&&Auth::user()->name}}動物病院
             </h5>
 
             <form action="{{url('/logout')}}" method="POST">

@@ -22,7 +22,7 @@
                     <p>ペットクルーカルテ 顧客情報検索</p>
                 </div>
                 <div>
-                    <form class="form-horizontal" action="{{url('/petcrew/account/password/reset_1')}}" method="POST">
+                    <form class="form-horizontal" action="{{route('user.forgot.type2')}}" method="POST">
                         @csrf
 
                         <div class="flex -mx-3">

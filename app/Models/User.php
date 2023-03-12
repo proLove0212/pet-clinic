@@ -30,7 +30,7 @@ class User extends Authenticatable
         'TelNo_2',
         'TelNum_2',
         'email',
-        'Password',
+        'password',
         'PasswordExpiry',
         'LoginDateTime',
         'License',

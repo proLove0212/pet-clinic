@@ -39,6 +39,7 @@
                                 @enderror
                             </div>
                         </div>
+
                         <div class="flex -mx-3">
                             <div class="w-full px-3 mb-12">
                                 <label for="" class="text-sm font-semibold px-1">パスワード</label>

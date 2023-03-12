@@ -48,7 +48,7 @@
 <p class=" text-lg font-black border-b-2 border-b-black-600 mt-5 mb-5 pb-2">
     パスワード変更
 </p>
-<form action="{{url('/petcrew/account/pwd')}}" method="post">
+<form action="{{route('user.account.password')}}" method="post">
     @csrf
 
     <div class="md:flex items-start text-left mb-3">
@@ -109,7 +109,7 @@
 <p class=" text-lg font-black border-b-2 border-b-black-600 mt-5 mb-5 pb-2">
     メールアドレス変更
 </p>
-<form action="{{url('/petcrew/account/email')}}" method="post">
+<form action="{{route('user.account.email')}}" method="post">
     @csrf
 
     <div class="md:flex items-start text-left mb-3">

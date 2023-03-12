@@ -23,7 +23,7 @@ class UserLoginRequest extends FormRequest
      public function rules(): array
      {
          return [
-             'id' => 'required',
+             'email' => 'required',
              'password' => 'required|min:8',
          ];
      }
@@ -31,7 +31,7 @@ class UserLoginRequest extends FormRequest
      public function messages(): array
      {
          return [
-            "id" => [
+            "email" => [
                 "required" => "IDもしくはメールアドレスを入力してください。"
             ],
             "password" => [

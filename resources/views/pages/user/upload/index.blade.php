@@ -42,7 +42,7 @@
 </div>
 
 <div class="mb-3 text-left px-5 font-black text-lg">
-    病院名 : {{$auth['name']}}
+    病院名 : {{Auth::user()&&Auth::user()->name}}
 </div>
 
 <div class="mb-3 text-left text-warning px-5 flex items-start font-black">

@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use App\Http\Requests\AdminLoginRequest;
+use App\Http\Requests\UserLoginRequest;
+use App\Models\User;
+use Carbon\Carbon;
 
 class LoginController extends Controller
 {
@@ -51,6 +54,53 @@ class LoginController extends Controller
         }
 
         return back()->withInput($request->only('email'))->withErrors([
+            'password' => "パスワードが正しくありません。"
+        ]);
+    }
+
+    public function showUserLoginForm()
+    {
+        return view('auth.user.login');
+    }
+
+    public function userLogin(UserLoginRequest $request)
+    {
+
+        $email = $request->input('email');
+
+        $user = User::where("ClinicID", $email)
+        ->orWhere("email", $email)
+        ->first();
+
+        if($user){
+
+            $cred = [
+                'email' => $user->email,
+                'password' =>$request->input('password')
+            ];
+
+            if (\Auth::attempt( $request->only(['email','password']), $request->get('remember'))){
+
+                if($user->CustStatus == 5){
+                    $user->LoginDateTime = Carbon::now();
+                    $user->save();
+
+                    return redirect()->intended('/petcrew/search');
+                }else if($user->CustStatus == 0){
+                    return redirect()->intended('/petcrew');
+                }
+                else{
+                    return redirect()->intended(route('user.password.reset'));
+                }
+
+            }
+
+            return back()->withInput($request->only('email'))->withErrors([
+                'password' => "パスワードが正しくありません。"
+            ]);
+        }
+        return back()->withErrors([
+            'email' => "メールアドレスを確認してください。",
             'password' => "パスワードが正しくありません。"
         ]);
     }
