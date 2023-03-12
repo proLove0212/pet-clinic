@@ -178,7 +178,7 @@
 
         @if (Auth::user()&&Auth::user()->ClinicName)
             <p class="mb-3 px-3 font-black text-xl">
-                <a class="page-scroll {{(Request::is('petcrew/search') || Request::is('petcrew/customer/info/*') ) ? 'active font-black' : ''}}">顧客検索</a>
+                <a class="page-scroll {{(Request::is('petcrew/search') || Request::is('petcrew/customer/info/*') ) ? 'active font-black' : ''}}" href="{{route('user.search')}}">顧客検索</a>
             </p>
 
             <p class="mb-3 px-3 font-black text-xl">

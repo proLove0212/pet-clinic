@@ -22,6 +22,7 @@
     <!--====== Tailwind CSS ======-->
 
     <!--====== Line Icons CSS ======-->
+    <link rel="stylesheet" href="{{url('assets/css/animate.css')}}">
     <link rel="stylesheet" href="{{url('assets/css/tailwindcss.css')}}">
     <!--====== Tailwind CSS ======-->
 
@@ -129,22 +130,17 @@
                                 携帯電話（iPhoneやAndroidなどのスマートホン）、タブレット、ノートPCなど、インターネットに接続できる端末から利用可能
                             </p>
                             <div class="hero_btn mt-10">
-                                <a class="main-btn" href="{{url('/petcrew/login')}}">	ログイン</a>
+                                <a class="main-btn" href="{{url('/petcrew/login')}}">{{Auth::check() ? "入る" : "ログイン"}}	</a>
                             </div>
-
-            <form action="{{url('/logout')}}" method="post">
-                @csrf
-                <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">ログアウト</button>
-            </form>
                         </div> <!-- header hero content -->
                     </div>
                 </div> <!-- row -->
             </div> <!-- container -->
             <div class="header_shape hidden lg:block"></div>
 
-            <div class="header_image flex items-center">
+            <div class="header_image flex items-center" class="wow slideInLeft"  data-wow-duration="2s" data-wow-delay="5s">
                 <div class="image 2xl:pl-25">
-                    <img src="{{url('assets/images/qq.png')}}" alt="Header Image">
+                    <img src="{{url('assets/images/qq.png')}}" alt="Header Image" >
                 </div>
             </div> <!-- header image -->
         </div> <!-- header hero -->
@@ -220,7 +216,7 @@
 
     <!--====== BACK TOP TOP PART START ======-->
 
-    <a href="#" class="hidden scroll-top">
+    <a href="#" class="hidden scroll-top ">
         <img class="object-cover object-center w-full h-full rounded-full" src="https://img.icons8.com/3d-fluency/1x/up.png"/>
 
     </a>

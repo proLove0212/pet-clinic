@@ -21,27 +21,29 @@ Route::get('/petcrew', function () {
     return view('welcome');
 });
 
-Route::get('/petcrew/login', function () {
-    return view('auth.user.login');
-})->name('login');
-
 Route::get('/petcrew/admin/login', function () {
     return view('auth.admin.login');
 })->name('admin.login');
 
-
-Route::get('/petcrew/maintain', 'App\HTTP\Controllers\AuthController@notification')->name('notification');
+Route::post('/petcrew/admin/login', 'App\HTTP\Controllers\Auth\LoginController@adminLogin')->name('admin.login');
+Route::get('/petcrew/notification', 'App\HTTP\Controllers\AuthController@notification')->name('notification');
 
 Route::post('/logout', 'App\HTTP\Controllers\AuthController@logout')->name('logout');
 
-Route::post('/petcrew/admin/login', 'App\HTTP\Controllers\Auth\LoginController@adminLogin')->name('admin.login');
 
-Route::post('/petcrew/login', 'App\HTTP\Controllers\Auth\LoginController@userLogin')->name('user.login');
 
-Route::get('/petcrew/account/password/reset_1', 'App\HTTP\Controllers\Auth\ForgotPasswordController@index_pwd')->name("user.forgot.type1");
-Route::post('/petcrew/account/password/reset_1', 'App\HTTP\Controllers\Auth\ForgotPasswordController@reset_pwd')->name("user.forgot.type1");
-Route::get('/petcrew/account/password/reset_2', 'App\HTTP\Controllers\Auth\ForgotPasswordController@index_all')->name("user.forgot.type2");
-Route::post('/petcrew/account/password/reset_2', 'App\HTTP\Controllers\Auth\ForgotPasswordController@reset_all')->name("user.forgot.type2");
+
+Route::middleware(['maintain'])->group(function () {
+
+    Route::get('/petcrew/login', 'App\HTTP\Controllers\Auth\LoginController@showUserLoginForm')->name('login');
+    Route::post('/petcrew/login', 'App\HTTP\Controllers\Auth\LoginController@userLogin')->name('user.login');
+
+    Route::get('/petcrew/account/password/reset_1', 'App\HTTP\Controllers\Auth\ForgotPasswordController@index_pwd')->name("user.forgot.type1");
+    Route::post('/petcrew/account/password/reset_1', 'App\HTTP\Controllers\Auth\ForgotPasswordController@reset_pwd')->name("user.forgot.type1");
+    Route::get('/petcrew/account/password/reset_2', 'App\HTTP\Controllers\Auth\ForgotPasswordController@index_all')->name("user.forgot.type2");
+    Route::post('/petcrew/account/password/reset_2', 'App\HTTP\Controllers\Auth\ForgotPasswordController@reset_all')->name("user.forgot.type2");
+
+});
 
 
 Route::middleware(['auth:admin'])->group(function () {
@@ -69,13 +71,13 @@ Route::middleware(['auth:admin'])->group(function () {
 });
 
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'maintain'])->group(function () {
 
     Route::get('/petcrew/search', 'App\HTTP\Controllers\SearchController@index')->name('user.search');
-    Route::post('/petcrew/search', 'App\HTTP\Controllers\SearchController@search')->name('user.search');
+    Route::post('/petcrew/search', 'App\HTTP\Controllers\SearchController@search')->middleware('user')->name('user.search');
 
-    Route::get('/petcrew/upload', 'App\HTTP\Controllers\UploadController@index')->name('user.upload');
-    Route::post('/petcrew/upload', 'App\HTTP\Controllers\UploadController@store')->name('user.upload');
+    Route::get('/petcrew/upload', 'App\HTTP\Controllers\UploadController@index')->middleware('user')->name('user.upload');
+    Route::post('/petcrew/upload', 'App\HTTP\Controllers\UploadController@store')->middleware('user')->name('user.upload');
 
     // Route::get('/reception/settings', 'App\HTTP\Controllers\ReceptionSettingController@index');
     // Route::post('/reception/settings', 'App\HTTP\Controllers\ReceptionSettingController@update');
@@ -87,9 +89,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/petcrew/account/pwd_reset', 'App\HTTP\Controllers\Auth\PasswordResetController@index')->name('user.password.reset');
     Route::post('/petcrew/account/pwd_reset', 'App\HTTP\Controllers\Auth\PasswordResetController@reset')->name('user.password.reset');
-    Route::get('/petcrew/customer/info/{id}', 'App\HTTP\Controllers\SearchController@getCustomerInfo');
+    Route::get('/petcrew/customer/info/{id}', 'App\HTTP\Controllers\SearchController@getCustomerInfo')->middleware('user');
 
-    Route::get('/petcrew/account', 'App\HTTP\Controllers\Auth\AccountController@get_user_change')->name('user.account');
-    Route::post('/petcrew/account/pwd', 'App\HTTP\Controllers\Auth\AccountController@user_pwd_change')->name('user.account.password');
-    Route::post('/petcrew/account/email', 'App\HTTP\Controllers\Auth\AccountController@user_email_change')->name('user.account.email');
+    Route::get('/petcrew/account', 'App\HTTP\Controllers\Auth\AccountController@get_user_change')->middleware('user')->name('user.account');
+    Route::post('/petcrew/account/pwd', 'App\HTTP\Controllers\Auth\AccountController@user_pwd_change')->middleware('user')->name('user.account.password');
+    Route::post('/petcrew/account/email', 'App\HTTP\Controllers\Auth\AccountController@user_email_change')->middleware('user')->name('user.account.email');
 });

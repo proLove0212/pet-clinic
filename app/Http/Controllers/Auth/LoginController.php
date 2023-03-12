@@ -9,6 +9,7 @@ use App\Http\Requests\AdminLoginRequest;
 use App\Http\Requests\UserLoginRequest;
 use App\Models\User;
 use Carbon\Carbon;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -43,7 +44,10 @@ class LoginController extends Controller
 
     public function showAdminLoginForm()
     {
-        return view('auth.admin.login');
+        if(\Auth::check()){
+            return redirect(route('admin.users'));
+        }else
+            return view('auth.admin.login');
     }
 
     public function adminLogin(AdminLoginRequest $request)
@@ -60,7 +64,10 @@ class LoginController extends Controller
 
     public function showUserLoginForm()
     {
-        return view('auth.user.login');
+        if(Auth::check()){
+            return redirect(route('user.search'));
+        }else
+            return view('auth.user.login');
     }
 
     public function userLogin(UserLoginRequest $request)
@@ -79,7 +86,7 @@ class LoginController extends Controller
                 'password' =>$request->input('password')
             ];
 
-            if (\Auth::attempt( $request->only(['email','password']), $request->get('remember'))){
+            if (\Auth::attempt( $cred , $request->get('remember'))){
 
                 if($user->CustStatus == 5){
                     $user->LoginDateTime = Carbon::now();
@@ -87,6 +94,8 @@ class LoginController extends Controller
 
                     return redirect()->intended(route('user.search'));
                 }else if($user->CustStatus == 0){
+                    Auth::logout();
+                    $request->session()->flush();
                     return redirect()->intended('/petcrew');
                 }
                 else{

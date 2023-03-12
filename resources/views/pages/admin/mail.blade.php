@@ -10,22 +10,7 @@
 
 
 <style>
-    .select2-container{
-        width: 100% !important;
-    }
 
-    .select2-container--default .select2-selection--multiple{
-        border-color: #E5E7EB !important;
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-        padding-left: 0.75rem;
-        padding-right: 0.75rem;
-
-    }
-    .select2-container--default.select2-container--focus .select2-selection--multiple{
-        border-color: #1C64F2;
-        border-width: 2px;
-    }
 </style>
 @endsection
 

@@ -147,7 +147,7 @@ class UploadController extends Controller
 
             }else{
                 $customer = new Customer;
-                $customer->ClinicID = $cust_json->ClinicID;
+                $customer->ClinicID = $cid;
                 $customer->CustNo = $cust_json['CustData']["CustNo"];
                 $customer->CustFamilyName = $cust_json['CustData']["CustFamilyName"];
                 $customer->CustName = $cust_json['CustData']["CustName"];

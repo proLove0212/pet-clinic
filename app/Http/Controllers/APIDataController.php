@@ -267,7 +267,7 @@ class APIDataController extends Controller
 
                 }
 
-                $customer->MailAddress = $cust_json->CustData->MailAddress;
+                $customer->email = $cust_json->CustData->MailAddress;
                 $customer->Kubun = $cust_json->CustData->Kubun;
                 $customer->LastCommingDate = $cust_json->CustData->LastCommingDate;
                 $customer->NextDate = $cust_json->CustData->NextDate;
@@ -298,7 +298,7 @@ class APIDataController extends Controller
 
             }else{
                 $customer = new Customer;
-                $customer->ClinicID = $cust_json->ClinicID;
+                $customer->ClinicID = $cid;
                 $customer->CustNo = $cust_json->CustData->CustNo;
                 $customer->CustFamilyName = $cust_json->CustData->CustFamilyName;
                 $customer->CustName = $cust_json->CustData->CustName;
@@ -351,7 +351,7 @@ class APIDataController extends Controller
                     }
 
                 }
-                $customer->MailAddress = $cust_json->CustData->MailAddress;
+                $customer->email = $cust_json->CustData->MailAddress;
                 $customer->Kubun = $cust_json->CustData->Kubun;
                 $customer->LastCommingDate = $cust_json->CustData->LastCommingDate;
                 $customer->NextDate = $cust_json->CustData->NextDate;
