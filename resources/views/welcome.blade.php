@@ -23,8 +23,11 @@
 
     <!--====== Line Icons CSS ======-->
     <link rel="stylesheet" href="{{url('assets/css/animate.css')}}">
-    <link rel="stylesheet" href="{{url('assets/css/tailwindcss.css')}}">
     <!--====== Tailwind CSS ======-->
+
+    <link rel="stylesheet" href="{{url('build/assets/app.b8183d17.css')}}">
+
+    <link rel="stylesheet" href="{{url('assets/css/tailwindcss.css')}}">
 
     <style>
 
@@ -190,7 +193,7 @@
     <!--====== ABOUT PART ENDS ======-->
 
     <!--====== FOOTER PART START ======-->
-
+{{--
     <footer id="footer" class="footer_area bg-black relative z-10">
         <div class="shape absolute left-0 top-0 opacity-5 h-full overflow-hidden w-1/3">
             <img src="{{url('assets/images/footer-shape-left.png')}}" alt="">
@@ -210,22 +213,23 @@
                 </div> <!-- footer social -->
             </div> <!-- footer copyright -->
         </div> <!-- container -->
-    </footer>
+    </footer> --}}
 
     <!--====== FOOTER PART ENDS ======-->
 
     <!--====== BACK TOP TOP PART START ======-->
 
-    <a href="#" class="hidden scroll-top ">
+    <a href="#" class="scroll-top">
         <img class="object-cover object-center w-full h-full rounded-full" src="https://img.icons8.com/3d-fluency/1x/up.png"/>
 
     </a>
-
 
     <!--====== PART ENDS ======-->
 
     <!--====== Wow js ======-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+
+    <script src="{{url('build/assets/app.b0b9c393.js')}}"></script>
 
     <script src="{{url('assets/js/main.js')}}"></script>
 </body>

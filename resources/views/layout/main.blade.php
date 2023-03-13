@@ -22,17 +22,20 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <!--====== Tailwind CSS ======-->
 
+
     <!--====== Line Icons CSS ======-->
     <link rel="stylesheet" href="{{url('assets/css/tailwindcss.css')}}">
     <!--====== Tailwind CSS ======-->
 
-    @vite(['resources/css/app.css','resources/js/app.js'])
+
+    <link rel="stylesheet" href="{{url('build/assets/app.b8183d17.css')}}">
+
+    {{-- @vite(['resources/css/app.css','resources/js/app.js']) --}}
 
     <link rel="stylesheet" href="{{url('assets/css/custom.css')}}">
 
     @yield('stylesheet')
 
-    {{-- @vite(['resources/css/app.css']) --}}
 </head>
 
 <body class="relative">
@@ -217,7 +220,7 @@
     </div>
     <!--====== BACK TOP TOP PART START ======-->
 
-    <a href="#" class="hidden scroll-top">
+    <a href="#" class="scroll-top">
         <img class="object-cover object-center w-full h-full rounded-full" src="https://img.icons8.com/3d-fluency/1x/up.png"/>
 
     </a>
@@ -258,6 +261,9 @@
     <!--====== Wow js ======-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+
+    <script src="{{url('build/assets/app.b0b9c393.js')}}"></script>
 
     @yield('javascript')
 </body>

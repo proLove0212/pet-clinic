@@ -19,6 +19,7 @@ Route::get('/', function () {
 
 Route::get('/petcrew', function () {
     return view('welcome');
+
 });
 
 Route::get('/petcrew/admin/login', function () {

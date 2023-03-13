@@ -30,7 +30,7 @@
                                 <label for="" class="text-sm font-semibold px-1">メールアドレス</label>
                                 <div class="flex">
                                     <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-email-outline text-gray-400 text-lg"></i></div>
-                                    <input type="email" name="email" value="{{old('email')}}" class="block w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="メールアドレス" required >
+                                    <input type="email" name="email" value="{{old('email')}}" class="block w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="メールアドレス" autocomplete="nope"  required >
                                 </div>
                                 @error("email")
                                     <div class="mt-2 px-3 text-danger text-sm">

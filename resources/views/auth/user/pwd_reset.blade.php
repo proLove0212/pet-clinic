@@ -43,7 +43,7 @@
                                 <label for="" class="text-sm font-semibold px-1">パスワード</label>
                                 <div class="flex relative">
                                     <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-lock-outline text-gray-400 text-lg"></i></div>
-                                    <input type="password" id="password" name="password" value="{{old('password')}}" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="パスワード" required>
+                                    <input type="password" id="password" name="password" value="{{old('password')}}" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="パスワード" autocomplete="new-password"  required>
                                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
 
                                         <svg class="h-6 text-gray-700" fill="none" id="password_show"
@@ -79,7 +79,7 @@
                                 <label for="" class="text-sm font-semibold px-1">パスワード確認用</label>
                                 <div class="flex">
                                     <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-lock-outline text-gray-400 text-lg"></i></div>
-                                    <input type="password" id="password_confirmdation" name="password_confirmdation" value="{{old('password_confirmdation')}}" class="block w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="パスワード確認用" required >
+                                    <input type="password" id="password_confirmdation" name="password_confirmdation" value="{{old('password_confirmdation')}}" class="block w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 peer outline-none focus:border-indigo-500" placeholder="パスワード確認用" autocomplete="new-password"  required >
                                 </div>
                                 @error("password_confirmdation")
                                     <div class="mt-2 px-3 text-danger text-sm">

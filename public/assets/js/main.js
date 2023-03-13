@@ -3,6 +3,8 @@
     //===== Prealoder
 
     window.onload = function () {
+        var backToTo = document.querySelector(".scroll-top");
+        backToTo.style.display = "none";
         window.setTimeout(fadeout, 500);
     }
 
