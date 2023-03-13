@@ -236,7 +236,7 @@ class AdminController extends Controller
             ]);
         }else{
             $request->session()->flush();
-            return redirect('/petcrew/admin/login');
+            return redirect(route('admin.login'));
         }
     }
 

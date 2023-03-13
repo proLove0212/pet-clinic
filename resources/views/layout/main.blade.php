@@ -86,16 +86,16 @@
 
                                     @else
                                         <li class="nav-item ml-5 lg:ml-11">
-                                            <a class="page-scroll {{(Request::is('petcrew/admin') || Request::is('petcrew/admin/users/*')) ? 'active font-black' : ''}}" href="{{route('admin.users')}}">ユーザー管理</a>
+                                            <a class="page-scroll {{(Request::is('petcrew/admin_page') || Request::is('petcrew/admin_page/users/*')) ? 'active font-black' : ''}}" href="{{route('admin.users')}}">ユーザー管理</a>
                                         </li>
                                         <li class="nav-item ml-5 lg:ml-11">
-                                            <a class="page-scroll {{Request::is('petcrew/admin/contact') ? 'active font-black' : ''}}" href="{{url('petcrew/admin/contact')}}">メール連絡</a>
+                                            <a class="page-scroll {{Request::is('petcrew/admin_page/contact') ? 'active font-black' : ''}}" href="{{url('petcrew/admin_page/contact')}}">メール連絡</a>
                                         </li>
                                         <li class="nav-item ml-5 lg:ml-11">
-                                            <a class="page-scroll {{Request::is('petcrew/admin/maintain') ? 'active font-black' : ''}}" href="{{url('petcrew/admin/maintain')}}">メンテナンス</a>
+                                            <a class="page-scroll {{Request::is('petcrew/admin_page/maintain') ? 'active font-black' : ''}}" href="{{url('petcrew/admin_page/maintain')}}">メンテナンス</a>
                                         </li>
                                         <li class="nav-item ml-5 lg:ml-11">
-                                            <a class="page-scroll {{Request::is('petcrew/admin/account') ? 'active font-black' : ''}} cursor-pointer"  data-dropdown-toggle="dropdownInformation" >
+                                            <a class="page-scroll {{Request::is('petcrew/admin_page/account') ? 'active font-black' : ''}} cursor-pointer"  data-dropdown-toggle="dropdownInformation" >
                                                 <span class="material-symbols-outlined">
                                                     account_circle
                                                 </span>
@@ -189,15 +189,15 @@
             </p>
         @else
             <p class="mb-3 px-3 font-black text-xl">
-                <a class="page-scroll {{(Request::is('petcrew/admin') || Request::is('petcrew/admin/users/*')) ? 'active font-black' : ''}}" href="{{route('admin.users')}}">ユーザー管理</a>
+                <a class="page-scroll {{(Request::is('petcrew/admin_page') || Request::is('petcrew/admin_page/users/*')) ? 'active font-black' : ''}}" href="{{route('admin.users')}}">ユーザー管理</a>
             </p>
 
             <p class="mb-3 px-3 font-black text-xl">
-                <a class="page-scroll {{Request::is('petcrew/admin/contact') ? 'active font-black' : ''}}" href="{{url('petcrew/admin/contact')}}">メール連絡</a>
+                <a class="page-scroll {{Request::is('petcrew/admin_page/contact') ? 'active font-black' : ''}}" href="{{url('petcrew/admin_page/contact')}}">メール連絡</a>
             </p>
 
             <p class="mb-3 px-3 font-black text-xl">
-                <a class="page-scroll {{Request::is('petcrew/admin/maintain') ? 'active font-black' : ''}}" href="{{url('petcrew/admin/maintain')}}">メンテナンス</a>
+                <a class="page-scroll {{Request::is('petcrew/admin_page/maintain') ? 'active font-black' : ''}}" href="{{url('petcrew/admin_page/maintain')}}">メンテナンス</a>
             </p>
         @endif
 
@@ -206,7 +206,7 @@
             @if (Auth::user()&&Auth::user()->ClinicName)
                 <a class="page-scroll {{Request::is('petcrew/account') ? 'active font-black' : ''}}" href="{{route('user.account')}}">アカウント管理</a>
             @else
-                <a class="page-scroll {{Request::is('petcrew/admin/account') ? 'active font-black' : ''}}" href="{{route('admin.account')}}">アカウント管理</a>
+                <a class="page-scroll {{Request::is('petcrew/admin_page/account') ? 'active font-black' : ''}}" href="{{route('admin.account')}}">アカウント管理</a>
             @endif
         </p>
 

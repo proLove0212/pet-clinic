@@ -19,7 +19,6 @@ class SearchController extends Controller
      * description: get search page by customer number and telephone number.
      * *************************************************/
     public function index(Request $request){
-
         return view('pages.user.search.index');
     }
 

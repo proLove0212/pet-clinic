@@ -44,17 +44,15 @@ class LoginController extends Controller
 
     public function showAdminLoginForm()
     {
-        if(\Auth::check()){
-            return redirect(route('admin.users'));
-        }else
-            return view('auth.admin.login');
+        return view('auth.admin.login');
     }
 
     public function adminLogin(AdminLoginRequest $request)
     {
 
+        Auth::logout();
         if (\Auth::guard('admin')->attempt($request->only(['email','password']), $request->get('remember'))){
-            return redirect()->intended('/petcrew/admin');
+            return redirect()->intended('/petcrew/admin_page');
         }
 
         return back()->withInput($request->only('email'))->withErrors([
@@ -64,10 +62,7 @@ class LoginController extends Controller
 
     public function showUserLoginForm()
     {
-        if(Auth::check()){
-            return redirect(route('user.search'));
-        }else
-            return view('auth.user.login');
+        return view('auth.user.login');
     }
 
     public function userLogin(UserLoginRequest $request)
@@ -86,6 +81,7 @@ class LoginController extends Controller
                 'password' =>$request->input('password')
             ];
 
+            Auth::logout();
             if (\Auth::attempt( $cred , $request->get('remember'))){
 
                 if($user->CustStatus == 5){
@@ -94,7 +90,6 @@ class LoginController extends Controller
 
                     return redirect()->intended(route('user.search'));
                 }else if($user->CustStatus == 0){
-                    Auth::logout();
                     $request->session()->flush();
                     return redirect()->intended('/petcrew');
                 }

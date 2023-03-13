@@ -22,7 +22,7 @@
                     <p>ペットクルーカルテ 顧客情報検索</p>
                 </div>
                 <div>
-                    <form class="form-horizontal" action="{{url('/petcrew/admin/login')}}" method="POST">
+                    <form class="form-horizontal" action="{{route('admin.login')}}" method="POST">
                         @csrf
 
                         <div class="flex -mx-3">

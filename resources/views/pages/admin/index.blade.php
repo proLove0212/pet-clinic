@@ -21,7 +21,7 @@
 
 <div class="block w-full py-6 rounded-lg bg-white text-center shadow-lg dark:bg-neutral-700">
 
-    <form class="flex items-center  px-3" action="{{url('/petcrew/admin/')}}" method="GET" >
+    <form class="flex items-center  px-3" action="{{route('admin.users')}}" method="GET" >
         @csrf
 
         <div class="relative flex-grow">

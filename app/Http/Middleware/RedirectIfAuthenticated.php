@@ -19,10 +19,14 @@ class RedirectIfAuthenticated
     {
         $guards = empty($guards) ? [null] : $guards;
 
+        if($request->is("petcrew/admin_page/login") || $request->is("petcrew/login")){
+            return $next($request);
+        }
+
         foreach ($guards as $guard) {
 
             if ($guard == "admin" && Auth::guard($guard)->check()) {
-                return redirect('/petcrew/admin');
+                return redirect(route('admin.users'));
             }
 
             if (Auth::guard($guard)->check()) {
