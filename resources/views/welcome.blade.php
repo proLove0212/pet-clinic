@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="{{url('assets/css/animate.css')}}">
     <!--====== Tailwind CSS ======-->
 
-    <link rel="stylesheet" href="{{url('build/assets/app.b8183d17.css')}}">
+    {{-- <link rel="stylesheet" href="{{url('build/assets/app.b8183d17.css')}}"> --}}
 
     <link rel="stylesheet" href="{{url('assets/css/tailwindcss.css')}}">
 
@@ -37,7 +37,7 @@
 
     </style>
 
-    {{-- @vite(['resources/css/app.css']) --}}
+    @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
 
 <body>
@@ -229,7 +229,7 @@
     <!--====== Wow js ======-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
 
-    <script src="{{url('build/assets/app.b0b9c393.js')}}"></script>
+    {{-- <script src="{{url('build/assets/app.b0b9c393.js')}}"></script> --}}
 
     <script src="{{url('assets/js/main.js')}}"></script>
 </body>
